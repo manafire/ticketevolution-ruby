@@ -7,11 +7,11 @@ module Ticketevolution
   version = "0.1"
   mattr_accessor :token, :secret, :version
 
-  class ConfigurationMissing < Exception; end
+  class InvalidConfiguration < Exception; end
 
-  
-  
+
   def configure(&block)
     instance_eval(&block)
   end
+  
 end
