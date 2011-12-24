@@ -1,6 +1,6 @@
 module Ticketevolution
-  class Venue < Ticketevolution::Base
-    attr_accessor :name, :address, :location, :updated_at, :url, :id, :upcoming_events
+  class Performer < Ticketevolution::Base
+
     
     class << self
       def list
@@ -12,7 +12,7 @@ module Ticketevolution
       end
         
       def show(id)
-        path = "http://api.ticketevolution.com/venues/#{id}"
+        path = "http://api.ticketevolution.com/performer/#{id}"
         response = Ticketevolution::Base.get(path)
         puts response
       end

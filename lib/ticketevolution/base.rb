@@ -1,30 +1,27 @@
 require 'base64'
 require 'openssl'
-
+require 'ruby-debug'
 module Ticketevolution
 	class Base
 	  
 	  class << self
-
-
     	def get(path)
-    	  
     	  if Ticketevolution.token
-          request_formatted_for_signature = "#{verb.upcase} #{path}"
-      		signature                       = sign!(request_formatted_for_signature)
+          request_formatted_for_signature = "GET #{path}"
     		  
       		call = construct_call!(path)
       		call.perform
+      		response = call.body_str
+          debugger
+          dsad="asa"
         else
           raise Ticketevolution::InvalidConfiguration.new("You Must Supply A Secret To Use The API")
         end
     	end
 
       def post(path)
-    	  
     	  if Ticketevolution.token
-          request_formatted_for_signature = "#{verb.upcase} #{path}"
-      		signature                       = sign!(request_formatted_for_signature)
+          request_formatted_for_signature = "POST #{path}"
     		  
       		call = construct_call!(path)
           call.http_post
@@ -38,8 +35,8 @@ module Ticketevolution
       
       def construct_call!(path)
         call =  Curl::Easy.new(path)
-        call.headers["X-Signature"] = signature
-        call.headers["X-Toekn"]     = Ticketevolution.token
+        call.headers["X-Signature"] = sign!(path)
+        call.headers["X-Token"]     = Ticketevolution.token
         call.headers["Accept"]      = "application/vnd.ticketevolution.api+json; version=8"
         call
       end
@@ -54,6 +51,12 @@ module Ticketevolution
         end
       end
 
+      
+      def process_response
+        
+      end
+      
+      
     end
 	  
 	  

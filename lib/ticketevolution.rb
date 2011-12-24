@@ -1,6 +1,9 @@
-require 'curb'
 require File.join(File.dirname(File.expand_path(__FILE__)), "..", "extensions", "kernel")
+require 'curb'
+require 'json'
 require 'ticketevolution/base'
+require 'ticketevolution/venue'
+
 
 module Ticketevolution
   extend self
@@ -13,5 +16,4 @@ module Ticketevolution
   def configure(&block)
     instance_eval(&block)
   end
-  
 end
