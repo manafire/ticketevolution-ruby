@@ -7,13 +7,11 @@ module Ticketevolution
 	  class << self
     	def get(path)
     	  if Ticketevolution.token
-          request_formatted_for_signature = "GET #{path}"
-    		  
-      		call = construct_call!(path)
+          path_for_signature = "GET #{path[8..-1]}"
+          puts path_for_signature    		  
+      		call               = construct_call!(path,path_for_signature)
       		call.perform
-      		response = call.body_str
-          debugger
-          dsad="asa"
+      		handle_response(call.body_str)
         else
           raise Ticketevolution::InvalidConfiguration.new("You Must Supply A Secret To Use The API")
         end
@@ -21,11 +19,11 @@ module Ticketevolution
 
       def post(path)
     	  if Ticketevolution.token
-          request_formatted_for_signature = "POST #{path}"
+          path_for_signature = "POST #{path[8..-1]}"
     		  
-      		call = construct_call!(path)
+      		call               = construct_call!(path,path_for_signature)
           call.http_post
-          
+          handle_response(call.body_str)
         else
           raise Ticketevolution::InvalidConfiguration.new("You Must Supply A Secret To Use The API")
         end
@@ -33,26 +31,39 @@ module Ticketevolution
 
       private
       
-      def construct_call!(path)
-        call =  Curl::Easy.new(path)
-        call.headers["X-Signature"] = sign!(path)
-        call.headers["X-Token"]     = Ticketevolution.token
-        call.headers["Accept"]      = "application/vnd.ticketevolution.api+json; version=8"
-        call
+      def construct_call!(path,path_for_signature)
+        if !Ticketevolution.token.nil?
+          call                        = Curl::Easy.new(path)
+          call.headers["X-Signature"] = sign!(path_for_signature)
+          call.headers["X-Token"]     = Ticketevolution.token
+          call.headers["Accept"]      = "application/vnd.ticketevolution.api+json; version=8"
+          return call
+        else
+          raise Ticketevolution::InvalidConfiguration.new("You Must Supply A Token To Use The API") 
+        end
       end
       
-      def sign!(request)      
+      def sign!(path_for_signature)     
         if Ticketevolution.secret
           digest = OpenSSL::Digest::Digest.new('sha256')
-          signature = Base64.encode64(OpenSSL::HMAC.digest(digest, Ticketevolution.secret, request)).chomp
+          signature = Base64.encode64(OpenSSL::HMAC.digest(digest, Ticketevolution.secret, path_for_signature)).chomp
           return signature
         else
           raise Ticketevolution::InvalidConfiguration.new("You Must Supply A Secret To Use The API")
         end
       end
-
       
-      def process_response
+      def environmental_base
+        Ticketevolution.mode == :sandbox ? "api.sandbox" : "api"
+      end
+      
+      def handle_response
+        
+        # process json
+        # catche parsing error
+        # associate response code with what occurred
+        # return back raw jason to make objects
+          
         
       end
       

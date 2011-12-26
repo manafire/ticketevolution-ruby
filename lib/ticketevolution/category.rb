@@ -12,7 +12,7 @@ module Ticketevolution
       end
         
       def show(id)
-        path = "http://api.ticketevolution.com/categories/#{id}"
+        path = "https://api.ticketevolution.com/categories/#{id}?"
         response = Ticketevolution::Base.get(path)
         puts response
       end
