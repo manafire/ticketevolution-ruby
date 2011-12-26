@@ -33,6 +33,7 @@ describe "Base" do
         }.should raise_error(Ticketevolution::InvalidConfiguration)
       end      
     end
+  end
     
   describe "#construct_call" do
     it "should return a call object if all needed parametrs are supplied" do
@@ -87,6 +88,14 @@ describe "Base" do
     end
   end
     
+  describe "#handle_response" do
+    it "should wih JSON return nil for the JSON ,  500 for the code if the json returned is bunk" do
+
+      response = Ticketevolution::Base.send(:handle_response,"dsds")
+      response[0].should.eql? nil
+      response[1].should.eql? 500
+      response[2].should.eql? "INVALID JSON"
+    end
+  end  
     
-  end
 end

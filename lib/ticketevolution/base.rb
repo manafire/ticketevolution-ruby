@@ -1,5 +1,6 @@
 require 'base64'
 require 'openssl'
+require 'json'
 require 'ruby-debug'
 module Ticketevolution
 	class Base
@@ -57,12 +58,21 @@ module Ticketevolution
         Ticketevolution.mode == :sandbox ? "api.sandbox" : "api"
       end
       
-      def handle_response
-        
-        # process json
-        # catche parsing error
-        # associate response code with what occurred
-        # return back raw jason to make objects
+      # returns array of the processed json, the interperted code and any errors for use
+      def handle_response(response)
+        begin
+          
+          
+          # process json
+          
+          # associate response code with what occurred
+          # return back raw jason to make objects
+          response = JSON.parse(response)
+          
+          
+        rescue JSON::ParserError
+          return [nil,500,"INVALID JSON"]   
+        end
           
         
       end
