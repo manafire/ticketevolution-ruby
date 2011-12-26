@@ -10,11 +10,13 @@ describe "Ticketevolution" do
         config.token   = "token-to-use"
         config.secret  = "secret-to-use"
         config.version = 8
+        config.mode    = :sandbox
       end
       
       Ticketevolution.token.should.eql?("token-to-use")
       Ticketevolution.secret.should.eql?("secret-to-use")
       Ticketevolution.version.should.eql?(8)
+      Ticketevolution.mode.should.eql?(:sandbox)
     end
     
   end
