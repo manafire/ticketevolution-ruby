@@ -12,10 +12,10 @@ require 'ticketevolution/venue'
 module Ticketevolution
   extend self
   version = "0.1"
-  mattr_accessor :token, :secret, :version, :mode
+  mattr_accessor :token, :secret, :version, :mode, :protocol
 
   class InvalidConfiguration < Exception; end
-
+  class EmptyResourceError < Exception; end
 
   def configure(&block)
     instance_eval(&block)

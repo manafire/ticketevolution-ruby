@@ -34,14 +34,42 @@ describe "Base" do
       end      
     end
   end
+  
+  describe "#protocol" do
+    it "should return back https when the protocol is initialized with https" do
+      Ticketevolution::configure do |config|
+        config.token    = "958acdf7da43b57ac93b17ff26eabf45"
+        config.secret   = "TSalhnVkdoCbGa7I93s3S9OBcBQoogseNeccHIEh"
+        config.version  = 8
+        config.mode     = :sandbox
+        config.protocol = :https
+      end
+      
+      Ticketevolution.send(:protocol).should.eql?("https")
+    end
+    
+    it "should return back http when the protocol is initialized with http" do
+        Ticketevolution::configure do |config|
+          config.token    = "958acdf7da43b57ac93b17ff26eabf45"
+          config.secret   = "TSalhnVkdoCbGa7I93s3S9OBcBQoogseNeccHIEh"
+          config.version  = 8
+          config.mode     = :sandbox
+          config.protocol = :http
+        end
+
+      Ticketevolution.send(:protocol).should.eql?("http")
+    end
+  
+  end
     
   describe "#construct_call" do
     it "should return a call object if all needed parametrs are supplied" do
       Ticketevolution::configure do |config|
-        config.token   = "958acdf7da43b57ac93b17ff26eabf45"
-        config.secret  = "TSalhnVkdoCbGa7I93s3S9OBcBQoogseNeccHIEh"
-        config.version = 8
-        config.mode    = :sandbox
+        config.token    = "958acdf7da43b57ac93b17ff26eabf45"
+        config.secret   = "TSalhnVkdoCbGa7I93s3S9OBcBQoogseNeccHIEh"
+        config.version  = 8
+        config.mode     = :sandbox
+        config.protocol = :https
       end
 
       path               = "api.ticketevolution.com/perfomers/9?"
@@ -67,10 +95,11 @@ describe "Base" do
   describe "#environmental_base" do
     it "use the sandbox if configuration of hte client is initialized in sandbox mode" do
       Ticketevolution::configure do |config|
-        config.token   = "958acdf7da43b57ac93b17ff26eabf45"
-        config.secret  = "TSalhnVkdoCbGa7I93s3S9OBcBQoogseNeccHIEh"
-        config.version = 8
-        config.mode    = :sandbox
+        config.token    = "958acdf7da43b57ac93b17ff26eabf45"
+        config.secret   = "TSalhnVkdoCbGa7I93s3S9OBcBQoogseNeccHIEh"
+        config.version  = 8
+        config.mode     = :sandbox
+        config.protocol = :https
       end
       
       Ticketevolution::Base.send(:environmental_base).should.eql?("api.sandbox")
@@ -84,16 +113,17 @@ describe "Base" do
   describe "#handle_response" do
     before(:each) do
       Ticketevolution::configure do |config|
-        config.token   = "958acdf7da43b57ac93b17ff26eabf45"
-        config.secret  = "TSalhnVkdoCbGa7I93s3S9OBcBQoogseNeccHIEh"
-        config.version = 8
-        config.mode    = :sandbox
+        config.token    = "958acdf7da43b57ac93b17ff26eabf45"
+        config.secret   = "TSalhnVkdoCbGa7I93s3S9OBcBQoogseNeccHIEh"
+        config.version  = 8
+        config.mode     = :sandbox
+        config.protocol = :https
       end
     end
       
     it "should wih JSON return nil for the JSON , 200 for the code if the json returned is good" do
-      response = Ticketevolution::Performer.find(9)
-  
+      response = Ticketevolution::Performer.show(9)
+      
       body = <<-eos
         {"name"=>"International Auto Show", "category"=>nil, "updated_at"=>"2010-07-30T17:40:07Z", "url"=>"/performers/9", "id"=>"9", "upcoming_events"=>{"last"=>nil, "first"=>nil}, "venue"=>nil}
       eos
@@ -106,7 +136,7 @@ describe "Base" do
     
     it "should wih JSON return nil for the JSON , 200 for the code if the json returned is good" do
       response = Ticketevolution::Performer.find(9)
-  
+      
       body = <<-eos
         {"name"=>"International Auto Show", "category"=>nil, "updated_at"=>"2010-07-30T17:40:07Z", "url"=>"/performers/9", "id"=>"9", "upcoming_events"=>{"last"=>nil, "first"=>nil}, "venue"=>nil}
       eos

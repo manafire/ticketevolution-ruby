@@ -5,13 +5,23 @@ require 'ruby-debug'
 module Ticketevolution
 	class Base
 	  
+	  def initialize(response)
+	    
+	    @attrs_for_object = response[:body]
+	    @response_code    = response[:response_code]
+	    @errors           = response[:errors]
+	    @server_message   = response[:server_message]
+     
+	  end
+  
 	  class << self
     	def get(path)
     	  if Ticketevolution.token
           path_for_signature = "GET #{path[8..-1]}"
       		call               = construct_call!(path,path_for_signature)
       		call.perform
-      		handle_response(call)
+      		handled_call = handle_response(call)
+      		return handled_call
         else
           raise Ticketevolution::InvalidConfiguration.new("You Must Supply A Secret To Use The API")
         end
@@ -22,7 +32,8 @@ module Ticketevolution
           path_for_signature = "POST #{path[8..-1]}"
       		call               = construct_call!(path,path_for_signature)
           call.http_post
-          handle_response(call)
+      		handled_call = handle_response(call)
+      		return handled_call
         else
           raise Ticketevolution::InvalidConfiguration.new("You Must Supply A Secret To Use The API")
         end
@@ -50,6 +61,10 @@ module Ticketevolution
         else
           raise Ticketevolution::InvalidConfiguration.new("You Must Supply A Secret To Use The API")
         end
+      end
+      
+      def protocol
+        Ticketevolution.protocol == :https ? "https" : "http"
       end
       
       def environmental_base
