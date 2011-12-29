@@ -77,25 +77,46 @@ describe "Base" do
     end
     
     it "use production if configuration of hte client is initialized in production mode" do
-      Ticketevolution::configure do |config|
-        config.token   = "958acdf7da43b57ac93b17ff26eabf45"
-        config.secret  = "TSalhnVkdoCbGa7I93s3S9OBcBQoogseNeccHIEh"
-        config.version = 8
-        config.mode    = :production
-      end
-      
       Ticketevolution::Base.send(:environmental_base).should.eql?("api")
     end
   end
     
   describe "#handle_response" do
-    it "should wih JSON return nil for the JSON ,  500 for the code if the json returned is bunk" do
-
-      response = Ticketevolution::Base.send(:handle_response,"dsds")
-      response[0].should.eql? nil
-      response[1].should.eql? 500
-      response[2].should.eql? "INVALID JSON"
+    before(:each) do
+      Ticketevolution::configure do |config|
+        config.token   = "958acdf7da43b57ac93b17ff26eabf45"
+        config.secret  = "TSalhnVkdoCbGa7I93s3S9OBcBQoogseNeccHIEh"
+        config.version = 8
+        config.mode    = :sandbox
+      end
     end
-  end  
+      
+    it "should wih JSON return nil for the JSON , 200 for the code if the json returned is good" do
+      response = Ticketevolution::Performer.find(9)
+  
+      body = <<-eos
+        {"name"=>"International Auto Show", "category"=>nil, "updated_at"=>"2010-07-30T17:40:07Z", "url"=>"/performers/9", "id"=>"9", "upcoming_events"=>{"last"=>nil, "first"=>nil}, "venue"=>nil}
+      eos
+      body = body.strip!
+      response[:body].should.eql?(body)
+      response[:response_code].should.eql?(200)
+      response[:server_message].should.eql?("Generally returned by successful GET requests. ")   
+      response[:errors].should.eql?(nil) 
+    end  
+    
+    it "should wih JSON return nil for the JSON , 200 for the code if the json returned is good" do
+      response = Ticketevolution::Performer.find(9)
+  
+      body = <<-eos
+        {"name"=>"International Auto Show", "category"=>nil, "updated_at"=>"2010-07-30T17:40:07Z", "url"=>"/performers/9", "id"=>"9", "upcoming_events"=>{"last"=>nil, "first"=>nil}, "venue"=>nil}
+      eos
+      body = body.strip!
+      response[:body].should.eql?(body)
+      response[:response_code].should.eql?(200)
+      response[:server_message].should.eql?("Generally returned by successful GET requests. ")   
+      response[:errors].should.eql?(nil) 
+    end
+  end
+  
     
 end

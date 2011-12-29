@@ -14,7 +14,7 @@ module Ticketevolution
       def show(id)
         path = "https://#{environmental_base}.ticketevolution.com/performers/#{id}?"
         response = Ticketevolution::Base.get(path)
-        puts response
+        return response
       end
       
       # Acutal api endpoints are matched 1-to-1 but for AR style convience AR type method naming is aliased into existance

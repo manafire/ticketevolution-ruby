@@ -9,10 +9,9 @@ module Ticketevolution
     	def get(path)
     	  if Ticketevolution.token
           path_for_signature = "GET #{path[8..-1]}"
-          puts path_for_signature    		  
       		call               = construct_call!(path,path_for_signature)
       		call.perform
-      		handle_response(call.body_str)
+      		handle_response(call)
         else
           raise Ticketevolution::InvalidConfiguration.new("You Must Supply A Secret To Use The API")
         end
@@ -21,10 +20,9 @@ module Ticketevolution
       def post(path)
     	  if Ticketevolution.token
           path_for_signature = "POST #{path[8..-1]}"
-    		  
       		call               = construct_call!(path,path_for_signature)
           call.http_post
-          handle_response(call.body_str)
+          handle_response(call)
         else
           raise Ticketevolution::InvalidConfiguration.new("You Must Supply A Secret To Use The API")
         end
@@ -61,23 +59,20 @@ module Ticketevolution
       # returns array of the processed json, the interperted code and any errors for use
       def handle_response(response)
         begin
+          header_response      = response.header_str
+          # FIX Super ghetto way of getting at this , there must be a better way to do this.... [DKM 2012.12.29]      
+          header_response_code = header_response.pull_response_code
+          header_response_code = header_response_code.gsub("Status:","").strip!
+          raw_response         = response.body_str
+          body                 = JSON.parse(response.body_str)
+          mapped_message       = Ticketevolution::RESPONSE_MAP[header_response_code.to_i].last 
           
-          
-          # process json
-          
-          # associate response code with what occurred
-          # return back raw jason to make objects
-          response = JSON.parse(response)
-          
+          return {:body => body, :response_code => header_response, :server_message => mapped_message , :errors => nil}
           
         rescue JSON::ParserError
-          return [nil,500,"INVALID JSON"]   
+          return { :body=> nil, :response_code => 500, :server_message => "INVALID JSON" }
         end
-          
-        
       end
-      
-      
     end
 	  
 	  
