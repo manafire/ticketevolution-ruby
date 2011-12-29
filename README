@@ -1,100 +1,104 @@
-The Ticketevolution GEM is a toolkip that provides a seamless and total wrapper around the Ticketevolution API's. It provides a Class for each major reasource. Any resources that semantically and actually releated (a venue to an event) to others are setup in a manner so that associated and related content is accessible within the class itself through delegration and the usuage of proxy apis thAt are similar to the way thAt Active Record allows for its has_many and belongs_to relationships related objects to be traaversd and accessed via Association Proxies. As a convience all reponses which are returned in the format of JSON are automatically decoded, parsed and instantiated into objects of their respective type
+Introduction
+============
+The Ticketevolution GEM is a toolkit that provides a seamless and total wrapper around the Ticketevolution API's. It provides a Class for each major resource. Any resources that semantically and are actually related (a venue to an event) to others are setup in a manner so that they are associated and related content is accessible within the class itself through delegation and the usage of proxy apis that are similar to the way that Active Record allows for its has_many and belongs_to relationships related objects to be traversed and accessed via Association Proxies.
 
-VENUES and PERFORMERS and EVENTS
-An example of this type of dynamic assocation would be the following.
->> stone_pony = Ticketevolution::Venue.search("The Stone Pony") 
-  ARRAY of items .... scope to venues ..... 
+As a connivence all reposes which are returned in the format of JSON are automatically decoded, parsed and instantiated into objects of their respective type
+
+
+Installation
+------------
   
->> stone_pony = Ticketevolution::Venue.find("The Stone Pony")
-  SINGULAR Item
+    gem install ticketevolution-ruby
+    # In your ruby application
+    require 'ticketevolution-ruby
   
 
-## JSON Call outbound to the Venues API endpoint, it will return the first page, and calling 'more or next (tdb)' will result in the GEM calling out to the API 
-and making the call to pull in the next set of records (next page)
-Working off of the first result to the Venue API call which resulted in the actual venue of the 'Stone Pony @ Asbury Park NJ' events and associated related 
-objects from the system are easily acesssible through delegated calls to their respective classes 
+
+Connecting to Ticketevolution
+---------------------
+
+    # Uses block syntax
+    Ticketevolution::configure do |config|
+      config.token   = "958acdf7da323bd7a4ac63b17ff26eabf45"
+      config.secret  = "TSaldkl34kdoCbGa7I93s3S9OBcBQoogseNeccHIEh"
+      config.version = 8
+      config.mode    = :sandbox
+    end
 
 
 
-# Example of calling the API for events for the first result of the Venues API Response (The Stone Pony)
->> stone_pony.first.events
-## JSON call is made to the events api with the venue id filled out to return all evnets for the specific venue. The same type of dyanmic call is avialable for 
-other aspects such as a performer. 
+Catalog Resources :: Fetching and Interaction With A Venue
+---------------------
+    All returned results are cast into Venue objects that have all of their attributes accessible to you. No JSON interaction is needed unless desired
+    
+    # Passing in the id of the venue
+    venue = Ticketevolution::Venue.find(9) 
+  
+    # Using search to find a particular venue (this will return a list a paginated venues that match your query)
+    venue = Ticketevolution::Venue.Search("The Stone Pony") 
 
-# Example of calling the API for performers scoped to the first result of the Venues API Response (The Stone Pony)
->> stone_pony.first.performers 
-## JSON call to the performers api endpoint with the venue_id filled out so that 'dynamically' the original response from the Venue API call allows you to be able
-   to reach all resources related to this particular resource.
-
-
-More dynamic calls can be make that take hashes of parameters to allow for enhanced interaction with the API
-CONFIGURATION
->> over_20k = Ticketevolution::Configurations(:capacity => 20000)
-## This will construct a JSON call to the Configuration API with the capacity configured to requrie 200000 or more
-
-
-TIcket Evolution API Resources Covered (resources tabbed in are accessi ble dynamically)
-VENUES
-	Perfomers can be pulled through venues ala Venue.performers (making a call to the events api with the venue_id and performer_id filled)
-	Events can be pulled through venues ala Venue.events (making a call to the event api with the venue_id filled)
-	Categoreirs can be pulled through the venues ala Venue.cateogries (making a call to the Events api with the venue and cateogry parameter filled)
-	Confgoruations avaialble  
-PERFORMERS
-	Venues can be pulled through venues ala Perfomer.venues (making a call to the venue api with the venue_id filled)
-	Event can be pulled through venues ala Venue.events (making a call to the event api with the venue_id filled)
-EVENTS
-	Configurations are avialble through making a call to this api and and filling out that paramters off the main object
-	Event can be retrived through a Veneue that is handy or with the aid of a performer to be able to give you back a desired event from the catalog
-	So if you had a venue like Radio City Music Hall one could do the following
-		rcmh.events
-		>> This would make a call to the event api with a venue id filled
-		rcmh.performers
-		>> This would make a call to the events api with the venue id filled an filter out the performers
-		>> or this could make a call to the Performers api and fill in the venue id and again list back a set of events taht match
-		rcmh.at(2.weeks.from(Time.now))
-		>> This would make a call to the Events api and take the time passed in and return back all events that are passed that time passed in
-		rcmh.at(1.month.from(Time.now))
-
-The inclusion and setup of hte GEM is very simple letting to be able to work the API very quickly  
-
-ex.
-Ticketevolution.configure |client|
-	client.secret  = MY_SECRET
-	client.token   = MY_TOKEN
-	client.version = 8 
-end
+    venue = Ticketevolution::Venue.find(9)
+    venue.name                          # => "Abraham Chavez Theatre"    
+    venue.address                       # => { "region"=>"TX", "latitude"=>nil, "country_code"=>"US", "extended_address"=>nil, "postal_code"=>"79901".... }
+    venue.location                      # => "El Paso, TX"
+    venue.updated_at                    # => "2011-11-28T17:57:00Z"
+    venue.url                           # => "/venues/9"
+    venue.id                            # => 9
+    
+    Accessing Associated Other Objects...
+    venue.events                        # => [{events}]
+    venue.performers                    # => [{performers}]
 
 
-The Ticketevolution gem exposes all of the endpoints of hte Ticketevolution API. Each resource is aurvailable and can be retrieved and interacted with , with respect ot related resources. An example is the class of events that are avaialbe through the Events API endpoint. The events API endpoint returns a list of 
-events. Each Event can have associated performers and venues. When the events are reeturned the GEM will handle the calls to retrieve all for the ability for an
-event performer to be able to be called as easily as event.performers which will returned an array of performers associated with the event. This functionality is 
-similar to how the rails has_many and belogns_to association proxies that Active Record API affords to the base class.
 
-Ticketevolution:::Categories.events
-RAW - Even
-=> "events": [
-    {
-      "name": "Autem Exercitationem Qui",
-      "products_count": 6,
-      "category": {
-        "parent": {
-          "parent": null,
-=> 	This call returns events which also are cast as event objects, those objects are have venues associated and performners
-	in the event that there are venues or performers available associated with this event then they will be acessible via a association
-	proxy through the returned events.
+Catalog Resources :: Fetching and Interaction With A Performer
+---------------------
+    All returned results are cast into Performer objects that have all of their attributes accessible to you. No JSON interaction is needed unless desired
 
-	ex.  events  = Ticketevolution:::Categories.events
-		 events.length = 10
-		 events.each do |event|
-		 	venue     = event.venue || nil
-		 	performr  = event.performer || nil
+    # Passing in the id of the venue
+    person = Ticketevolution::Performer.find(3219) 
+  
+    # Using search to find a particular venue (this will return a list a paginated venues that match your query)
+    person = Ticketevolution::Performer.Search("Dipset") 
 
-		 	puts "EVENT: #{event.inspect}"
-		 	puts "Contains"
-		 	puts venue.inspect if venue
-		 	puts performer.inspect if performer
-		 	ptus "\n"
-		 end
+    person = Ticketevolution::Performer.find(9)
+    person.name                          # => "Dipset"    
+    person.category                      # => nil
+    person.updated_at                    # => 2011-11-28T17:57:00Z
+    person.url                           # => "/performers/3219""
+    person.id                            # => 3219
+    person.upcoming_events               # => {"last"=>nil, "first"=>nil}
+    person.venue                         # => nil
+   
+   
+Catalog Resources :: Fetching and Interaction With An Event 
+---------------------   
+All returned results are cast into Performer objects that have all of their attributes accessible to you. No JSON interaction is needed unless desired
 
-BATCH RELATED API!
-Transactional natured...everything succeeds or all fails , and the one that failed will tell you why
+    # Passing in the id of the event
+    event = Ticketevolution::Event.find(3219) 
+
+    # Using search to find a particular venue (this will return a list a paginated venues that match your query)
+    event = Ticketevolution::Event.Search("3219") 
+
+    event = Ticketevolution::Event.find(9)
+    event.name                              # => "Promises Promises"    
+    event.category                          # => {"parent"=>nil, "url"=>"/categories/68", "id"=>"68"}
+    event.configuration                     
+                                            # => "configuration"=>{"name"=>"Full House", "fanvenues_key"=>nil, "url"=>"/configurations/14413", "id"=>"14413",                                                                                               
+                                                 "seating_chart"=> {"large"=>"http://media.sandbox.ticketevolution.com/
+                                                 configurations/static_maps/14413/large.jpg?1315492230", 
+                                                 "medium"=>"http://media.sandbox.ticketevolution.com/configurations/static_maps/14413/medium.jpg?1315492230"}}
+    event.id                                # => 3219
+    event.name                              # => "/performers/3219""
+    event.performances                            # => 3219
+    event.products_count                    # => {"last"=>nil, "first"=>nil}
+    event.state                             # => nil
+    event.updated_at                        # => "2010-11-17T14:52:07Z"
+    event.venue                             # => {"name"=>"Broadway Theatre-NY", "location"=>"New York, NY", "url"=>"/venues/187", "id"=>"187"}    
+    event.occurs_at                         # => "2010-10-02T14:00:00Z"
+    event.url                               # => "/events/3219"
+    
+    
+    Since we have the venue id embedded inside of the venue attribute its as simple as calling event.venue to pull up the full local copy of the venue 
+    
