@@ -1,5 +1,4 @@
 require File.join(File.dirname(File.expand_path(__FILE__)), "..", "extensions", "kernel")
-require File.join(File.dirname(File.expand_path(__FILE__)), "..", "extensions", "string")
 require 'curb'
 require 'json'
 require 'ticketevolution/base'

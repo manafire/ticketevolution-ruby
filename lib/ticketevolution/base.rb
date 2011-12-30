@@ -6,12 +6,10 @@ module Ticketevolution
 	class Base
 	  
 	  def initialize(response)
-	    
 	    @attrs_for_object = response[:body]
 	    @response_code    = response[:response_code]
 	    @errors           = response[:errors]
 	    @server_message   = response[:server_message]
-     
 	  end
   
 	  class << self
@@ -63,6 +61,11 @@ module Ticketevolution
         end
       end
       
+      # TO ADD
+      def http_base
+        "#{protocol}://#{environmental_base}"
+      end
+      
       def protocol
         Ticketevolution.protocol == :https ? "https" : "http"
       end
@@ -75,9 +78,7 @@ module Ticketevolution
       def handle_response(response)
         begin
           header_response      = response.header_str
-          # FIX Super ghetto way of getting at this , there must be a better way to do this.... [DKM 2012.12.29]      
-          header_response_code = header_response.pull_response_code
-          header_response_code = header_response_code.gsub("Status:","").strip!
+          header_response_code = response.response_code
           raw_response         = response.body_str
           body                 = JSON.parse(response.body_str)
           mapped_message       = Ticketevolution::RESPONSE_MAP[header_response_code.to_i].last 

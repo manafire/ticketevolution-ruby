@@ -2,6 +2,9 @@ module Ticketevolution
   class Performer < Ticketevolution::Base
     attr_accessor :venue_id, :name, :last_event_occurs_at, :updated_at, :category, :id, :url, :upcoming_events, :venue
     
+    # AR PROXY TYPE RELATIONSHIP   
+    def events(venue); Ticketevolution::Event.find_by_venue(venue);end
+        
     def initialize(response)
       super(response)
       

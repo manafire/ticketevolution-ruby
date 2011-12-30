@@ -119,10 +119,13 @@ describe "Base" do
         config.mode     = :sandbox
         config.protocol = :https
       end
+      
+      @http_base = "#{Ticketevolution.protocol}://#{Ticketevolution.mode}"
     end
       
     it "should wih JSON return nil for the JSON , 200 for the code if the json returned is good" do
-      response = Ticketevolution::Performer.show(9)
+      path = "#{@http_base}.ticketevolution.com/performers/9?"
+      response = Ticketevolution::Base.get(path)
       
       body = <<-eos
         {"name"=>"International Auto Show", "category"=>nil, "updated_at"=>"2010-07-30T17:40:07Z", "url"=>"/performers/9", "id"=>"9", "upcoming_events"=>{"last"=>nil, "first"=>nil}, "venue"=>nil}
@@ -135,7 +138,8 @@ describe "Base" do
     end  
     
     it "should wih JSON return nil for the JSON , 200 for the code if the json returned is good" do
-      response = Ticketevolution::Performer.find(9)
+      path = "#{@http_base}.ticketevolution.com/performers/9?"
+      response = Ticketevolution::Base.get(path)
       
       body = <<-eos
         {"name"=>"International Auto Show", "category"=>nil, "updated_at"=>"2010-07-30T17:40:07Z", "url"=>"/performers/9", "id"=>"9", "upcoming_events"=>{"last"=>nil, "first"=>nil}, "venue"=>nil}
