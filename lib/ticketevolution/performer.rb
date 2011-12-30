@@ -23,7 +23,9 @@ module Ticketevolution
       end
       
       def search
-        
+        path = "#{protocol}://#{environmental_base}.ticketevolution.com/performers/#{id}?"
+        response = Ticketevolution::Base.get(path)
+        Performer.new(response)
       end
         
       def show(id)

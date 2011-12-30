@@ -1,0 +1,4 @@
+body_str: "{\"url\":\"/performers/3219\",\"updated_at\":\"2011-02-05T09:49:26Z\",\"category\":null,\"venue\":null,\"upcoming_events\":{\"first\":null,\"last\":null},\"name\":\"Dipset\",\"id\":\"3219\"}"
+response_code: 200  
+url: "https://api.sandbox.ticketevolution.com/performers/3219?"
+header_str: "HTTP/1.1 200 OK\r\nContent-Type: application/vnd.ticketevolution.api+json; version=8; charset=utf-8\r\nTransfer-Encoding: chunked\r\nConnection: keep-alive\r\nStatus: 200\r\nX-Powered-By: Phusion Passenger (mod_rails/mod_rack) 2.2.10\r\nETag: \"

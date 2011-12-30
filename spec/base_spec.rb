@@ -111,46 +111,18 @@ describe "Base" do
   end
     
   describe "#handle_response" do
-    before(:each) do
-      Ticketevolution::configure do |config|
-        config.token    = "958acdf7da43b57ac93b17ff26eabf45"
-        config.secret   = "TSalhnVkdoCbGa7I93s3S9OBcBQoogseNeccHIEh"
-        config.version  = 8
-        config.mode     = :sandbox
-        config.protocol = :https
-      end
-      
-      @http_base = "#{Ticketevolution.protocol}://#{Ticketevolution.mode}"
-    end
-      
-    it "should wih JSON return nil for the JSON , 200 for the code if the json returned is good" do
-      path = "#{@http_base}.ticketevolution.com/performers/9?"
-      response = Ticketevolution::Base.get(path)
-      
-      body = <<-eos
-        {"name"=>"International Auto Show", "category"=>nil, "updated_at"=>"2010-07-30T17:40:07Z", "url"=>"/performers/9", "id"=>"9", "upcoming_events"=>{"last"=>nil, "first"=>nil}, "venue"=>nil}
-      eos
-      body = body.strip!
-      response[:body].should.eql?(body)
-      response[:response_code].should.eql?(200)
-      response[:server_message].should.eql?("Generally returned by successful GET requests. ")   
-      response[:errors].should.eql?(nil) 
-    end  
     
-    it "should wih JSON return nil for the JSON , 200 for the code if the json returned is good" do
-      path = "#{@http_base}.ticketevolution.com/performers/9?"
-      response = Ticketevolution::Base.get(path)
+    # before(:each) do
+    #   Ticketevolution::configure do |config|
+    #     config.token    = "958acdf7da43b57ac93b17ff26eabf45"
+    #     config.secret   = "TSalhnVkdoCbGa7I93s3S9OBcBQoogseNeccHIEh"
+    #     config.version  = 8
+    #     config.mode     = :sandbox
+    #     config.protocol = :https
+    #   end
+    #   
+    #   @http_base = "#{Ticketevolution.protocol}://#{Ticketevolution.mode}"
+    # end
       
-      body = <<-eos
-        {"name"=>"International Auto Show", "category"=>nil, "updated_at"=>"2010-07-30T17:40:07Z", "url"=>"/performers/9", "id"=>"9", "upcoming_events"=>{"last"=>nil, "first"=>nil}, "venue"=>nil}
-      eos
-      body = body.strip!
-      response[:body].should.eql?(body)
-      response[:response_code].should.eql?(200)
-      response[:server_message].should.eql?("Generally returned by successful GET requests. ")   
-      response[:errors].should.eql?(nil) 
-    end
-  end
-  
-    
+  end   
 end
