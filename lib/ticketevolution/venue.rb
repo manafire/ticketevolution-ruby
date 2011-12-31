@@ -23,7 +23,7 @@ module Ticketevolution
       end
         
       def show(id)
-        path = "#{protocol}://#{environmental_base}.ticketevolution.com/venues/#{id}?"
+        path = "#{http_base}.ticketevolution.com/venues/#{id}?"
         response = Ticketevolution::Base.get(path)
         Venue.new(response)
       end

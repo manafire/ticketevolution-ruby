@@ -18,7 +18,7 @@ module Ticketevolution
       end
         
       def show(id)
-        path = "#{protocol}://#{environmental_base}.ticketevolution.com/categories/#{id}?"
+        path = "#{http_base}.ticketevolution.com/categories/#{id}?"
         response = Ticketevolution::Base.get(path)
 
         #Category.new(response)

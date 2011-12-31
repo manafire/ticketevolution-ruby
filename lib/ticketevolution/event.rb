@@ -25,12 +25,12 @@ module Ticketevolution
         
       end
       
-      def search
+      def search(query)
         
       end
         
       def show(id)
-        path     = "#{protocol}://#{environmental_base}.ticketevolution.com/events/#{id}?"
+        path     = "#{http_base}.ticketevolution.com/events/#{id}?"
         response = Ticketevolution::Base.get(path)
         Event.new(response)
       end

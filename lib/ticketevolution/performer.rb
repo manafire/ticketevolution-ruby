@@ -23,13 +23,13 @@ module Ticketevolution
       end
       
       def search
-        path = "#{protocol}://#{environmental_base}.ticketevolution.com/performers/#{id}?"
+        path = "#{http_base}.ticketevolution.com/performers/#{id}?"
         response = Ticketevolution::Base.get(path)
         Performer.new(response)
       end
         
       def show(id)
-        path = "#{protocol}://#{environmental_base}.ticketevolution.com/performers/#{id}?"
+        path = "#{http_base}.ticketevolution.com/performers/#{id}?"
         response = Ticketevolution::Base.get(path)
         Performer.new(response)
       end

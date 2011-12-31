@@ -109,6 +109,22 @@ describe "Base" do
       Ticketevolution::Base.send(:environmental_base).should.eql?("api")
     end
   end
+  
+  describe "#http_base" do
+    it "should equal the base https and the sandbox" do
+      Ticketevolution::configure do |config|
+        config.token    = "958acdf7da43b57ac93b17ff26eabf45"
+        config.secret   = "TSalhnVkdoCbGa7I93s3S9OBcBQoogseNeccHIEh"
+        config.version  = 8
+        config.mode     = :sandbox
+        config.protocol = :https
+      end
+      
+      Ticketevolution::Base.send(:http_base).should eql("https://sandbox.api")
+      Ticketevolution::Base.send(:http_base).should_not eql("http://sandbox.api")
+      Ticketevolution::Base.send(:http_base).should_not eql("http://api")
+    end
+  end
     
   describe "#handle_response" do
     

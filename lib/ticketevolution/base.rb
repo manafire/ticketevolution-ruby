@@ -61,7 +61,6 @@ module Ticketevolution
         end
       end
       
-      # TO ADD
       def http_base
         "#{protocol}://#{environmental_base}"
       end
