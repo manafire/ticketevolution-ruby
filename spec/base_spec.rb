@@ -6,32 +6,44 @@ describe "Base" do
     
     it "should raise configuration error when secret is missing" do
       path = "GET api.ticketevolution.com/venues/1"
+      Ticketevolution.secret = nil
       # Send needs to be used to circumvent ruby's access rules 
       lambda { Ticketevolution::Base.send(:sign!,path) }.should raise_error(Ticketevolution::InvalidConfiguration)
     end
     
     it "should reutrn back a signature to use for the headers of a request" do
-      Ticketevolution.secret = "secrety-ness"
+      Ticketevolution.secret = "secure"
+      Ticketevolution.token  = "token"
       path                   = "GET api.ticketevolution.com/venues/1?"
+ 
       digest = OpenSSL::Digest::Digest.new('sha256')
       expected = Base64.encode64(OpenSSL::HMAC.digest(digest, Ticketevolution.secret, path)).chomp
       
       # Send needs to be used to circumvent ruby's access rules 
       signature = Ticketevolution::Base.send(:sign!,path)
-      signature.should.eql?(expected)
+      signature.should == (expected)
     end
     
-    
+    # ADD TESTING FOR PATH FOR SIGNATURE!!! NEXT
     %w(get post).each do |verb|
+      Ticketevolution::configure do |config|
+        config.token    = "958acdf7da43b57ac93b17ff26eabf45"
+        config.secret   = "TSalhnVkdoCbGa7I93s3S9OBcBQoogseNeccHIEh"
+        config.version  = 8
+        config.mode     = :sandbox
+        config.protocol = :https
+      end
+            
       it "#{verb} call should raise an exception when there is no token setup" do
         Ticketevolution.secret = "secrety-ness"
+        Ticketevolution.secret = nil
         path                   = "#{verb.upcase} api.ticketevolution.com/venues/1"
         
         lambda { 
           signature = Ticketevolution::Base.send(:sign!,path) 
           Ticketevolution::Base.send(verb,path)
         }.should raise_error(Ticketevolution::InvalidConfiguration)
-      end      
+      end            
     end
   end
   

@@ -6,15 +6,26 @@ module Ticketevolution
     def events(venue); Ticketevolution::Event.find_by_venue(venue);end
         
     def initialize(response)
-      super(response)
+      debugger
       
-      self.name            = @attrs_for_object["name"]
-      self.category        = @attrs_for_object["cateogry"]
-      self.updated_at      = @attrs_for_object["updated_at"]
-      self.id              = @attrs_for_object["id"]
-      self.url             = @attrs_for_object["url"]
-      self.upcoming_events = @attrs_for_object["upcoming_events"]
-      self.venue           = @attrs_for_object["venue"]      
+      if response.is_a? Array
+        debugger
+        super(response)
+        debugger
+        dsd="dsd"
+      else
+        
+        super(response)
+              debugger
+              dsd="dsd"
+        self.name            = @attrs_for_object["name"]
+        self.category        = @attrs_for_object["cateogry"]
+        self.updated_at      = @attrs_for_object["updated_at"]
+        self.id              = @attrs_for_object["id"]
+        self.url             = @attrs_for_object["url"]
+        self.upcoming_events = @attrs_for_object["upcoming_events"]
+        self.venue           = @attrs_for_object["venue"]      
+      end
     end
     
     class << self
@@ -22,15 +33,17 @@ module Ticketevolution
         
       end
       
-      def search
-        path = "#{http_base}.ticketevolution.com/performers/#{id}?"
-        response = Ticketevolution::Base.get(path)
+      def search(query)
+        path = "#{http_base}.ticketevolution.com/performers/search?=#{query}?"
+        path_for_signature = "GET #{path[8..-1]}"
+        response           = Ticketevolution::Base.get(path,path_for_signature)
         Performer.new(response)
       end
         
       def show(id)
-        path = "#{http_base}.ticketevolution.com/performers/#{id}?"
-        response = Ticketevolution::Base.get(path)
+        path               = "#{http_base}.ticketevolution.com/performers/#{id}?"
+        path_for_signature = "GET #{path[8..-1]}"
+        response           = Ticketevolution::Base.get(path,path_for_signature)
         Performer.new(response)
       end
       

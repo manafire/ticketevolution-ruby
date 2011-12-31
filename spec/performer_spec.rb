@@ -12,13 +12,10 @@ describe "Ticketevolution::Perfomer" do
         config.mode     = :sandbox
         config.protocol = :https
       end
-      # TODO ADD TO BASE CLASS
-      @http_base = "#{Ticketevolution.protocol}://#{Ticketevolution.mode}"
     end
-      
-   
+
     it "should return the respective performer with the find call" do
-      VCR.use_cassette "perfomer/#find/200" do
+      VCR.use_cassette "perfomer/find/200" do
         path = "#{@http_base}.ticketevolution.com/performers/9?"
         performer = Ticketevolution::Performer.find(3219)      
         performer.name.should == ("Dipset")
@@ -30,7 +27,7 @@ describe "Ticketevolution::Perfomer" do
     end
     
     it "should return the respective performer with the show call as it is what the find call is aliased too" do
-      VCR.use_cassette "perfomer/#show/200" do
+      VCR.use_cassette "perfomer/show/200" do
         path = "#{@http_base}.ticketevolution.com/performers/9?"
         performer = Ticketevolution::Performer.show(3219)      
         performer.name.should == ("Dipset")
@@ -42,26 +39,26 @@ describe "Ticketevolution::Perfomer" do
     end
   end
   
-  # 
-  # describe "#search" do
-  #   before(:each) do
-  #     Ticketevolution::configure do |config|
-  #       config.token    = "958acdf7da43b57ac93b17ff26eabf45"
-  #       config.secret   = "TSalhnVkdoCbGa7I93s3S9OBcBQoogseNeccHIEh"
-  #       config.version  = 8
-  #       config.mode     = :sandbox
-  #       config.protocol = :https
-  #     end
-  #     @http_base = "#{Ticketevolution.protocol}://#{Ticketevolution.mode}"      
-  #   end
-  #   
-  #   it "should let me search for performers and return back and array of related performers" do
-  #     path = "#{@http_base}.ticketevolution.com/performers/9?"
-  #     performer = Ticketevolution::Performer.search("Trey")
-  #     performer.class.should == Array
-  #   end
-  #   
-  # end
+  
+  describe "#search" do
+    before(:each) do
+      Ticketevolution::configure do |config|
+        config.token    = "958acdf7da43b57ac93b17ff26eabf45"
+        config.secret   = "TSalhnVkdoCbGa7I93s3S9OBcBQoogseNeccHIEh"
+        config.version  = 8
+        config.mode     = :sandbox  
+        config.protocol = :https
+      end
+      @http_base = "#{Ticketevolution.protocol}://#{Ticketevolution.mode}"      
+    end
+    
+    it "should let me search for performers and return back and array of related performers" do
 
+      performer = Ticketevolution::Performer.search("Trey")
+      performer.class.should == Array
+    end    
+  end
+
+  
 
 end

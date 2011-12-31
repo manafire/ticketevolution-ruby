@@ -31,7 +31,7 @@
       server: 
       - nginx/0.7.65 + Phusion Passenger 2.2.10 (mod_rails/mod_rack)
       x-runtime: 
-      - "0.028151"
+      - "0.024507"
       cache-control: 
       - max-age=0, private, must-revalidate
       status: 

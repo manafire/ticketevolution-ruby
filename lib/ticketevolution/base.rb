@@ -13,9 +13,9 @@ module Ticketevolution
 	  end
   
 	  class << self
-    	def get(path)
+    	def get(path,path_for_signature)
     	  if Ticketevolution.token
-          path_for_signature = "GET #{path[8..-1]}"
+          spath_for_signature = "GET #{path[8..-1]}"
       		call               = construct_call!(path,path_for_signature)
       		call.perform
       		handled_call = handle_response(call)
@@ -25,7 +25,7 @@ module Ticketevolution
         end
     	end
 
-      def post(path)
+      def post(path,path_for_signature)
     	  if Ticketevolution.token
           path_for_signature = "POST #{path[8..-1]}"
       		call               = construct_call!(path,path_for_signature)
@@ -52,7 +52,7 @@ module Ticketevolution
       end
       
       def sign!(path_for_signature)     
-        if Ticketevolution.secret
+        if Ticketevolution.secret 
           digest = OpenSSL::Digest::Digest.new('sha256')
           signature = Base64.encode64(OpenSSL::HMAC.digest(digest, Ticketevolution.secret, path_for_signature)).chomp
           return signature

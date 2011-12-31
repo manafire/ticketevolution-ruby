@@ -30,8 +30,9 @@ module Ticketevolution
       end
         
       def show(id)
-        path     = "#{http_base}.ticketevolution.com/events/#{id}?"
-        response = Ticketevolution::Base.get(path)
+        path               = "#{http_base}.ticketevolution.com/events/#{id}?"
+        path_for_signature = "GET #{path[8..-1]}"
+        response           = Ticketevolution::Base.get(path,path_for_signature)
         Event.new(response)
       end
       
