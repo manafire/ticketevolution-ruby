@@ -21,7 +21,7 @@ module Ticketevolution
     
     
     class << self
-      def list
+      def list(venue_id)
         
       end
       

@@ -138,19 +138,17 @@ describe "Base" do
     end
   end
     
-  describe "#handle_response" do
+  describe "#build_params_for_get" do
+    it "take the hash of parameter and contruct a get friendly set params" do
+      params   = {:query => 'this', :venue_id => 312, :location => 'NYC'}
+      expected = "location=NYC&query=this&venue_id=312"
+      Ticketevolution::Base.send(:build_params_for_get,params).should == expected
+    end
     
-    # before(:each) do
-    #   Ticketevolution::configure do |config|
-    #     config.token    = "958acdf7da43b57ac93b17ff26eabf45"
-    #     config.secret   = "TSalhnVkdoCbGa7I93s3S9OBcBQoogseNeccHIEh"
-    #     config.version  = 8
-    #     config.mode     = :sandbox
-    #     config.protocol = :https
-    #   end
-    #   
-    #   @http_base = "#{Ticketevolution.protocol}://#{Ticketevolution.mode}"
-    # end
-      
+    it "should take a hash of unalphabetized params and make them alphabetized" do
+      params   = {:zone => 'this', :american => 312, :google => 'NYC'}
+      expected = "american=312&google=NYC&zone=this"
+      Ticketevolution::Base.send(:build_params_for_get,params).should == expected
+    end
   end   
 end

@@ -16,7 +16,7 @@ module Ticketevolution
     	def get(path,path_for_signature)
     	  if Ticketevolution.token
           spath_for_signature = "GET #{path[8..-1]}"
-      		call               = construct_call!(path,path_for_signature)
+      		call                = construct_call!(path,path_for_signature)
       		call.perform
       		handled_call = handle_response(call)
       		return handled_call
@@ -88,9 +88,17 @@ module Ticketevolution
           return { :body=> nil, :response_code => 500, :server_message => "INVALID JSON" }
         end
       end
+      
+      def build_params_for_get(params)
+        get_params = params.keys.inject([]) do |memo,key|
+          current_parameter =  key.to_s + "=" + params[key].to_s
+          memo.push(current_parameter)
+        end
+
+        get_params = get_params.sort.join("&")
+        return get_params
+      end
     end
-	  
-	  
 	  
   end
 end

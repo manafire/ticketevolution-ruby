@@ -6,18 +6,14 @@ module Ticketevolution
     def events(venue); Ticketevolution::Event.find_by_venue(venue);end
         
     def initialize(response)
-      debugger
+ 
       
       if response.is_a? Array
-        debugger
-        super(response)
-        debugger
-        dsd="dsd"
+
+         super(response)
+
       else
-        
         super(response)
-              debugger
-              dsd="dsd"
         self.name            = @attrs_for_object["name"]
         self.category        = @attrs_for_object["cateogry"]
         self.updated_at      = @attrs_for_object["updated_at"]
@@ -29,12 +25,17 @@ module Ticketevolution
     end
     
     class << self
-      def list
+      def list(*params)
+        get_params = build_paramas_for_get(params)
         
+        path               = "#{http_base}.ticketevolution.com/performers?q=#{query}"
+        path_for_signature = "GET #{path[8..-1]}"
+        response           = Ticketevolution::Base.get(path,path_for_signature)
+        Performer.new(response)
       end
       
       def search(query)
-        path = "#{http_base}.ticketevolution.com/performers/search?=#{query}?"
+        path               = "#{http_base}.ticketevolution.com/performers/search?q=#{query}"
         path_for_signature = "GET #{path[8..-1]}"
         response           = Ticketevolution::Base.get(path,path_for_signature)
         Performer.new(response)

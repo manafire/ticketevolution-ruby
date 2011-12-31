@@ -3,8 +3,7 @@ module Ticketevolution
 
     def initiaize(api_response)
       super(api_response)
-      debugger
-      dsad="dsd"
+      
     end
     
     
