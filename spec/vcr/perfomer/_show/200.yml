@@ -1,0 +1,42 @@
+--- 
+- !ruby/struct:VCR::HTTPInteraction 
+  request: !ruby/struct:VCR::Request 
+    method: :get
+    uri: https://api.sandbox.ticketevolution.com:443/performers/3219?
+    body: 
+    headers: 
+      accept: 
+      - application/vnd.ticketevolution.api+json; version=8
+      x-signature: 
+      - 1FCHMxSQUW9Ov8Slzqp1BdPmXXFG8wQd16A5nMJhovg=
+      x-token: 
+      - 958acdf7da43b57ac93b17ff26eabf45
+  response: !ruby/struct:VCR::Response 
+    status: !ruby/struct:VCR::ResponseStatus 
+      code: 200
+      message: OK
+    headers: 
+      x-ua-compatible: 
+      - IE=Edge,chrome=1
+      strict-transport-security: 
+      - max-age=31536000
+      etag: 
+      - "\"b48584dcc935d48eb6d880acd2b31ad3\""
+      x-powered-by: 
+      - Phusion Passenger (mod_rails/mod_rack) 2.2.10
+      connection: 
+      - keep-alive
+      content-type: 
+      - application/vnd.ticketevolution.api+json; version=8; charset=utf-8
+      server: 
+      - nginx/0.7.65 + Phusion Passenger 2.2.10 (mod_rails/mod_rack)
+      x-runtime: 
+      - "0.028151"
+      cache-control: 
+      - max-age=0, private, must-revalidate
+      status: 
+      - "200"
+      transfer-encoding: 
+      - chunked
+    body: "{\"venue\":null,\"url\":\"/performers/3219\",\"upcoming_events\":{\"first\":null,\"last\":null},\"updated_at\":\"2011-02-05T09:49:26Z\",\"category\":null,\"name\":\"Dipset\",\"id\":\"3219\"}"
+    http_version: "1.1"

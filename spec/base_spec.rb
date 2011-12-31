@@ -120,7 +120,7 @@ describe "Base" do
         config.protocol = :https
       end
       
-      Ticketevolution::Base.send(:http_base).should eql("https://sandbox.api")
+      Ticketevolution::Base.send(:http_base).should eql("https://api.sandbox")
       Ticketevolution::Base.send(:http_base).should_not eql("http://sandbox.api")
       Ticketevolution::Base.send(:http_base).should_not eql("http://api")
     end

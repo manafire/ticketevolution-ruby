@@ -12,17 +12,16 @@ module Ticketevolution
   extend self
   version = "0.1"
   mattr_accessor :token, :secret, :version, :mode, :protocol
-
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    
   class InvalidConfiguration < Exception; end
-  class EmptyResourceError < Exception; end
+  class EmptyResourceError < Exception;   end
 
   def configure(&block)
     instance_eval(&block)
   end
   
-  
-    
-  RESPONSE_MAP = {
+  # Response Code Mappings From TicketEvolution API
+  HTTP_CODE = {
     200 => ["OK","Generally returned by successful GET requests. "],
     201 => ["Created","Generally returned by successful POST requests. "], 
     202 => ["Accepted","Generally returned when a request has succeeded, but has been scheduled processing at a later time. "],
