@@ -1,0 +1,42 @@
+--- 
+- !ruby/struct:VCR::HTTPInteraction 
+  request: !ruby/struct:VCR::Request 
+    method: :get
+    uri: https://api.sandbox.ticketevolution.com:443/performers/search?q=Disco%20Biscuits
+    body: 
+    headers: 
+      accept: 
+      - application/vnd.ticketevolution.api+json; version=8
+      x-signature: 
+      - u6N0bXzmLHuOnBlc6fivVeHXN00IhnBeNF8oL/ndgac=
+      x-token: 
+      - 958acdf7da43b57ac93b17ff26eabf45
+  response: !ruby/struct:VCR::Response 
+    status: !ruby/struct:VCR::ResponseStatus 
+      code: 200
+      message: OK
+    headers: 
+      x-ua-compatible: 
+      - IE=Edge,chrome=1
+      strict-transport-security: 
+      - max-age=31536000
+      etag: 
+      - "\"123143970c17850f9950d69ddf45911e\""
+      x-powered-by: 
+      - Phusion Passenger (mod_rails/mod_rack) 2.2.10
+      connection: 
+      - keep-alive
+      content-type: 
+      - application/vnd.ticketevolution.api+json; version=8; charset=utf-8
+      server: 
+      - nginx/0.7.65 + Phusion Passenger 2.2.10 (mod_rails/mod_rack)
+      x-runtime: 
+      - "0.040081"
+      cache-control: 
+      - max-age=0, private, must-revalidate
+      status: 
+      - "200"
+      transfer-encoding: 
+      - chunked
+    body: "{\"current_page\":1,\"performers\":[{\"venue\":null,\"url\":\"\",\"upcoming_events\":{\"first\":null,\"last\":null},\"updated_at\":\"2011-12-08T05:16:46Z\",\"category\":{\"url\":\"/categories/84\",\"parent\":{\"url\":\"/categories/54\",\"parent\":null,\"id\":\"54\"},\"id\":\"84\"},\"name\":\"Disco Biscuits\",\"id\":\"3238\"}],\"per_page\":100,\"total_entries\":1}"
+    http_version: "1.1"

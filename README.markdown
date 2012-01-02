@@ -31,7 +31,7 @@ Catalog Resources :: Fetching and Interaction With A Venue
 ---------------------
     All returned results are cast into Venue objects that have all of their attributes accessible to you. No JSON interaction is needed unless desired
     
-    # Passing in the id of the venue
+    ### Finding And Venue Individually 
     venue = Ticketevolution::Venue.find(9) 
   
     # Using search to find a particular venue (this will return a list a paginated venues that match your query)
@@ -49,13 +49,11 @@ Catalog Resources :: Fetching and Interaction With A Venue
     venue.events                        # => [{events}]
     venue.performers                    # => [{performers}]
 
-
-
 Catalog Resources :: Fetching and Interaction With A Performer
 ---------------------
     All returned results are cast into Performer objects that have all of their attributes accessible to you. No JSON interaction is needed unless desired
 
-    # Passing in the id of the venue
+    ### Finding A Performer Individually 
     person = Ticketevolution::Performer.find(3219) 
   
     # Using search to find a particular venue (this will return a list a paginated venues that match your query)
@@ -70,12 +68,26 @@ Catalog Resources :: Fetching and Interaction With A Performer
     person.upcoming_events               # => {"last"=>nil, "first"=>nil}
     person.venue                         # => nil
    
+    ### Searching For A Performer
+    # Using the API when a response returns nothing
+    venue = Ticketevolution::Performer.serch("Non-existant")     => In this case the API returns nothing but a friendly message of 
+                                                                    "Zero Performers With The Query: Non-Existent Were Found"
+    
+    # Using the API when a singular response is returned
+    venue = Ticketevolution::Performer.serch("Disco Biscuits")   => In this instance the response will instantiated into a Performer object in the same manner
+                                                                    as if you had found that performer via its id
+
+    venue = Ticketevolution::Performer.serch("Dave")             => In this case you will get an array of the first 100 Performers that matched and and also a 
+                                                                    hash of details concerned the pagination if there are more then 100 with the ability to page
+                                                                    to that next set by just calling next.    
+    
+   
    
 Catalog Resources :: Fetching and Interaction With An Event 
 ---------------------   
 All returned results are cast into Performer objects that have all of their attributes accessible to you. No JSON interaction is needed unless desired
-
-    # Passing in the id of the event
+    
+    ### Finding And Event Individually 
     event = Ticketevolution::Event.find(3219) 
 
     # Using search to find a particular venue (this will return a list a paginated venues that match your query)

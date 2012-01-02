@@ -4,7 +4,7 @@ require 'json'
 require 'ruby-debug'
 module Ticketevolution
 	class Base
-	  
+
 	  def initialize(response)
 	    @attrs_for_object = response[:body]
 	    @response_code    = response[:response_code]
@@ -15,7 +15,7 @@ module Ticketevolution
 	  class << self
     	def get(path,path_for_signature)
     	  if Ticketevolution.token
-          spath_for_signature = "GET #{path[8..-1]}"
+          path_for_signature = "GET #{path[8..-1]}"
       		call                = construct_call!(path,path_for_signature)
       		call.perform
       		handled_call = handle_response(call)
@@ -36,7 +36,11 @@ module Ticketevolution
           raise Ticketevolution::InvalidConfiguration.new("You Must Supply A Secret To Use The API")
         end
     	end
-
+      
+      def handle_responses_with_multiples(response_body,klass)
+        
+      end
+      
       private
       
       def construct_call!(path,path_for_signature)

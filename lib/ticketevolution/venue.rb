@@ -18,10 +18,13 @@ module Ticketevolution
         
       end
       
-      def search
-        
+      def search(query)
+        path               = "#{http_base}.ticketevolution.com/venues/search?q=#{query}"
+        path_for_signature = "GET #{path[8..-1]}"
+        response           = Ticketevolution::Base.get(path,path_for_signature)
       end
         
+      # NOTE HANDLE NON FOUND VENUES
       def show(id)
         path               = "#{http_base}.ticketevolution.com/venues/#{id}?"
         path_for_signature = "GET #{path[8..-1]}"

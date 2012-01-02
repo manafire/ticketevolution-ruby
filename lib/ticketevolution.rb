@@ -1,11 +1,8 @@
-require File.join(File.dirname(File.expand_path(__FILE__)), "..", "extensions", "kernel")
 require 'curb'
 require 'json'
-require 'ticketevolution/base'
-require 'ticketevolution/category'
-require 'ticketevolution/event'
-require 'ticketevolution/performer'
-require 'ticketevolution/venue'
+require 'active_support/core_ext/hash/indifferent_access'
+Dir.glob(File.join(File.dirname(__FILE__),"..", "lib" ,"ticketevolution/*.rb")).sort.each { |f| require f }
+Dir.glob(File.join(File.dirname(__FILE__),".." ,"extensions/*.rb")).sort.each { |f| require f }
 
 
 module Ticketevolution
