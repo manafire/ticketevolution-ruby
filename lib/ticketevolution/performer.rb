@@ -17,6 +17,21 @@ module Ticketevolution
     end
     
     class << self
+      
+      def build(response)
+        performers = response[:body].inject([]) do |performers,performer|
+          response_for_object = {}
+          response_for_object[:body]           = performer
+          response_for_object[:response_code]  = response[:response_code]                    
+          response_for_object[:errors]         = response[:errors]                         
+          response_for_object[:server_message] = response[:server_message]                         
+          
+          performers.push(Performer.new(response_for_object))
+        end
+        
+        return performers
+      end
+      
       def list(params_hash)
         query              = build_params_for_get(params_hash)
         path               = "#{http_base}.ticketevolution.com/performers?#{query}"
@@ -33,20 +48,7 @@ module Ticketevolution
         path               = "#{http_base}.ticketevolution.com/performers/search?q=#{query}"
         path_for_signature = "GET #{path[8..-1]}"
         response           = Ticketevolution::Base.get(path,path_for_signature)
-        if response[:body]["performers"].length == 0
-          puts "Zero Performers With The Query: #{query} Were Found"
-        elsif response[:body]["performers"].length == 1
-          response_for_object                  = {} 
-          response_for_object[:body]           = ActiveSupport::HashWithIndifferentAccess.new({ :name => response[:body]["performers"].first['name'], :category => response[:body]["performers"].first["category"],  :url => response[:body]["performers"].first["url"], :id => response[:body]["performers"].first["id"].to_i })
-          response_for_object[:response_code]  = response[:response_code]
-          response_for_object[:errors]         = response[:errors]
-          response_for_object[:server_message] = response[:server_message]
-          Performer.new(response_for_object)
-        elsif response[:body]["performers"].length > 1  
-          # Hit the base class method for creating and map collections of objects or maky perhaps another class...
-        else
-          # Raise some type of error
-        end
+        response           = process_response(Ticketevolution::Performer,response)
       end
         
       def show(id)

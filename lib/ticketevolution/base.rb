@@ -4,7 +4,8 @@ require 'json'
 require 'ruby-debug'
 module Ticketevolution
 	class Base
-
+    attr_accessor :current_page, :total_items, :total_pages
+    
 	  def initialize(response)
 	    @attrs_for_object = response[:body]
 	    @response_code    = response[:response_code]
@@ -37,11 +38,69 @@ module Ticketevolution
         end
     	end
       
-      def handle_responses_with_multiples(response_body,klass)
+      
+      def process_response(klass,response)
+        klass_container = klass_to_response(klass)
+
+        # Zero Items Were Found
+        if response[:body][klass_container].length == 0
+           puts "Zero Performers With The Query: #{query} Were Found"
+         elsif response[:body][klass_container].length == 1
+           handle_pagination!
+           response_for_object                  = {} 
+           response_for_object[:body]           = build_hash_for_initializer(klass,klass_container,response)
+           response_for_object[:response_code]  = response[:response_code]
+           response_for_object[:errors]         = response[:errors]
+           response_for_object[:server_message] = response[:server_message]
+
+           klass.send(:build,response_for_object)
+         elsif response[:body][klass_container].length > 1  
+           # Hit the base class method for creating and map collections of objects or maky perhaps another class...
+         else
+           # Raise some type of error
+         end
+        
+      end
+
+      
+      private
+      
+      def handle_pagination!
         
       end
       
-      private
+      def build_hash_for_initializer(klass,klass_container,response)
+        if klass == (Ticketevolution::Performer)
+          performers = response[:body][klass_container].inject([]) do |performers, performer|
+            
+            performer_hash = ActiveSupport::HashWithIndifferentAccess.new({ 
+              :name       => performer['name'], 
+              :category   => performer["category"],  
+              :url        => performer["url"], 
+              :id         => performer["id"].to_i, 
+              :updated_at => performer["updated_at"]
+            })
+            performers.push(performer_hash)
+          end   
+          return performers
+        elsif klass == (Ticketevolution::Venue)       
+          
+        elsif klass == (Ticketevolution::Category)    
+          
+        elsif klass == (Ticketevolution::Event)       
+          
+        end
+        
+   
+      end
+      
+      def klass_to_response(klass)
+        if    klass == (Ticketevolution::Performer)   then return "performers"
+        elsif klass == (Ticketevolution::Venue)       then return "venues"
+        elsif klass == (Ticketevolution::Category)    then return "categories"
+        elsif klass == (Ticketevolution::Event)       then return "events"   
+        end
+      end
       
       def construct_call!(path,path_for_signature)
         if !Ticketevolution.token.nil?

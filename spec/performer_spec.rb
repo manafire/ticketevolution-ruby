@@ -54,9 +54,12 @@ describe "Ticketevolution::Perfomer" do
     it "should let me search for performers and return back and array of related performers" do
       VCR.use_cassette "perfomer/search/arrity_test" do
         performer = Ticketevolution::Performer.search("Disco Biscuits")
-        performer.name.should        == "Disco Biscuits"
-        performer.url.should         == "/performers/3238"
-        performers.updated_at.should == "2011-12-08T05:16:46Z"
+        performer.class.should             == Array
+        performer.length.should            == 1
+        performer.first.name.should        == "Disco Biscuits"
+        performer.first.url.should         == "/performers/3238"
+        performer.first.updated_at.should  == "2011-12-08T05:16:46Z"
+
       end
     end    
   end  

@@ -21,22 +21,22 @@
       strict-transport-security: 
       - max-age=31536000
       etag: 
-      - "\"123143970c17850f9950d69ddf45911e\""
+      - "\"17a12031ab1821023a21ffa137761b6f\""
       x-powered-by: 
-      - Phusion Passenger (mod_rails/mod_rack) 2.2.10
+      - Phusion Passenger (mod_rails/mod_rack) 3.0.11
       connection: 
       - keep-alive
       content-type: 
       - application/vnd.ticketevolution.api+json; version=8; charset=utf-8
       server: 
-      - nginx/0.7.65 + Phusion Passenger 2.2.10 (mod_rails/mod_rack)
+      - nginx/1.0.11 + Phusion Passenger 3.0.11 (mod_rails/mod_rack)
       x-runtime: 
-      - "0.040081"
+      - "1.631130"
       cache-control: 
       - max-age=0, private, must-revalidate
       status: 
       - "200"
       transfer-encoding: 
       - chunked
-    body: "{\"current_page\":1,\"performers\":[{\"venue\":null,\"url\":\"\",\"upcoming_events\":{\"first\":null,\"last\":null},\"updated_at\":\"2011-12-08T05:16:46Z\",\"category\":{\"url\":\"/categories/84\",\"parent\":{\"url\":\"/categories/54\",\"parent\":null,\"id\":\"54\"},\"id\":\"84\"},\"name\":\"Disco Biscuits\",\"id\":\"3238\"}],\"per_page\":100,\"total_entries\":1}"
+    body: "{\"current_page\":1,\"per_page\":100,\"total_entries\":1,\"performers\":[{\"url\":\"/performers/3238\",\"upcoming_events\":{\"last\":null,\"first\":null},\"venue\":null,\"name\":\"Disco Biscuits\",\"id\":\"3238\",\"updated_at\":\"2011-12-08T05:16:46Z\",\"category\":{\"url\":\"/categories/84\",\"id\":\"84\",\"parent\":{\"url\":\"/categories/54\",\"id\":\"54\",\"parent\":null}}}]}"
     http_version: "1.1"

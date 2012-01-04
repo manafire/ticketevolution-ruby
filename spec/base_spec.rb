@@ -152,6 +152,28 @@ describe "Base" do
       Ticketevolution::Base.send(:build_params_for_get,params).should == expected
       Ticketevolution::Base.send(:build_params_for_get,params).should_not == not_expected
     end
-
-  end   
+  end  
+  
+  
+  describe "#klass_to_response" do
+    expected_1 = "venues"
+    expected_2 = "categories"
+    expected_3 = "performers"
+    expected_4 = "events"
+    response_1 =  Ticketevolution::Base.send(:klass_to_response, Ticketevolution::Venue)
+    response_2 =  Ticketevolution::Base.send(:klass_to_response, Ticketevolution::Category)
+    response_3 =  Ticketevolution::Base.send(:klass_to_response, Ticketevolution::Performer)
+    response_4 =  Ticketevolution::Base.send(:klass_to_response, Ticketevolution::Event)
+    
+    response_1.should == expected_1
+    response_2.should == expected_2
+    response_3.should == expected_3
+    response_4.should == expected_4
+  end
+  
+  
+  describe "#process_response" do
+    
+  end
+   
 end
