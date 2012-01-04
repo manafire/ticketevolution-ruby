@@ -19,16 +19,54 @@ module Ticketevolution
       self.products_count = @attrs_for_object["products_count"]
     end
     
-    
     class << self
-      def list(venue_id)
-        
+      
+      %w(venue performances configuration category occurs_at name).each do |facet|
+        parameter_name = ["name","occurs_at"].include?(facet) ? facet : "#{facet}_id"
+        define_method("find_by_#{facet}") do |parameter|
+          self.list({parameter_name.intern => parameter})
+        end
+      end
+
+
+      def raw_from_json(event)
+        ActiveSupport::HashWithIndifferentAccess.new({ 
+          :name           => event['name'], 
+          :category       => event["category"],  
+          :url            => event["url"], 
+          :id             => event["id"].to_i, 
+          :updated_at     => event["updated_at"],
+          :venue          => event['venue'],
+          :state          => event['state'],
+          :configuration  => event['configuration'],                
+          :occurs_at      => event['occurs_at'],                 
+          :performances   => event['performances'],                  
+          :products_count => event['products_count']                
+        })
       end
       
-      def search(query)
-        
+      def build(response)
+        events = response[:body].inject([]) do |events,event|
+          response_for_object = {}
+          response_for_object[:body]           = event
+          response_for_object[:response_code]  = response[:response_code]                    
+          response_for_object[:errors]         = response[:errors]                         
+          response_for_object[:server_message] = response[:server_message]                         
+          
+          events.push(Event.new(response_for_object))
+        end
+        Ticketevolution::Event.collection = events
+        return events
       end
-        
+      
+      def list(params)
+        query              = build_params_for_get(params).encoded
+        path               = "#{http_base}.ticketevolution.com/events?#{query}"
+        path_for_signature = "GET #{path[8..-1]}"
+        response           = Ticketevolution::Base.get(path,path_for_signature)
+        response           = process_response(Ticketevolution::Event,response)
+      end
+              
       def show(id)
         path               = "#{http_base}.ticketevolution.com/events/#{id}?"
         path_for_signature = "GET #{path[8..-1]}"

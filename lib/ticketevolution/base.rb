@@ -91,23 +91,20 @@ module Ticketevolution
       def build_hash_for_initializer(klass,klass_container,response)
         if klass == (Ticketevolution::Performer)
           performers = response[:body][klass_container].inject([]) do |performers, performer|  
-            performer_hash = ActiveSupport::HashWithIndifferentAccess.new({ 
-              :name       => performer['name'], 
-              :category   => performer["category"],  
-              :url        => performer["url"], 
-              :id         => performer["id"].to_i, 
-              :updated_at => performer["updated_at"]
-            })
+            performer_hash = Ticketevolution::Performer.raw_from_json(performer)
             performers.push(performer_hash)
           end   
-          
           return performers
         elsif klass == (Ticketevolution::Venue)       
           
         elsif klass == (Ticketevolution::Category)    
           
-        elsif klass == (Ticketevolution::Event)       
-          
+        elsif klass == (Ticketevolution::Event)   
+          events = response[:body][klass_container].inject([]) do |events, event|  
+            event_hash = Ticketevolution::Event.raw_from_json(event)
+            events.push(event_hash)
+          end   
+          return events
         end
         
    

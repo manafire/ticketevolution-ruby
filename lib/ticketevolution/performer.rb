@@ -1,10 +1,7 @@
 module Ticketevolution
   class Performer < Ticketevolution::Base
     attr_accessor :venue_id, :name, :last_event_occurs_at, :updated_at, :category, :id, :url, :upcoming_events, :venue 
-  
-    # AR PROXY TYPE RELATIONSHIP   
-    def events(venue); Ticketevolution::Event.find_by_venue(venue);end
-        
+          
     def initialize(response)
         super(response)
         self.name            = @attrs_for_object["name"] || @attrs_for_object[:name] 
@@ -16,7 +13,20 @@ module Ticketevolution
         self.venue           = @attrs_for_object["venue"] || nil     
     end
     
+    def events; Ticketevolution::Event.find_by_performances(id); end
+    
+    
     class << self
+      
+      def raw_from_json(performer)
+        ActiveSupport::HashWithIndifferentAccess.new({ 
+          :name       => performer['name'], 
+          :category   => performer["category"],  
+          :url        => performer["url"], 
+          :id         => performer["id"].to_i, 
+          :updated_at => performer["updated_at"]
+        })
+      end
       
       def build(response)
         performers = response[:body].inject([]) do |performers,performer|
@@ -33,7 +43,7 @@ module Ticketevolution
       end
       
       def list(params_hash)
-        query              = build_params_for_get(params_hash)
+        query              = build_params_for_get(params_hash).encoded
         path               = "#{http_base}.ticketevolution.com/performers?#{query}"
         path_for_signature = "GET #{path[8..-1]}"
         response           = Ticketevolution::Base.get(path,path_for_signature)
