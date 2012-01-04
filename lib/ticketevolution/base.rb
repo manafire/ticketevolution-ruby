@@ -4,7 +4,6 @@ require 'json'
 require 'ruby-debug'
 module Ticketevolution
 	class Base
-    attr_accessor :current_page, :total_items, :total_pages
     
 	  def initialize(response)
 	    @attrs_for_object = response[:body]
@@ -14,6 +13,9 @@ module Ticketevolution
 	  end
   
 	  class << self
+	    # SINGLETON Attributes....
+	    attr_accessor :current_page, :total_entries, :total_pages, :per_page
+	    
     	def get(path,path_for_signature)
     	  if Ticketevolution.token
           path_for_signature = "GET #{path[8..-1]}"
@@ -38,23 +40,28 @@ module Ticketevolution
         end
     	end
       
-      
+      # NEEDS SPEC      
       def process_response(klass,response)
         klass_container = klass_to_response(klass)
-
+        pagination_data = {
+          :current_page => response[:body]["current_page"], 
+          :total_entries => response[:body]["total_entries"], 
+          :per_page => response[:body]["per_page"]
+        }
+        
+        handle_pagination(pagination_data)
+        
         # Zero Items Were Found
-        if response[:body][klass_container].length == 0
+        if response[:body]["total_entries"].to_i == 0
            puts "Zero Performers With The Query: #{query} Were Found"
-         elsif response[:body][klass_container].length == 1
-           handle_pagination!
+         elsif response[:body]["total_entries"].to_i >= 1
            response_for_object                  = {} 
            response_for_object[:body]           = build_hash_for_initializer(klass,klass_container,response)
            response_for_object[:response_code]  = response[:response_code]
            response_for_object[:errors]         = response[:errors]
            response_for_object[:server_message] = response[:server_message]
-
+           
            klass.send(:build,response_for_object)
-         elsif response[:body][klass_container].length > 1  
            # Hit the base class method for creating and map collections of objects or maky perhaps another class...
          else
            # Raise some type of error
@@ -65,14 +72,17 @@ module Ticketevolution
       
       private
       
-      def handle_pagination!
-        
+      def handle_pagination(stats)
+        @total_pages   = stats[:total_entries].to_i <= stats[:per_page] ? 1 : (stats[:total_entries].to_f / stats[:per_page].to_f).ceil
+        @current_page  = stats[:current_page]
+        @total_entries = stats[:total_entries]
+        @per_page      = stats[:per_page]
       end
       
+      # NEEDS SPEC
       def build_hash_for_initializer(klass,klass_container,response)
         if klass == (Ticketevolution::Performer)
-          performers = response[:body][klass_container].inject([]) do |performers, performer|
-            
+          performers = response[:body][klass_container].inject([]) do |performers, performer|  
             performer_hash = ActiveSupport::HashWithIndifferentAccess.new({ 
               :name       => performer['name'], 
               :category   => performer["category"],  
@@ -82,6 +92,7 @@ module Ticketevolution
             })
             performers.push(performer_hash)
           end   
+          
           return performers
         elsif klass == (Ticketevolution::Venue)       
           

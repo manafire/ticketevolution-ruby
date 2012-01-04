@@ -171,6 +171,40 @@ describe "Base" do
     response_4.should == expected_4
   end
   
+
+  
+  describe "Ticketevolution#handle_pagination" do
+    
+    it "(singleton) should take the current_page , total_entries , total_pages and currnet_page and store it on any class or base class" do
+      stats = {:current_page => 1, :total_entries => 202 , :per_page => 100}
+      Ticketevolution::Base.send(:handle_pagination,stats)
+      
+      Ticketevolution::Base.current_page.should  == 1
+      Ticketevolution::Base.total_entries.should == 202
+      Ticketevolution::Base.total_pages.should   == 3
+      Ticketevolution::Base.per_page.should      == 100
+    end
+    
+    it "(singleton) should round up when the total number is more then the per_page to an integer to cover all results" do
+      stats = {:current_page => 1, :total_entries => 1001 , :per_page => 1000}
+      Ticketevolution::Base.send(:handle_pagination,stats)
+      
+      Ticketevolution::Base.current_page.should  == 1
+      Ticketevolution::Base.total_entries.should == 1001
+      Ticketevolution::Base.total_pages.should   == 2
+      Ticketevolution::Base.per_page.should      == 1000
+    end
+    
+    it "(singleton) should take total_entries that divide evenly into per_page and set page to that small number" do
+      stats = {:current_page => 1, :total_entries => 50 , :per_page => 100}
+      Ticketevolution::Base.send(:handle_pagination,stats)
+      
+      Ticketevolution::Base.current_page.should  == 1
+      Ticketevolution::Base.total_entries.should == 50
+      Ticketevolution::Base.total_pages.should   == 1
+      Ticketevolution::Base.per_page.should      == 100
+    end
+  end
   
   describe "#process_response" do
     

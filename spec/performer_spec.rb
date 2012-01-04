@@ -13,7 +13,7 @@ describe "Ticketevolution::Perfomer" do
         config.protocol = :https
       end
     end
-
+  
     it "should return the respective performer with the find call" do
       VCR.use_cassette "perfomer/find/200" do
         path = "#{@http_base}.ticketevolution.com/performers/9?"
@@ -35,10 +35,10 @@ describe "Ticketevolution::Perfomer" do
         performer.category.should        == (nil)
         performer.venue.should           == (nil)
         performer.upcoming_events.should == ({"last"=>nil, "first"=>nil})
-      end
+      end  
     end
   end
-
+  
   describe "#search" do
     before(:each) do
       Ticketevolution::configure do |config|
@@ -51,7 +51,7 @@ describe "Ticketevolution::Perfomer" do
       @http_base = "#{Ticketevolution.protocol}://#{Ticketevolution.mode}"      
     end
     
-    it "should let me search for performers and return back and array of related performers" do
+    it "should let me search for performers and return back and array of related performers with one result" do
       VCR.use_cassette "perfomer/search/arrity_test" do
         performer = Ticketevolution::Performer.search("Disco Biscuits")
         performer.class.should             == Array
@@ -59,16 +59,43 @@ describe "Ticketevolution::Perfomer" do
         performer.first.name.should        == "Disco Biscuits"
         performer.first.url.should         == "/performers/3238"
         performer.first.updated_at.should  == "2011-12-08T05:16:46Z"
-
       end
     end    
-  end  
-  #   # it "should let me search for performers and return back and array of related performers" do
-  #   #   VCR.use_cassette "perfomer/search/singularity_test" do
-  #   #     performer = Ticketevolution::Performer.search("Phish")
-  #   #     performer.class.should == Array
-  # end
-
   
+  
+    it "should return an array of serveral results for a performer search that has many performers" do
+      VCR.use_cassette "base/handle_pagination_test" do
+        performers = Ticketevolution::Performer.search("Dave")
+        performers.class.should                                            == Array
+        performers.first.name.should                                       == "Dave Gahan"
+        performers.first.url.should                                        == "/performers/2892"
+        performers.length.should                                           == 45
+        performers.all? {|p| p.class == Ticketevolution::Performer}.should == true
+      end
+    end
+  end
+  
+  describe "#handle_pagination!" do
+    before(:each) do
+      Ticketevolution::configure do |config|
+        config.token    = "958acdf7da43b57ac93b17ff26eabf45"
+        config.secret   = "TSalhnVkdoCbGa7I93s3S9OBcBQoogseNeccHIEh"
+        config.version  = 8
+        config.mode     = :sandbox
+        config.protocol = :https
+      end
+    end
+    
+    it "setup the current page, the total pages with some math , the total entries and the per_page and on the base class!" do
+      VCR.use_cassette "base/handle_pagination_test" do
+        performers = Ticketevolution::Performer.search("Dave")
+        # See question 1
+        Ticketevolution::Performer.total_pages.should   == 1
+        Ticketevolution::Performer.per_page.should      == 100
+        Ticketevolution::Performer.total_entries.should == 45
+      end
+    end
+  
+  end
 
 end
