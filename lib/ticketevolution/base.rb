@@ -11,10 +11,18 @@ module Ticketevolution
 	    @errors           = response[:errors]
 	    @server_message   = response[:server_message]
 	  end
+	  
+	  def next
+	   if self.class.current_page < total_pages
+	     yield
+	    else
+        puts "There are no more objects to be returned in this collection"
+	    end
+	  end
   
 	  class << self
 	    # SINGLETON Attributes....
-	    attr_accessor :current_page, :total_entries, :total_pages, :per_page
+	    attr_accessor :current_page, :total_entries, :total_pages, :per_page, :collection
 	    
     	def get(path,path_for_signature)
     	  if Ticketevolution.token

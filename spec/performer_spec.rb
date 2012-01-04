@@ -89,13 +89,23 @@ describe "Ticketevolution::Perfomer" do
     it "setup the current page, the total pages with some math , the total entries and the per_page and on the base class!" do
       VCR.use_cassette "base/handle_pagination_test" do
         performers = Ticketevolution::Performer.search("Dave")
-        # See question 1
         Ticketevolution::Performer.total_pages.should   == 1
         Ticketevolution::Performer.per_page.should      == 100
         Ticketevolution::Performer.total_entries.should == 45
       end
     end
   
+    it "the collection singleton attribute should hold onto the currnet objects that came back from a search" do
+      VCR.use_cassette "base/handle_pagination_test" do
+        performers = Ticketevolution::Performer.search("Dave")
+        Ticketevolution::Performer.collection.length.should == performers.length
+        Ticketevolution::Performer.collection.first.class   == performers.first.class
+        Ticketevolution::Performer.collection.first.name    == Array
+        Ticketevolution::Performer.collection.first.url     == Array
+        Ticketevolution::Base.collection.should_not         == performers
+      end
+    end
+    
   end
 
 end

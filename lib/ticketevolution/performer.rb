@@ -28,7 +28,7 @@ module Ticketevolution
           
           performers.push(Performer.new(response_for_object))
         end
-        
+        Ticketevolution::Performer.collection = performers
         return performers
       end
       
