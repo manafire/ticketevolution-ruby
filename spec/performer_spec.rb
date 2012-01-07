@@ -94,7 +94,7 @@ describe "Ticketevolution::Perfomer" do
         Ticketevolution::Performer.total_entries.should == 45
       end
     end
-  
+      
     it "the collection singleton attribute should hold onto the currnet objects that came back from a search" do
       VCR.use_cassette "base/handle_pagination_test" do
         performers = Ticketevolution::Performer.search("Dave")
@@ -104,6 +104,27 @@ describe "Ticketevolution::Perfomer" do
         Ticketevolution::Performer.collection.first.url     == Array
         Ticketevolution::Base.collection.should_not         == performers
       end
+    end
+    
+    it "should with calling events on a performer supply ther performer_id parameter to the list call on events" do
+      
+    end
+    
+    
+    it "should return event objects in an array when a performer object is instantiated" do
+      VCR.use_cassette "performer/event_delegation_test" do
+        performer    = Ticketevolution::Performer.search("Phish").last
+        performer.class.should               == Ticketevolution::Performer
+        performer.name.should                == "Phish"
+        phish_events = []
+        VCR.use_cassette  "events/performer.event_delegation_test" do
+          phish_events = performer.events
+        end
+        phish_events.class.should            == Array
+        phish_events.last.class.should       == Ticketevolution::Event  
+        phish_events.length.should           == 100
+        phish_events.last.name.should == "Rock of Ages - San Diego"
+      end 
     end
     
   end

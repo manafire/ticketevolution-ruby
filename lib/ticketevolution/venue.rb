@@ -12,19 +12,25 @@ module Ticketevolution
       self.id              = @attrs_for_object["id"]
       self.upcoming_events = @attrs_for_object["upcoming_events"]
     end
+
     
     class << self
-      def list
-        
+      
+      def list(params_hash)
+        query              = build_params_for_get(params_hash).encoded
+        path               = "#{http_base}.ticketevolution.com/performers?#{query}"
+        path_for_signature = "GET #{path[8..-1]}"
+        response           = Ticketevolution::Base.get(path,path_for_signature)
+        response           = process_response(Ticketevolution::Venue,response)
       end
       
       def search(query)
         path               = "#{http_base}.ticketevolution.com/venues/search?q=#{query}"
         path_for_signature = "GET #{path[8..-1]}"
         response           = Ticketevolution::Base.get(path,path_for_signature)
+        response           = process_response(Ticketevolution::Venue,response)
       end
         
-      # NOTE HANDLE NON FOUND VENUES
       def show(id)
         path               = "#{http_base}.ticketevolution.com/venues/#{id}?"
         path_for_signature = "GET #{path[8..-1]}"
@@ -32,6 +38,28 @@ module Ticketevolution
         Venue.new(response)
       end
       
+      
+      # Association Proxy Dynamic Methods
+      %w(performer configuration category occurs_at name).each do |facet|
+        parameter_name = ["name","occurs_at"].include?(facet) ? facet : "#{facet}_id"
+        define_method("find_by_#{facet}") do |parameter|
+          self.list({parameter_name.intern => parameter})
+        end
+      end
+      
+      # Builders For Array Responses , Template for Object
+      def raw_from_json(venue)
+        ActiveSupport::HashWithIndifferentAccess.new({ 
+          :name            => venue['name'],
+          :address         => venue['address'],
+          :location        => venue['location'],
+          :updated_at      => venue['updated_at'],
+          :url             => venue['url'],
+          :id              => venue['id'],
+          :upcoming_events => venue['upcoming_events']
+        })
+      end
+
       # Acutal api endpoints are matched 1-to-1 but for AR style convience AR type method naming is aliased into existance
       alias :find :show
     end

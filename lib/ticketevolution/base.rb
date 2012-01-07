@@ -69,7 +69,9 @@ module Ticketevolution
            response_for_object[:errors]         = response[:errors]
            response_for_object[:server_message] = response[:server_message]
            
-           klass.send(:build,response_for_object)
+           module_class   = klass.to_s.split(":").last.downcase
+           builder_method = "build_for_#{module_class}"
+           self.send(builder_method.intern,response_for_object)
            # Hit the base class method for creating and map collections of objects or maky perhaps another class...
          else
            # Raise some type of error
@@ -79,6 +81,24 @@ module Ticketevolution
 
       
       private
+      # Association Proxy Dynamic Methods
+      %w(performer configuration category venue performer).each do |klass|
+        define_method("build_for_#{klass}".intern) do |response|
+          klass_for_object   = "Ticketevolution::#{klass.capitalize}".constantize
+          created_items = response[:body].inject([]) do |collection,object|
+            
+            response_for_object = {}
+            response_for_object[:body]           = object
+            response_for_object[:response_code]  = response[:response_code]                    
+            response_for_object[:errors]         = response[:errors]                         
+            response_for_object[:server_message] = response[:server_message]                         
+            new_object = klass_for_object.send(:new,response_for_object)
+            collection.push(new_object)
+          end
+          klass_for_object.send("collection=".intern,created_items)
+          return collection
+        end
+      end
       
       def handle_pagination(stats)
         @total_pages   = stats[:total_entries].to_i <= stats[:per_page] ? 1 : (stats[:total_entries].to_f / stats[:per_page].to_f).ceil
@@ -96,9 +116,17 @@ module Ticketevolution
           end   
           return performers
         elsif klass == (Ticketevolution::Venue)       
-          
+          venues = response[:body][klass_container].inject([]) do |venues, venue|  
+            venues_hash = Ticketevolution::Venue.raw_from_json(venue)
+            venues.push(venues_hash)
+          end   
+          return venues
         elsif klass == (Ticketevolution::Category)    
-          
+          categories = response[:body][klass_container].inject([]) do |cateories, catrgory|  
+            categories_hash = Ticketevolution::Category.raw_from_json(catrgory)
+            cateories.push(categories_hash)
+          end   
+          return venues
         elsif klass == (Ticketevolution::Event)   
           events = response[:body][klass_container].inject([]) do |events, event|  
             event_hash = Ticketevolution::Event.raw_from_json(event)
@@ -106,8 +134,6 @@ module Ticketevolution
           end   
           return events
         end
-        
-   
       end
       
       def klass_to_response(klass)

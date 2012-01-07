@@ -21,22 +21,22 @@
       strict-transport-security: 
       - max-age=31536000
       etag: 
-      - "\"b48584dcc935d48eb6d880acd2b31ad3\""
+      - "\"81db8d429570c9fb00c546399389e6e6\""
       x-powered-by: 
-      - Phusion Passenger (mod_rails/mod_rack) 2.2.10
+      - Phusion Passenger (mod_rails/mod_rack) 3.0.11
       connection: 
       - keep-alive
       content-type: 
       - application/vnd.ticketevolution.api+json; version=8; charset=utf-8
       server: 
-      - nginx/0.7.65 + Phusion Passenger 2.2.10 (mod_rails/mod_rack)
+      - nginx/1.0.11 + Phusion Passenger 3.0.11 (mod_rails/mod_rack)
       x-runtime: 
-      - "0.024507"
+      - "1.104742"
       cache-control: 
       - max-age=0, private, must-revalidate
       status: 
       - "200"
       transfer-encoding: 
       - chunked
-    body: "{\"venue\":null,\"url\":\"/performers/3219\",\"upcoming_events\":{\"first\":null,\"last\":null},\"updated_at\":\"2011-02-05T09:49:26Z\",\"category\":null,\"name\":\"Dipset\",\"id\":\"3219\"}"
+    body: "{\"url\":\"/performers/3219\",\"upcoming_events\":{\"last\":null,\"first\":null},\"updated_at\":\"2011-02-05T09:49:26Z\",\"name\":\"Dipset\",\"venue\":null,\"id\":\"3219\",\"category\":null}"
     http_version: "1.1"
