@@ -79,7 +79,7 @@ describe "Ticketevolution::Perfomer" do
         performer.class.should               == Ticketevolution::Performer
         performer.name.should                == "Phish"
         phish_events = []
-        VCR.use_cassette  "events/performer.event_delegation_test" do
+        VCR.use_cassette  "event/performer.event_delegation_test" do
           phish_events = performer.events
         end
         phish_events.class.should            == Array
