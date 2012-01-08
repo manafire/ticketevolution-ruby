@@ -13,8 +13,9 @@ module Ticketevolution
       self.venue           = @attrs_for_object["venue"] || nil     
     end
     
+    # DOES NOT RETURN THE RIGT ARTISTS
     def events; Ticketevolution::Event.find_by_performer(id); end
-    
+
     
     class << self
       

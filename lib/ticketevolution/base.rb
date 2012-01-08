@@ -25,7 +25,6 @@ module Ticketevolution
 	  end
   
 	  class << self
-	    # SINGLETON Attributes....
 	    attr_accessor :current_page, :total_entries, :total_pages, :per_page, :collection
 	    
     	def get(path,path_for_signature)

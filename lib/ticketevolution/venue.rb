@@ -13,7 +13,8 @@ module Ticketevolution
       self.upcoming_events = @attrs_for_object["upcoming_events"]
     end
 
-    
+    def events; Ticketevolution::Event.find_by_venue(id); end
+      
     class << self
       
       def list(params_hash)
