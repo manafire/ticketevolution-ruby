@@ -14,7 +14,7 @@ describe "Ticketevolution::Event" do
     end
     
     it "should return a collection of events when given a query parmeter" do
-      VCR.use_cassette "event/search/200" do
+      VCR.use_cassette "events/search/200" do
         events = Ticketevolution::Event.list({:venue_id => 896})
         events.class.should == Array
       end

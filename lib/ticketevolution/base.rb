@@ -4,8 +4,12 @@ require 'json'
 require 'ruby-debug'
 module Ticketevolution
 	class Base
+	  extend ::Ticketevolution::Helpers::Base
+	  extend ::Ticketevolution::Helpers::Catalog
+    
     
 	  def initialize(response)
+	  
 	    @attrs_for_object = response[:body]
 	    @response_code    = response[:response_code]
 	    @errors           = response[:errors]
@@ -50,7 +54,6 @@ module Ticketevolution
       
       # NEEDS SPEC      
       def process_response(klass,response)
-        klass_container = klass_to_response(klass)
         pagination_data = {
           :current_page => response[:body]["current_page"], 
           :total_entries => response[:body]["total_entries"], 
@@ -58,17 +61,21 @@ module Ticketevolution
         }
         
         handle_pagination(pagination_data)
-        
-        # Zero Items Were Found
+        handle_processing_items(response,klass)
+      end
+
+      
+      def handle_processing_items(response,klass)
         if response[:body]["total_entries"].to_i == 0
-           puts "Zero Performers With The Query: #{query} Were Found"
-         elsif response[:body]["total_entries"].to_i >= 1
+           puts "Zero #{klass} Items Were Found"
+        elsif response[:body]["total_entries"].to_i >= 1
+           
            response_for_object                  = {} 
-           response_for_object[:body]           = build_hash_for_initializer(klass,klass_container,response)
+           response_for_object[:body]           = build_hash_for_initializer(klass,klass_container(klass),response)
            response_for_object[:response_code]  = response[:response_code]
            response_for_object[:errors]         = response[:errors]
            response_for_object[:server_message] = response[:server_message]
-           
+      
            module_class   = klass.to_s.split(":").last.downcase
            builder_method = "build_for_#{module_class}"
            self.send(builder_method.intern,response_for_object)
@@ -76,29 +83,8 @@ module Ticketevolution
          else
            # Raise some type of error
          end
-        
       end
-
       
-      private
-      # Association Proxy Dynamic Methods
-      %w(performer configuration category venue performer).each do |klass|
-        define_method("build_for_#{klass}".intern) do |response|
-          klass_for_object   = "Ticketevolution::#{klass.capitalize}".constantize
-          created_items = response[:body].inject([]) do |collection,object|
-            
-            response_for_object = {}
-            response_for_object[:body]           = object
-            response_for_object[:response_code]  = response[:response_code]                    
-            response_for_object[:errors]         = response[:errors]                         
-            response_for_object[:server_message] = response[:server_message]                         
-            new_object = klass_for_object.send(:new,response_for_object)
-            collection.push(new_object)
-          end
-          klass_for_object.send("collection=".intern,created_items)
-          return collection
-        end
-      end
       
       def handle_pagination(stats)
         @total_pages   = stats[:total_entries].to_i <= stats[:per_page] ? 1 : (stats[:total_entries].to_f / stats[:per_page].to_f).ceil
@@ -107,43 +93,9 @@ module Ticketevolution
         @per_page      = stats[:per_page]
       end
       
-      # NEEDS SPEC
-      def build_hash_for_initializer(klass,klass_container,response)
-        if klass == (Ticketevolution::Performer)
-          performers = response[:body][klass_container].inject([]) do |performers, performer|  
-            performer_hash = Ticketevolution::Performer.raw_from_json(performer)
-            performers.push(performer_hash)
-          end   
-          return performers
-        elsif klass == (Ticketevolution::Venue)       
-          venues = response[:body][klass_container].inject([]) do |venues, venue|  
-            venues_hash = Ticketevolution::Venue.raw_from_json(venue)
-            venues.push(venues_hash)
-          end   
-          return venues
-        elsif klass == (Ticketevolution::Category)    
-          categories = response[:body][klass_container].inject([]) do |cateories, catrgory|  
-            categories_hash = Ticketevolution::Category.raw_from_json(catrgory)
-            cateories.push(categories_hash)
-          end   
-          return venues
-        elsif klass == (Ticketevolution::Event)   
-          events = response[:body][klass_container].inject([]) do |events, event|  
-            event_hash = Ticketevolution::Event.raw_from_json(event)
-            events.push(event_hash)
-          end   
-          return events
-        end
-      end
       
-      def klass_to_response(klass)
-        if    klass == (Ticketevolution::Performer)   then return "performers"
-        elsif klass == (Ticketevolution::Venue)       then return "venues"
-        elsif klass == (Ticketevolution::Category)    then return "categories"
-        elsif klass == (Ticketevolution::Event)       then return "events"   
-        end
-      end
-      
+      private
+        
       def construct_call!(path,path_for_signature)
         if !Ticketevolution.token.nil?
           call                        = Curl::Easy.new(path)
@@ -166,18 +118,7 @@ module Ticketevolution
         end
       end
       
-      def http_base
-        "#{protocol}://#{environmental_base}"
-      end
-      
-      def protocol
-        Ticketevolution.protocol == :https ? "https" : "http"
-      end
-      
-      def environmental_base
-        Ticketevolution.mode == :sandbox ? "api.sandbox" : "api"
-      end
-      
+    
       # returns array of the processed json, the interperted code and any errors for use
       def handle_response(response)
         begin
@@ -194,16 +135,7 @@ module Ticketevolution
         end
       end
       
-      def build_params_for_get(params)
-        get_params = params.keys.inject([]) do |memo,key|
-          current_parameter =  key.to_s + "=" + params[key].to_s
-          memo.push(current_parameter)
-        end
 
-        get_params = get_params.sort.join("&")
-        return get_params
-      end
-    end
-	  
+	  end
   end
 end

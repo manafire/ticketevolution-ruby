@@ -2,9 +2,14 @@ require 'curb'
 require 'json'
 require 'active_support/core_ext/hash/indifferent_access'
 require 'active_support/core_ext/string/inflections'
-Dir.glob(File.join(File.dirname(__FILE__),"..", "lib" ,"ticketevolution/*.rb")).sort.each { |f| require f }
 Dir.glob(File.join(File.dirname(__FILE__),".." ,"extensions/*.rb")).sort.each { |f| require f }
+Dir.glob(File.join(File.dirname(__FILE__),"..", "lib" ,"ticketevolution","helpers/*.rb")).sort.each { |f| require f }
+Dir.glob(File.join(File.dirname(__FILE__),"..", "lib" ,"ticketevolution/*.rb")).sort.each { |f| require f }
 
+
+# Note the load pattern is important as the helpers need to be instantiated before 
+# the acutal classes. The extensions are jsut additions so there will be no missing constants
+# but in interest of organization its second
 
 module Ticketevolution
   extend self

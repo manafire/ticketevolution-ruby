@@ -2,13 +2,13 @@
 - !ruby/struct:VCR::HTTPInteraction 
   request: !ruby/struct:VCR::Request 
     method: :get
-    uri: https://api.sandbox.ticketevolution.com:443/performers/3219?
+    uri: https://api.sandbox.ticketevolution.com:443/performers/search?q=Disco%20Biscuits
     body: 
     headers: 
       accept: 
       - application/vnd.ticketevolution.api+json; version=8
       x-signature: 
-      - 1FCHMxSQUW9Ov8Slzqp1BdPmXXFG8wQd16A5nMJhovg=
+      - u6N0bXzmLHuOnBlc6fivVeHXN00IhnBeNF8oL/ndgac=
       x-token: 
       - 958acdf7da43b57ac93b17ff26eabf45
   response: !ruby/struct:VCR::Response 
@@ -21,7 +21,7 @@
       strict-transport-security: 
       - max-age=31536000
       etag: 
-      - "\"81db8d429570c9fb00c546399389e6e6\""
+      - "\"9296df22126623513ee6e17a5fc31de9\""
       x-powered-by: 
       - Phusion Passenger (mod_rails/mod_rack) 3.0.11
       connection: 
@@ -31,12 +31,12 @@
       server: 
       - nginx/1.0.11 + Phusion Passenger 3.0.11 (mod_rails/mod_rack)
       x-runtime: 
-      - "1.104742"
+      - "0.068229"
       cache-control: 
       - max-age=0, private, must-revalidate
       status: 
       - "200"
       transfer-encoding: 
       - chunked
-    body: "{\"url\":\"/performers/3219\",\"upcoming_events\":{\"last\":null,\"first\":null},\"updated_at\":\"2011-02-05T09:49:26Z\",\"name\":\"Dipset\",\"venue\":null,\"id\":\"3219\",\"category\":null}"
+    body: "{\"current_page\":1,\"per_page\":100,\"performers\":[{\"url\":\"/performers/3238\",\"upcoming_events\":{\"last\":null,\"first\":null},\"updated_at\":\"2011-12-08T05:16:46Z\",\"name\":\"Disco Biscuits\",\"venue\":null,\"id\":\"3238\",\"category\":{\"url\":\"/categories/84\",\"id\":\"84\",\"parent\":{\"url\":\"/categories/54\",\"id\":\"54\",\"parent\":null}}}],\"total_entries\":1}"
     http_version: "1.1"

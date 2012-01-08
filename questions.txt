@@ -1,0 +1,2 @@
+1) ? issue regarding signatures .... does not work for me 
+api.sandbox.ticketevolution.com/performers/90?" is required atm, ill demo tommorow

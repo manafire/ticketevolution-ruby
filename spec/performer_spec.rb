@@ -13,10 +13,19 @@ describe "Ticketevolution::Perfomer" do
         config.protocol = :https
       end
     end
+    
+    it "should assemble the correct signature and the correct path to perform the get with" do
+      VCR.use_cassette "performer/find/regular_find" do
+        response = Ticketevolution::Performer.find(90)
+        response.class.should           ==  Ticketevolution::Performer
+        response.url.should             ==  "/performers/90"
+        response.upcoming_events.should == {"last"=>nil, "first"=>nil}
+        response.updated_at.should      == "2011-02-05T09:27:07Z"
+      end
+    end
   
     it "should return the respective performer with the find call" do
-      VCR.use_cassette "perfomer/find/200" do
-        path = "#{@http_base}.ticketevolution.com/performers/9?"
+      VCR.use_cassette "performer/find/200" do
         performer = Ticketevolution::Performer.find(3219)      
         performer.name.should            == ("Dipset")
         performer.updated_at.should      == ("2011-02-05T09:49:26Z")
@@ -27,7 +36,7 @@ describe "Ticketevolution::Perfomer" do
     end
     
     it "should return the respective performer with the show call as it is what the find call is aliased too" do
-      VCR.use_cassette "perfomer/show/200" do
+      VCR.use_cassette "performer/show/200" do
         path = "#{@http_base}.ticketevolution.com/performers/9?"
         performer = Ticketevolution::Performer.show(3219)      
         performer.name.should            == ("Dipset")
@@ -52,7 +61,7 @@ describe "Ticketevolution::Perfomer" do
     end
     
     it "should let me search for performers and return back and array of related performers with one result" do
-      VCR.use_cassette "perfomer/search/arrity_test" do
+      VCR.use_cassette "performer/search/arrity_test" do
         performer = Ticketevolution::Performer.search("Disco Biscuits")
         performer.class.should             == Array
         performer.length.should            == 1
@@ -122,7 +131,7 @@ describe "Ticketevolution::Perfomer" do
         end
         phish_events.class.should            == Array
         phish_events.last.class.should       == Ticketevolution::Event  
-        phish_events.length.should           == 100
+        phish_events.length.should           == 100 
         phish_events.last.name.should == "Rock of Ages - San Diego"
       end 
     end

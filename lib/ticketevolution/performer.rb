@@ -23,9 +23,6 @@ module Ticketevolution
         path               = "#{http_base}.ticketevolution.com/performers?#{query}"
         path_for_signature = "GET #{path[8..-1]}"
         response           = Ticketevolution::Base.get(path,path_for_signature)
-        
-        # THROW ERROR TO ADD![DKM 2012.1.2] if !response[:body][:performers]
-        
       end
       
       def search(query)
