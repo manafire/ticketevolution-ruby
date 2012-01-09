@@ -125,7 +125,7 @@ module Ticketevolution
           header_response_code = response.response_code
           raw_response         = response.body_str
           body                 = JSON.parse(response.body_str)
-          mapped_message       = Ticketevolution::HTTP_CODE[header_response_code.to_i].last 
+          mapped_message       = Ticketevolution::Helpers::Http::Codes[header_response_code].last 
           
           return {:body => body, :response_code => header_response, :server_message => mapped_message , :errors => nil}
           

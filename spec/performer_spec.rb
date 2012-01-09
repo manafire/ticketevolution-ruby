@@ -23,15 +23,15 @@ describe "Ticketevolution::Perfomer" do
       end
     end
     
-      it "should return the respective performer with the find call" do
-        VCR.use_cassette "performer/find/normal_call" do  
-          performer = Ticketevolution::Performer.find(3219)      
-          performer.name.should            == ("Dipset")
-          performer.updated_at.should      == ("2011-02-05T09:49:26Z")
-          performer.category.should        == (nil)
-          performer.venue.should           == (nil)
-          performer.upcoming_events.should == ({"last"=>nil, "first"=>nil})
-        end
+    it "should return the respective performer with the find call" do
+      VCR.use_cassette "performer/find/normal_call" do  
+        performer = Ticketevolution::Performer.find(3219)      
+        performer.name.should            == ("Dipset")
+        performer.updated_at.should      == ("2011-02-05T09:49:26Z")
+        performer.category.should        == (nil)
+        performer.venue.should           == (nil)
+        performer.upcoming_events.should == ({"last"=>nil, "first"=>nil})
+      end
       end
       
     it "should return the respective performer with the show call as it is what the find call is aliased too" do
@@ -71,8 +71,6 @@ describe "Ticketevolution::Perfomer" do
       end
     end    
   
-    
-    
     it "should return event objects in an array when a performer object is instantiated" do
       VCR.use_cassette "performer/event_delegation_test" do
         performer    = Ticketevolution::Performer.search("Phish").last
