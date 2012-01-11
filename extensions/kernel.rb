@@ -1,5 +1,5 @@
 module Kernel
-  
+
   # This adds in an attr_accessor type ability without needing all of activesupport which to heavy.
   def mattr_accessor(*module_instance_vars)
     module_instance_vars.each do | module_instance_var |
@@ -12,5 +12,5 @@ module Kernel
       end
     end
   end
-  
+
 end

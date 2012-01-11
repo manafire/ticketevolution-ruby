@@ -1,7 +1,7 @@
 require "spec_helper"
 
 describe "TicketEvolution::Perfomer" do
-  
+
   describe "#find" do
     before(:all) do
       TicketEvolution::configure do |config|
@@ -22,28 +22,28 @@ describe "TicketEvolution::Perfomer" do
         response.updated_at.should      == "2011-02-05T09:27:07Z"
       end
     end
-    
+
     it "should return the respective performer with the find call" do
-      VCR.use_cassette "performer/find/normal_call" do  
-        performer = TicketEvolution::Performer.find(3219)      
+      VCR.use_cassette "performer/find/normal_call" do
+        performer = TicketEvolution::Performer.find(3219)
         performer.name.should            == ("Dipset")
         performer.updated_at.should      == ("2011-02-05T09:49:26Z")
         performer.category.should        == (nil)
         performer.venue.should           == (nil)
         performer.upcoming_events.should == ({"last"=>nil, "first"=>nil})
       end
-      end
-      
+    end
+
     it "should return the respective performer with the show call as it is what the find call is aliased too" do
       VCR.use_cassette "performer_show_call_success" do
         path = "#{@http_base}.TicketEvolution.com/performers/9"
-        performer = TicketEvolution::Performer.show(3219)      
+        performer = TicketEvolution::Performer.show(3219)
         performer.name.should            == ("Dipset")
         performer.updated_at.should      == ("2011-02-05T09:49:26Z")
         performer.category.should        == (nil)
         performer.venue.should           == (nil)
         performer.upcoming_events.should == ({"last"=>nil, "first"=>nil})
-      end  
+      end
     end
   end
 
@@ -54,12 +54,12 @@ describe "TicketEvolution::Perfomer" do
         config.token    = "958acdf7da43b57ac93b17ff26eabf45"
         config.secret   = "TSalhnVkdoCbGa7I93s3S9OBcBQoogseNeccHIEh"
         config.version  = 8
-        config.mode     = :sandbox  
+        config.mode     = :sandbox
         config.protocol = :https
       end
-      @http_base = "#{TicketEvolution.protocol}://#{TicketEvolution.mode}"      
+      @http_base = "#{TicketEvolution.protocol}://#{TicketEvolution.mode}"
     end
-    
+
     it "should let me search for performers and return back and array of related performers with one result" do
       VCR.use_cassette "performer/search/arrity_test" do
         performer = TicketEvolution::Performer.search("Disco Biscuits")
@@ -69,16 +69,16 @@ describe "TicketEvolution::Perfomer" do
         performer.first.url.should         == "/performers/3238"
         performer.first.updated_at.should  == "2011-12-08T05:16:46Z"
       end
-    end    
-  
+    end
+
     it "should return event objects in an array when a performer object is instantiated" do
       VCR.use_cassette "event_delegate_phish_second" do
         performer    = TicketEvolution::Performer.search("Phish").last
         performer.class.should               == TicketEvolution::Performer
         performer.name.should                == "Phish"
-      end 
+      end
     end
-    
+
     # There is currently an issue that every OTHER time VCR things this is a new request need to investigate
     # it "should allow for assocation proxy calls" do
     #   VCR.use_cassette "spec_that_causes_trouble" do
@@ -88,13 +88,13 @@ describe "TicketEvolution::Perfomer" do
     #     response[:response_code]  = nil
     #     response[:errors]         = nil
     #     response[:server_message] = nil
-    # 
+    #
     #     phish = TicketEvolution::Performer.new(response)
     #     phish.events.should == "Zero TicketEvolution::Event Items Were Found"
     #   end
     # end
 
-  
+
     it "should return an array of serveral results for a performer search that has many performers" do
       VCR.use_cassette "base_handle_pagination_test_first" do
         performers = TicketEvolution::Performer.search("Dave")
@@ -106,7 +106,7 @@ describe "TicketEvolution::Perfomer" do
       end
     end
   end
-  
+
   describe "#handle_pagination!" do
     before(:each) do
       TicketEvolution::configure do |config|
@@ -117,7 +117,7 @@ describe "TicketEvolution::Perfomer" do
         config.protocol = :https
       end
     end
-    
+
     it "setup the current page, the total pages with some math , the total entries and the per_page and on the base class!" do
       VCR.use_cassette "base_handle_pagination_test_second" do
         performers = TicketEvolution::Performer.search("Dave")
@@ -126,7 +126,7 @@ describe "TicketEvolution::Perfomer" do
         TicketEvolution::Performer.total_entries.should == 45
       end
     end
-      
+
     it "the collection singleton attribute should hold onto the currnet objects that came back from a search" do
       VCR.use_cassette "base_handle_pagination_test_third" do
         performers = TicketEvolution::Performer.search("Dave")
@@ -138,7 +138,4 @@ describe "TicketEvolution::Perfomer" do
       end
     end
   end
-  
-
-  
 end

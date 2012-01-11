@@ -1,7 +1,7 @@
 module TicketEvolution
   class Venue < TicketEvolution::Base
     attr_accessor :name, :address, :location, :updated_at, :url, :id, :upcoming_events
-    
+
     def initialize(response)
       super(response)
       self.name            = @attrs_for_object["name"]
@@ -14,29 +14,28 @@ module TicketEvolution
     end
 
     def events; TicketEvolution::Event.find_by_venue(id); end
-      
+
     class << self
-      
+
       def list(params_hash)
         query              = build_params_for_get(params_hash).encoded
         path               = "#{api_base}/performers?#{query}"
         response           = TicketEvolution::Base.get(path)
         response           = process_response(TicketEvolution::Venue,response)
       end
-      
+
       def search(query)
         path               = "#{api_base}/venues/search?q=#{query}"
         response           = TicketEvolution::Base.get(path)
         response           = process_response(TicketEvolution::Venue,response)
       end
-        
+
       def show(id)
         path               = "#{api_base}/venues/#{id}?"
         response           = TicketEvolution::Base.get(path)
         Venue.new(response)
       end
-      
-      
+
       # Association Proxy Dynamic Methods
       %w(performer configuration category occurs_at name).each do |facet|
         parameter_name = ["name","occurs_at"].include?(facet) ? facet : "#{facet}_id"
@@ -44,10 +43,10 @@ module TicketEvolution
           self.list({parameter_name.intern => parameter})
         end
       end
-      
+
       # Builders For Array Responses , Template for Object
       def raw_from_json(venue)
-        ActiveSupport::HashWithIndifferentAccess.new({ 
+        ActiveSupport::HashWithIndifferentAccess.new({
           :name            => venue['name'],
           :address         => venue['address'],
           :location        => venue['location'],
@@ -61,6 +60,5 @@ module TicketEvolution
       # Acutal api endpoints are matched 1-to-1 but for AR style convience AR type method naming is aliased into existance
       alias :find :show
     end
-    
   end
 end

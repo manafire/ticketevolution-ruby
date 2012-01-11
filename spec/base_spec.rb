@@ -1,6 +1,5 @@
 require File.join(File.dirname(File.expand_path(__FILE__)), "spec_helper")
 
-
 describe "Base" do
   describe "#sign" do
 
@@ -209,5 +208,4 @@ describe "Base" do
   describe "#process_response" do
 
   end
-
 end
