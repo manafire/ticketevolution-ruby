@@ -10,5 +10,5 @@ VCR.config do |c|
   c.stub_with :webmock
 end
 
-require File.join(File.dirname(File.expand_path(__FILE__)), "..", "lib", "ticketevolution")
+require File.join(File.dirname(File.expand_path(__FILE__)), "..", "lib", "ticket_evolution")
 

@@ -1,8 +1,8 @@
 require "spec_helper"
 
-describe "Ticketevolution::Event" do
+describe "TicketEvolution::Event" do
   before(:all) do
-    Ticketevolution::configure do |config|
+    TicketEvolution::configure do |config|
       config.token    = "958acdf7da43b57ac93b17ff26eabf45"
       config.secret   = "TSalhnVkdoCbGa7I93s3S9OBcBQoogseNeccHIEh"
       config.version  = 8
@@ -15,7 +15,7 @@ describe "Ticketevolution::Event" do
     
     it "should return a collection of events when given a query parmeter" do
       VCR.use_cassette "event/search/200" do
-        events = Ticketevolution::Event.list({:venue_id => 896})
+        events = TicketEvolution::Event.list({:venue_id => 896})
         events.class.should == Array
       end
     end
@@ -26,7 +26,7 @@ describe "Ticketevolution::Event" do
     it "should return all events only scoped to the venue object that find_by_venue is being called from" do
       venues = []
       VCR.use_cassette "venue/for_find_by_venue/msg" do
-         venues = Ticketevolution::Venue.search("Madison Square Garden")
+         venues = TicketEvolution::Venue.search("Madison Square Garden")
          venues.first.name = "Madison Sqare Garden"
          msg_id = venues.first.id
       end

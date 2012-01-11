@@ -2,13 +2,13 @@
 - !ruby/struct:VCR::HTTPInteraction 
   request: !ruby/struct:VCR::Request 
     method: :get
-    uri: https://api.sandbox.ticketevolution.com:443/performers/3219?
+    uri: https://api.sandbox.ticketevolution.com:443/performers/3219
     body: 
     headers: 
       accept: 
       - application/vnd.ticketevolution.api+json; version=8
       x-signature: 
-      - 1FCHMxSQUW9Ov8Slzqp1BdPmXXFG8wQd16A5nMJhovg=
+      - O7P24U5ATCuvXN0UmWBnVBVoQ8SZ1xbOexFWuwYNe5I=
       x-token: 
       - 958acdf7da43b57ac93b17ff26eabf45
   response: !ruby/struct:VCR::Response 
@@ -31,7 +31,7 @@
       server: 
       - nginx/1.0.11 + Phusion Passenger 3.0.11 (mod_rails/mod_rack)
       x-runtime: 
-      - "0.047051"
+      - "0.035115"
       cache-control: 
       - max-age=0, private, must-revalidate
       status: 

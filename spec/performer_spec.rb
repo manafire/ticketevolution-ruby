@@ -1,10 +1,10 @@
 require "spec_helper"
 
-describe "Ticketevolution::Perfomer" do
+describe "TicketEvolution::Perfomer" do
   
   describe "#find" do
     before(:all) do
-      Ticketevolution::configure do |config|
+      TicketEvolution::configure do |config|
         config.token    = "958acdf7da43b57ac93b17ff26eabf45"
         config.secret   = "TSalhnVkdoCbGa7I93s3S9OBcBQoogseNeccHIEh"
         config.version  = 8
@@ -15,8 +15,8 @@ describe "Ticketevolution::Perfomer" do
 
     it "should assemble the correct signature and the correct path to perform the get with" do
       VCR.use_cassette "performer/find/regular_find" do
-        response = Ticketevolution::Performer.find(90)
-        response.class.should           ==  Ticketevolution::Performer
+        response = TicketEvolution::Performer.find(90)
+        response.class.should           ==  TicketEvolution::Performer
         response.url.should             ==  "/performers/90"
         response.upcoming_events.should == {"last"=>nil, "first"=>nil}
         response.updated_at.should      == "2011-02-05T09:27:07Z"
@@ -25,7 +25,7 @@ describe "Ticketevolution::Perfomer" do
     
     it "should return the respective performer with the find call" do
       VCR.use_cassette "performer/find/normal_call" do  
-        performer = Ticketevolution::Performer.find(3219)      
+        performer = TicketEvolution::Performer.find(3219)      
         performer.name.should            == ("Dipset")
         performer.updated_at.should      == ("2011-02-05T09:49:26Z")
         performer.category.should        == (nil)
@@ -35,9 +35,9 @@ describe "Ticketevolution::Perfomer" do
       end
       
     it "should return the respective performer with the show call as it is what the find call is aliased too" do
-      VCR.use_cassette "performer/show/200" do
-        path = "#{@http_base}.ticketevolution.com/performers/9?"
-        performer = Ticketevolution::Performer.show(3219)      
+      VCR.use_cassette "performer_show_call_success" do
+        path = "#{@http_base}.TicketEvolution.com/performers/9"
+        performer = TicketEvolution::Performer.show(3219)      
         performer.name.should            == ("Dipset")
         performer.updated_at.should      == ("2011-02-05T09:49:26Z")
         performer.category.should        == (nil)
@@ -50,19 +50,19 @@ describe "Ticketevolution::Perfomer" do
 
   describe "#search" do
     before(:each) do
-      Ticketevolution::configure do |config|
+      TicketEvolution::configure do |config|
         config.token    = "958acdf7da43b57ac93b17ff26eabf45"
         config.secret   = "TSalhnVkdoCbGa7I93s3S9OBcBQoogseNeccHIEh"
         config.version  = 8
         config.mode     = :sandbox  
         config.protocol = :https
       end
-      @http_base = "#{Ticketevolution.protocol}://#{Ticketevolution.mode}"      
+      @http_base = "#{TicketEvolution.protocol}://#{TicketEvolution.mode}"      
     end
     
     it "should let me search for performers and return back and array of related performers with one result" do
       VCR.use_cassette "performer/search/arrity_test" do
-        performer = Ticketevolution::Performer.search("Disco Biscuits")
+        performer = TicketEvolution::Performer.search("Disco Biscuits")
         performer.class.should             == Array
         performer.length.should            == 1
         performer.first.name.should        == "Disco Biscuits"
@@ -72,37 +72,44 @@ describe "Ticketevolution::Perfomer" do
     end    
   
     it "should return event objects in an array when a performer object is instantiated" do
-      VCR.use_cassette "performer/event_delegation_test" do
-        performer    = Ticketevolution::Performer.search("Phish").last
-        performer.class.should               == Ticketevolution::Performer
+      VCR.use_cassette "event_delegate_phish_second" do
+        performer    = TicketEvolution::Performer.search("Phish").last
+        performer.class.should               == TicketEvolution::Performer
         performer.name.should                == "Phish"
-        phish_events = []
-        VCR.use_cassette  "event/performer.event_delegation_test" do
-          phish_events = performer.events
-        end
-        phish_events.class.should            == Array
-        phish_events.last.class.should       == Ticketevolution::Event  
-        phish_events.length.should           == 100 
-        phish_events.last.name.should == "Rock of Ages - San Diego"
       end 
+    end
+    
+
+    it "should allow for assocation proxy calls" do
+      VCR.use_cassette "spec_that_causes_trouble" do
+        # Perhaps A FACTORY>?
+        response = {}
+        response[:body]           = {:name => "Phish", :id => 8859}
+        response[:response_code]  = nil
+        response[:errors]         = nil
+        response[:server_message] = nil
+    
+        phish = TicketEvolution::Performer.new(response)
+        phish.events.should == "Zero TicketEvolution::Event Items Were Found"
+      end
     end
 
   
     it "should return an array of serveral results for a performer search that has many performers" do
-      VCR.use_cassette "base/handle_pagination_test" do
-        performers = Ticketevolution::Performer.search("Dave")
+      VCR.use_cassette "base_handle_pagination_test_first" do
+        performers = TicketEvolution::Performer.search("Dave")
         performers.class.should                                            == Array
         performers.first.name.should                                       == "Dave Gahan"
         performers.first.url.should                                        == "/performers/2892"
         performers.length.should                                           == 45
-        performers.all? {|p| p.class == Ticketevolution::Performer}.should == true
+        performers.all? {|p| p.class == TicketEvolution::Performer}.should == true
       end
     end
   end
   
   describe "#handle_pagination!" do
     before(:each) do
-      Ticketevolution::configure do |config|
+      TicketEvolution::configure do |config|
         config.token    = "958acdf7da43b57ac93b17ff26eabf45"
         config.secret   = "TSalhnVkdoCbGa7I93s3S9OBcBQoogseNeccHIEh"
         config.version  = 8
@@ -112,22 +119,22 @@ describe "Ticketevolution::Perfomer" do
     end
     
     it "setup the current page, the total pages with some math , the total entries and the per_page and on the base class!" do
-      VCR.use_cassette "base/handle_pagination_test" do
-        performers = Ticketevolution::Performer.search("Dave")
-        Ticketevolution::Performer.total_pages.should   == 1
-        Ticketevolution::Performer.per_page.should      == 100
-        Ticketevolution::Performer.total_entries.should == 45
+      VCR.use_cassette "base_handle_pagination_test_second" do
+        performers = TicketEvolution::Performer.search("Dave")
+        TicketEvolution::Performer.total_pages.should   == 1
+        TicketEvolution::Performer.per_page.should      == 100
+        TicketEvolution::Performer.total_entries.should == 45
       end
     end
       
     it "the collection singleton attribute should hold onto the currnet objects that came back from a search" do
-      VCR.use_cassette "base/handle_pagination_test" do
-        performers = Ticketevolution::Performer.search("Dave")
-        Ticketevolution::Performer.collection.length.should == performers.length
-        Ticketevolution::Performer.collection.first.class   == performers.first.class
-        Ticketevolution::Performer.collection.first.name    == Array
-        Ticketevolution::Performer.collection.first.url     == Array
-        Ticketevolution::Base.collection.should_not         == performers
+      VCR.use_cassette "base_handle_pagination_test_third" do
+        performers = TicketEvolution::Performer.search("Dave")
+        TicketEvolution::Performer.collection.length.should == performers.length
+        TicketEvolution::Performer.collection.first.class   == performers.first.class
+        TicketEvolution::Performer.collection.first.name    == Array
+        TicketEvolution::Performer.collection.first.url     == Array
+        TicketEvolution::Base.collection.should_not         == performers
       end
     end
   end

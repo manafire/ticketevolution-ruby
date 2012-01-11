@@ -2,13 +2,13 @@
 - !ruby/struct:VCR::HTTPInteraction 
   request: !ruby/struct:VCR::Request 
     method: :get
-    uri: https://api.sandbox.ticketevolution.com:443/performers/90
+    uri: https://api.sandbox.ticketevolution.com:443/events?performances%5Bperformer_id%5D%5B=%5D
     body: 
     headers: 
       accept: 
       - application/vnd.ticketevolution.api+json; version=8
       x-signature: 
-      - haanqYiqesly9QcwGGiisH+NGJiNruRM7jR+l+7T3kM=
+      - GQgRn/u5DMCvK19Ab4FtaRbfnI8ji2K0pdt1WmvU3nQ=
       x-token: 
       - 958acdf7da43b57ac93b17ff26eabf45
   response: !ruby/struct:VCR::Response 
@@ -21,7 +21,7 @@
       strict-transport-security: 
       - max-age=31536000
       etag: 
-      - "\"d62142df75d5452b6847805b1f3a16a2\""
+      - "\"e763ff37fe4cb1ba83add1f1dc9282fe\""
       x-powered-by: 
       - Phusion Passenger (mod_rails/mod_rack) 3.0.11
       connection: 
@@ -31,12 +31,12 @@
       server: 
       - nginx/1.0.11 + Phusion Passenger 3.0.11 (mod_rails/mod_rack)
       x-runtime: 
-      - "0.037437"
+      - "0.069728"
       cache-control: 
       - max-age=0, private, must-revalidate
       status: 
       - "200"
       transfer-encoding: 
       - chunked
-    body: "{\"url\":\"/performers/90\",\"upcoming_events\":{\"last\":null,\"first\":null},\"updated_at\":\"2011-02-05T09:27:07Z\",\"name\":\"3 Legged Dog\",\"venue\":null,\"id\":\"90\",\"category\":null}"
+    body: "{\"current_page\":1,\"events\":[],\"per_page\":100,\"total_entries\":0}"
     http_version: "1.1"
