@@ -1,5 +1,5 @@
-module Ticketevolution
-  class Performer < Ticketevolution::Base
+module TicketEvolution
+  class Performer < TicketEvolution::Base
     attr_accessor :venue_id, :name, :last_event_occurs_at, :updated_at, :category, :id, :url, :upcoming_events, :venue 
           
     def initialize(response)
@@ -14,30 +14,29 @@ module Ticketevolution
     end
     
     # DOES NOT RETURN THE RIGT ARTISTS
-    def events; Ticketevolution::Event.find_by_performer(id); end
+    def events; TicketEvolution::Event.find_by_performer(id); end
 
     
     class << self
       
       def list(params_hash)
         query              = build_params_for_get(params_hash).encoded
-        path               = "#{http_base}.ticketevolution.com/performers?#{query}"
-        path_for_signature = "GET #{path[8..-1]}"
-        response           = Ticketevolution::Base.get(path,path_for_signature)
+        path               = "#{api_base}/performers?#{query}"
+        response           = TicketEvolution::Base.get(path)
       end
       
       def search(query)
         query              = query.encoded 
-        path               = "#{http_base}.ticketevolution.com/performers/search?q=#{query}"
+        path               = "#{api_base}/performers/search?q=#{query}"
         path_for_signature = "GET #{path[8..-1]}"
-        response           = Ticketevolution::Base.get(path,path_for_signature)
-        response           = process_response(Ticketevolution::Performer,response)
+        response           = TicketEvolution::Base.get(path)
+        response           = process_response(TicketEvolution::Performer,response)
       end
         
       def show(id)
-        path               = "#{http_base}.ticketevolution.com/performers/#{id}?"
+        path               = "#{api_base}/performers/#{id}"
         path_for_signature = "GET #{path[8..-1]}"
-        response           = Ticketevolution::Base.get(path,path_for_signature)
+        response           = TicketEvolution::Base.get(path)
         Performer.new(response)
       end
       

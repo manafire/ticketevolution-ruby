@@ -1,10 +1,12 @@
-module Ticketevolution
+module TicketEvolution
   module Helpers
     module Base
       
+      def api_base;           "#{http_base}.ticketevolution.com";                       end
       def http_base;          "#{protocol}://#{environmental_base}";                    end    
-      def protocol;           Ticketevolution.protocol == :https ? "https" : "http";    end
-      def environmental_base; Ticketevolution.mode == :sandbox ? "api.sandbox" : "api"; end
+      # TO REMOVE
+      def protocol;           TicketEvolution.protocol == :https ? "https" : "http";    end
+      def environmental_base; TicketEvolution.mode == :sandbox ? "api.sandbox" : "api"; end
     
     
       def build_params_for_get(params)

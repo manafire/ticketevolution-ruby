@@ -1,4 +1,4 @@
-module Ticketevolution
+module TicketEvolution
   module Helpers
     module Http
       

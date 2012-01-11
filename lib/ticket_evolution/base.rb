@@ -2,10 +2,10 @@ require 'base64'
 require 'openssl'
 require 'json'
 require 'ruby-debug'
-module Ticketevolution
+module TicketEvolution
 	class Base
-	  extend ::Ticketevolution::Helpers::Base
-	  extend ::Ticketevolution::Helpers::Catalog
+	  extend ::TicketEvolution::Helpers::Base
+	  extend ::TicketEvolution::Helpers::Catalog
     
     
 	  def initialize(response)
@@ -27,27 +27,27 @@ module Ticketevolution
 	  class << self
 	    attr_accessor :current_page, :total_entries, :total_pages, :per_page, :collection
 	    
-    	def get(path,path_for_signature)
-    	  if Ticketevolution.token
+    	def get(path)
+    	  if TicketEvolution.token
           path_for_signature = "GET #{path[8..-1]}"
       		call                = construct_call!(path,path_for_signature)
       		call.perform
       		handled_call = handle_response(call)
       		return handled_call
         else
-          raise Ticketevolution::InvalidConfiguration.new("You Must Supply A Secret To Use The API")
+          raise TicketEvolution::InvalidConfiguration.new("You Must Supply A Secret To Use The API")
         end
     	end
 
-      def post(path,path_for_signature)
-    	  if Ticketevolution.token
+      def post(path)
+    	  if TicketEvolution.token
           path_for_signature = "POST #{path[8..-1]}"
       		call               = construct_call!(path,path_for_signature)
           call.http_post
       		handled_call = handle_response(call)
       		return handled_call
         else
-          raise Ticketevolution::InvalidConfiguration.new("You Must Supply A Secret To Use The API")
+          raise TicketEvolution::InvalidConfiguration.new("You Must Supply A Secret To Use The API")
         end
     	end
       
@@ -66,7 +66,7 @@ module Ticketevolution
       
       def handle_processing_items(response,klass)
         if response[:body]["total_entries"].to_i == 0
-           puts "Zero #{klass} Items Were Found"
+           return "Zero #{klass} Items Were Found"
         elsif response[:body]["total_entries"].to_i >= 1
            
            response_for_object                  = {} 
@@ -74,7 +74,7 @@ module Ticketevolution
            response_for_object[:response_code]  = response[:response_code]
            response_for_object[:errors]         = response[:errors]
            response_for_object[:server_message] = response[:server_message]
-      
+          
            module_class   = klass.to_s.split(":").last.downcase
            builder_method = "build_for_#{module_class}"
            self.send(builder_method.intern,response_for_object)
@@ -96,24 +96,24 @@ module Ticketevolution
       private
         
       def construct_call!(path,path_for_signature)
-        if !Ticketevolution.token.nil?
+        if !TicketEvolution.token.nil?
           call                        = Curl::Easy.new(path)
           call.headers["X-Signature"] = sign!(path_for_signature)
-          call.headers["X-Token"]     = Ticketevolution.token
+          call.headers["X-Token"]     = TicketEvolution.token
           call.headers["Accept"]      = "application/vnd.ticketevolution.api+json; version=8"
           return call
         else
-          raise Ticketevolution::InvalidConfiguration.new("You Must Supply A Token To Use The API") 
+          raise TicketEvolution::InvalidConfiguration.new("You Must Supply A Token To Use The API") 
         end
       end
       
       def sign!(path_for_signature)     
-        if Ticketevolution.secret 
+        if TicketEvolution.secret 
           digest = OpenSSL::Digest::Digest.new('sha256')
-          signature = Base64.encode64(OpenSSL::HMAC.digest(digest, Ticketevolution.secret, path_for_signature)).chomp
+          signature = Base64.encode64(OpenSSL::HMAC.digest(digest, TicketEvolution.secret, path_for_signature)).chomp
           return signature
         else
-          raise Ticketevolution::InvalidConfiguration.new("You Must Supply A Secret To Use The API")
+          raise TicketEvolution::InvalidConfiguration.new("You Must Supply A Secret To Use The API")
         end
       end
       
@@ -125,7 +125,7 @@ module Ticketevolution
           header_response_code = response.response_code
           raw_response         = response.body_str
           body                 = JSON.parse(response.body_str)
-          mapped_message       = Ticketevolution::Helpers::Http::Codes[header_response_code].last 
+          mapped_message       = TicketEvolution::Helpers::Http::Codes[header_response_code].last 
           
           return {:body => body, :response_code => header_response, :server_message => mapped_message , :errors => nil}
           

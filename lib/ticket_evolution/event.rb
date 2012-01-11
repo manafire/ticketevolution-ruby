@@ -1,5 +1,5 @@
-module Ticketevolution
-  class Event < Ticketevolution::Base
+module TicketEvolution
+  class Event < TicketEvolution::Base
     attr_accessor :category ,:configuration ,:id ,:name ,:occurs_at ,:performances ,:products_count ,:state ,:updated_at ,:url ,:venue
     
     
@@ -23,26 +23,32 @@ module Ticketevolution
       
       def list(params)
         query              = build_params_for_get(params).encoded
-        path               = "#{http_base}.ticketevolution.com/events?#{query}"
-        path_for_signature = "GET #{path[8..-1]}"
-        response           = Ticketevolution::Base.get(path,path_for_signature)
-        response           = process_response(Ticketevolution::Event,response)
+        path               = "#{api_base}/events?#{query}"
+        response           = TicketEvolution::Base.get(path)
+        response           = process_response(TicketEvolution::Event,response)
       end
               
       def show(id)
-        path               = "#{http_base}.ticketevolution.com/events/#{id}?"
-        path_for_signature = "GET #{path[8..-1]}"
-        response           = Ticketevolution::Base.get(path,path_for_signature)
+        path               = "#{api_base}/events/#{id}?"
+        response           = TicketEvolution::Base.get(path)
         Event.new(response)
       end
       
       # Association Proxy Dynamic Methods      
-      %w(venue performer configuration category occurs_at name).each do |facet|
-        parameter_name = ["name","occurs_at"].include?(facet) ? facet : "#{facet}_id"
+      %w(performer venue configuration category occurs_at name).each do |facet|
+        parameter_name = if facet == "name" || facet == "occurs_at"
+                           facet
+                         elsif facet == "performer"
+                           "performances[performer_id]"
+                         else
+                           "#{facet}_id"
+                         end
+        
         define_method("find_by_#{facet}") do |parameter|
           self.list({parameter_name.intern => parameter})
         end
       end
+
 
       # Builders For Array Responses , Template for Object
       def raw_from_json(event)
@@ -71,7 +77,7 @@ module Ticketevolution
           
           events.push(Event.new(response_for_object))
         end
-        Ticketevolution::Event.collection = events
+        TicketEvolution::Event.collection = events
         return events
       end
       

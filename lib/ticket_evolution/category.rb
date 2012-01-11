@@ -1,5 +1,5 @@
-module Ticketevolution
-  class Category < Ticketevolution::Base
+module TicketEvolution
+  class Category < TicketEvolution::Base
 
     def initiaize(api_response)
       super(api_response)
@@ -17,10 +17,10 @@ module Ticketevolution
       end
         
       def show(id)
-        path               = "#{http_base}.ticketevolution.com/categories/#{id}?"
+        path               = "#{api_base}/categories/#{id}?"
         path_for_signature = "GET #{path[8..-1]}"
-        response           = Ticketevolution::Base.get(path,path_for_signature)
-        #Category.new(response)
+        response           = TicketEvolution::Base.get(path,path_for_signature)
+        Category.new(response)
       end
       
       # Acutal api endpoints are matched 1-to-1 but for AR style convience AR type method naming is aliased into existance

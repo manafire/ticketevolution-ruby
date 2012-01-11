@@ -1,5 +1,5 @@
-module Ticketevolution
-  class Venue < Ticketevolution::Base
+module TicketEvolution
+  class Venue < TicketEvolution::Base
     attr_accessor :name, :address, :location, :updated_at, :url, :id, :upcoming_events
     
     def initialize(response)
@@ -13,29 +13,26 @@ module Ticketevolution
       self.upcoming_events = @attrs_for_object["upcoming_events"]
     end
 
-    def events; Ticketevolution::Event.find_by_venue(id); end
+    def events; TicketEvolution::Event.find_by_venue(id); end
       
     class << self
       
       def list(params_hash)
         query              = build_params_for_get(params_hash).encoded
-        path               = "#{http_base}.ticketevolution.com/performers?#{query}"
-        path_for_signature = "GET #{path[8..-1]}"
-        response           = Ticketevolution::Base.get(path,path_for_signature)
-        response           = process_response(Ticketevolution::Venue,response)
+        path               = "#{api_base}/performers?#{query}"
+        response           = TicketEvolution::Base.get(path)
+        response           = process_response(TicketEvolution::Venue,response)
       end
       
       def search(query)
-        path               = "#{http_base}.ticketevolution.com/venues/search?q=#{query}"
-        path_for_signature = "GET #{path[8..-1]}"
-        response           = Ticketevolution::Base.get(path,path_for_signature)
-        response           = process_response(Ticketevolution::Venue,response)
+        path               = "#{api_base}/venues/search?q=#{query}"
+        response           = TicketEvolution::Base.get(path)
+        response           = process_response(TicketEvolution::Venue,response)
       end
         
       def show(id)
-        path               = "#{http_base}.ticketevolution.com/venues/#{id}?"
-        path_for_signature = "GET #{path[8..-1]}"
-        response           = Ticketevolution::Base.get(path,path_for_signature)
+        path               = "#{api_base}/venues/#{id}?"
+        response           = TicketEvolution::Base.get(path)
         Venue.new(response)
       end
       
