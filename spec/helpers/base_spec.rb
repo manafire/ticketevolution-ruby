@@ -4,7 +4,12 @@ require File.join(File.dirname(File.expand_path(__FILE__)), "../spec_helper")
 describe "Helpers::Base" do
   
   describe "#build_params_for_get" do
-    
+    it "should take in a list of parameters and alphabetaize them" do
+      parameters = {:name => "david", :parent_id => "321", :updated_at => "TIME", :bs => "YES", :inerted_params => "dsds"}
+      expected   = CGI.escape("bs=YES&inerted_params=dsds&name=david&parent_id=321&updated_at=TIME")  
+      organized_parameters = TicketEvolution::Base.build_params_for_get(parameters)
+      organized_parameters.should == expected
+    end
   end
   
   
