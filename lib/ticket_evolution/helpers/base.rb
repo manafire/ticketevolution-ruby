@@ -1,7 +1,7 @@
 module TicketEvolution
   module Helpers
     module Base
-
+      
       def api_base;           "#{http_base}.ticketevolution.com";                       end
       def http_base;          "#{protocol}://#{environmental_base}";                    end
       # TO REMOVE
@@ -20,6 +20,28 @@ module TicketEvolution
         return get_params
       end
 
+      def sanitize_parameters(klass,mtd,params_hash)
+        if klass == TicketEvolution::Category
+          if mtd == "deleted"
+            allowed = %w(name parent_id updated_at deleted_at )
+            params_hash = clean_and_remove(allowed,params_hash)
+            return params_hash
+          elsif mtd == "search"
+          end
+        elsif TicketEvolution::Performer
+        elsif TicketEvolution::Venue
+        elsif TicketEvolution::Event
+        end        
+      end
+                
+      def clean_and_remove(white_list,raw)
+        allowed_keys = raw.keys.inject({}) do |parameters,key|
+          parameters[key] = raw[key] if white_list.include?(key.to_s) ||  white_list.include?(key.to_sym)
+          parameters
+        end
+        return allowed_keys
+      end
+      
     end
   end
 end

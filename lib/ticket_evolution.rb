@@ -13,7 +13,7 @@ Dir.glob(File.join(File.dirname(__FILE__),"..", "lib" ,"ticket_evolution/*.rb"))
 module TicketEvolution
   extend self
   include Helpers::Http
-
+  
   version = "0.1"
   mattr_accessor :token, :secret, :version, :mode, :protocol
 

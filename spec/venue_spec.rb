@@ -22,6 +22,9 @@ describe "TicketEvolution::Venue" do
     end        
   end
   
+  # There is an issue with VCR. EVERY time I run the specs again for some reason I get a message that http requests
+  # are banned but only AFTER it has been recorded. New Tool To Me , sure what im doing wrong.
+  # [DKM 2012.01.15]
   describe "#list" do
     it "should assemble the correct signature and the correct path to perform the get with" do
       VCR.use_cassette "venue_list_by_name" do

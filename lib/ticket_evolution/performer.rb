@@ -28,14 +28,12 @@ module TicketEvolution
       def search(query)
         query              = query.encoded
         path               = "#{api_base}/performers/search?q=#{query}"
-        path_for_signature = "GET #{path[8..-1]}"
         response           = TicketEvolution::Base.get(path)
         response           = process_response(TicketEvolution::Performer,response)
       end
 
       def show(id)
         path               = "#{api_base}/performers/#{id}"
-        path_for_signature = "GET #{path[8..-1]}"
         response           = TicketEvolution::Base.get(path)
         Performer.new(response)
       end
