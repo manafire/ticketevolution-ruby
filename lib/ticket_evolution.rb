@@ -15,7 +15,7 @@ module TicketEvolution
   include Helpers::Http
   
   version = "0.1"
-  mattr_accessor :token, :secret, :version, :mode, :protocol
+  mattr_accessor :token, :secret, :version, :mode
 
   class InvalidConfiguration < Exception; end
   class EmptyResourceError < Exception;   end

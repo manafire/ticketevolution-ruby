@@ -3,9 +3,8 @@ module TicketEvolution
     module Base
       
       def api_base;           "#{http_base}.ticketevolution.com";                       end
-      def http_base;          "#{protocol}://#{environmental_base}";                    end
+      def http_base;          "https://#{environmental_base}";                          end
       # TO REMOVE
-      def protocol;           TicketEvolution.protocol == :https ? "https" : "http";    end
       def environmental_base; TicketEvolution.mode == :sandbox ? "api.sandbox" : "api"; end
 
 
