@@ -1,0 +1,42 @@
+--- 
+- !ruby/struct:VCR::HTTPInteraction 
+  request: !ruby/struct:VCR::Request 
+    method: :get
+    uri: https://api.sandbox.ticketevolution.com:443/performers?venue_id=896
+    body: 
+    headers: 
+      accept: 
+      - application/vnd.ticketevolution.api+json; version=8
+      x-signature: 
+      - ddFhGiQcQHBBaPK8j5fhpP+MtGpZs1lZKGSAoUk4vBA=
+      x-token: 
+      - 958acdf7da43b57ac93b17ff26eabf45
+  response: !ruby/struct:VCR::Response 
+    status: !ruby/struct:VCR::ResponseStatus 
+      code: 200
+      message: OK
+    headers: 
+      x-ua-compatible: 
+      - IE=Edge,chrome=1
+      strict-transport-security: 
+      - max-age=31536000
+      etag: 
+      - "\"56876129d4f3e721af0d682c23e0336e\""
+      x-powered-by: 
+      - Phusion Passenger (mod_rails/mod_rack) 3.0.11
+      connection: 
+      - keep-alive
+      content-type: 
+      - application/vnd.ticketevolution.api+json; version=8; charset=utf-8
+      server: 
+      - nginx/1.0.11 + Phusion Passenger 3.0.11 (mod_rails/mod_rack)
+      x-runtime: 
+      - "0.186817"
+      cache-control: 
+      - max-age=0, private, must-revalidate
+      status: 
+      - "200"
+      transfer-encoding: 
+      - chunked
+    body: "{\"total_entries\":2,\"performers\":[{\"venue\":{\"location\":\"New York, NY\",\"url\":\"/venues/896\",\"name\":\"Madison Square Garden\",\"id\":\"896\"},\"category\":{\"url\":\"/categories/8\",\"id\":\"8\",\"parent\":{\"url\":\"/categories/7\",\"id\":\"7\",\"parent\":{\"url\":\"/categories/1\",\"id\":\"1\",\"parent\":null}}},\"upcoming_events\":{\"last\":\"2012-04-26T20:00:00Z\",\"first\":\"2012-01-16T13:00:00Z\"},\"url\":\"/performers/16303\",\"name\":\"New York Knicks\",\"id\":\"16303\",\"updated_at\":\"2011-12-08T12:19:27Z\"},{\"venue\":{\"location\":\"New York, NY\",\"url\":\"/venues/896\",\"name\":\"Madison Square Garden\",\"id\":\"896\"},\"category\":{\"url\":\"/categories/16\",\"id\":\"16\",\"parent\":{\"url\":\"/categories/15\",\"id\":\"15\",\"parent\":{\"url\":\"/categories/1\",\"id\":\"1\",\"parent\":null}}},\"upcoming_events\":{\"last\":\"2012-04-07T15:00:00Z\",\"first\":\"2012-01-15T19:00:00Z\"},\"url\":\"/performers/16397\",\"name\":\"New York Rangers\",\"id\":\"16397\",\"updated_at\":\"2011-12-08T03:27:48Z\"}],\"current_page\":1,\"per_page\":100}"
+    http_version: "1.1"

@@ -137,19 +137,25 @@ describe "Base" do
     end
   end
 
-  describe "#build_params_for_get" do
+  describe "#build_params_for_get cgi escaped" do
     it "take the hash of parameter and contruct a get friendly set params" do
-      params   = {:query => 'this', :venue_id => 312, :location => 'NYC'}
-      expected = "location=NYC&query=this&venue_id=312"
-      TicketEvolution::Base.send(:build_params_for_get,params).should == expected
+      params       = {:query => 'this', :venue_id => 312, :location => 'NYC'}
+      expected     = "location%3DNYC%26query%3Dthis%26venue_id%3D312"
+      not_expected = "location=NYC&query=this&venue_id=312"
+      response = TicketEvolution::Base.send(:build_params_for_get,params)
+      response.should     == expected
+      response.should_not == not_expected
     end
 
-    it "should take a hash of unalphabetized params and make them alphabetized" do
-      params       = {:zone => 'this', :american => 312, :google => 'NYC'}
-      expected     = "american=312&google=NYC&zone=this"
-      not_expected = "zone=this&american=312&google=NYC"
-      TicketEvolution::Base.send(:build_params_for_get,params).should == expected
-      TicketEvolution::Base.send(:build_params_for_get,params).should_not == not_expected
+    it "should take a hash of unalphabetized params and make them alphabetized escaped" do
+      params         = {:zone => 'this', :american => 312, :google => 'NYC'}
+      expected       = "american%3D312%26google%3DNYC%26zone%3Dthis"
+      not_expected   = "zone=this&american=312&google=NYC"
+      not_expected_2 = "american=312&google=NYC&zone=this"
+      response       = TicketEvolution::Base.send(:build_params_for_get,params)
+      response.should     == expected
+      response.should_not == not_expected
+      response.should_not == not_expected_2
     end
   end
 

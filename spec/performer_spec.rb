@@ -137,5 +137,35 @@ describe "TicketEvolution::Perfomer" do
         TicketEvolution::Base.collection.should_not         == performers
       end
     end
+    
+    describe "#list" do
+      it "should return performers that belong to a partiucalar venue" do
+        VCR.use_cassette "performer_list_venue_id_spec" do
+          performers_by_event = TicketEvolution::Performer.list({:venue_id => 896})
+          performers_by_event.class.should       == Array
+          performers_by_event.first.class.should == TicketEvolution::Performer
+          performers_by_event.length.should      == 2
+        end
+      end
+      
+      it "should return performers that belong to a partiucalar venue" do
+        VCR.use_cassette "performer_list_by_name_updated_at" do
+          performers_by_updated = TicketEvolution::Performer.list({:updated_at => "2011-02-05T09:27:05Z"})
+          performers_by_updated.class.should   == String
+          performers_by_updated.should         == "Zero TicketEvolution::Performer Items Were Found"
+        end
+      end
+      
+      it "should return performers that correspond to a name" do
+        VCR.use_cassette "performer_list_call_with_name" do
+          performers_by_name = TicketEvolution::Performer.list({:name => "Phish"})    
+          performers_by_name.class.should       == Array
+          performers_by_name.first.class.should == TicketEvolution::Performer
+          performers_by_name.last.name.should  == "Phish"
+        end
+      end
+
+      
+    end
   end
 end

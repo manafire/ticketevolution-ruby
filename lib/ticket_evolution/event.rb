@@ -44,6 +44,7 @@ module TicketEvolution
                          end
 
         define_method("find_by_#{facet}") do |parameter|
+          value = parameter.encoded
           self.list({parameter_name.intern => parameter})
         end
       end

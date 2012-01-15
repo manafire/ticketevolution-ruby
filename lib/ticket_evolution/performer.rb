@@ -19,9 +19,10 @@ module TicketEvolution
     class << self
 
       def list(params_hash)
-        query              = build_params_for_get(params_hash).encoded
+        query              = build_params_for_get(params_hash)
         path               = "#{api_base}/performers?#{query}"
         response           = TicketEvolution::Base.get(path)
+        response           = process_response(TicketEvolution::Performer,response)
       end
 
       def search(query)

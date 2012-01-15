@@ -16,6 +16,7 @@ module TicketEvolution
         end
 
         get_params = get_params.sort.join("&")
+        get_params = get_params.encoded
         return get_params
       end
 

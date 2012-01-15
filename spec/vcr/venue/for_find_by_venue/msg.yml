@@ -8,7 +8,7 @@
       accept: 
       - application/vnd.ticketevolution.api+json; version=8
       x-signature: 
-      - I9HiMzajahslPVH8E8yWGCzq+iQif+j+pAXXRI3qOYA=
+      - 0ZuHhFudgnfmx8ayUpApAWNe8xZdjc5DffIlYRy5C8g=
       x-token: 
       - 958acdf7da43b57ac93b17ff26eabf45
   response: !ruby/struct:VCR::Response 
@@ -21,7 +21,7 @@
       strict-transport-security: 
       - max-age=31536000
       etag: 
-      - "\"8501e80fa395947c6d72ea6c9d235d6b\""
+      - "\"a5bd8369a604d70be5c62d37ae008338\""
       x-powered-by: 
       - Phusion Passenger (mod_rails/mod_rack) 3.0.11
       connection: 
@@ -31,12 +31,12 @@
       server: 
       - nginx/1.0.11 + Phusion Passenger 3.0.11 (mod_rails/mod_rack)
       x-runtime: 
-      - "0.126255"
+      - "0.181406"
       cache-control: 
       - max-age=0, private, must-revalidate
       status: 
       - "200"
       transfer-encoding: 
       - chunked
-    body: "{\"current_page\":1,\"venues\":[{\"url\":\"/venues/896\",\"location\":\"New York, NY\",\"upcoming_events\":{\"last\":\"2012-04-25T20:00:00Z\",\"first\":\"2012-01-10T19:00:00Z\"},\"updated_at\":\"2011-11-28T17:54:06Z\",\"name\":\"Madison Square Garden\",\"address\":{\"country_code\":\"US\",\"longitude\":null,\"street_address\":\"4 Pennsylvania Plaza\",\"locality\":\"New York\",\"latitude\":null,\"postal_code\":\"10001\",\"region\":\"NY\",\"extended_address\":null},\"id\":\"896\"},{\"url\":\"/venues/1562\",\"location\":\"New York, NY\",\"upcoming_events\":{\"last\":\"2012-04-10T15:30:00Z\",\"first\":\"2012-01-28T18:30:00Z\"},\"updated_at\":\"2011-12-08T01:13:43Z\",\"name\":\"Theater at Madison Square Garden\",\"address\":{\"country_code\":\"US\",\"longitude\":null,\"street_address\":\"7th Ave & 32nd Street\",\"locality\":\"New York\",\"latitude\":null,\"postal_code\":\"10001\",\"region\":\"NY\",\"extended_address\":null},\"id\":\"1562\"},{\"url\":\"/venues/9922\",\"location\":\"New York, NY\",\"upcoming_events\":{\"last\":null,\"first\":null},\"updated_at\":\"2011-09-27T13:32:32Z\",\"name\":\"Madison Square Garden Theater\",\"address\":{\"country_code\":null,\"longitude\":null,\"street_address\":\"7th Ave & 32nd Street\",\"locality\":\"New York\",\"latitude\":null,\"postal_code\":\"10001\",\"region\":\"NY\",\"extended_address\":null},\"id\":\"9922\"},{\"url\":\"/venues/15755\",\"location\":\"New York, NY\",\"upcoming_events\":{\"last\":null,\"first\":null},\"updated_at\":\"2011-11-28T18:06:49Z\",\"name\":\"Madison Square Park\",\"address\":{\"country_code\":\"US\",\"longitude\":null,\"street_address\":\"Madison Avenue Between 23rd and 26th Street\",\"locality\":\"New York\",\"latitude\":null,\"postal_code\":\"10010\",\"region\":\"NY\",\"extended_address\":null},\"id\":\"15755\"},{\"url\":\"/venues/14602\",\"location\":\"Edinburgh, Edinburgh\",\"upcoming_events\":{\"last\":null,\"first\":null},\"updated_at\":\"2011-09-27T13:44:09Z\",\"name\":\"Spiegeltent\",\"address\":{\"country_code\":null,\"longitude\":null,\"street_address\":\"87 George Square Gardens\",\"locality\":\"Edinburgh\",\"latitude\":null,\"postal_code\":\"EH7 5QG\",\"region\":\"Edinburgh\",\"extended_address\":null},\"id\":\"14602\"},{\"url\":\"/venues/5565\",\"location\":\"Kennett Square, PA\",\"upcoming_events\":{\"last\":null,\"first\":null},\"updated_at\":\"2011-11-28T18:03:27Z\",\"name\":\"Longwood Gardens\",\"address\":{\"country_code\":\"US\",\"longitude\":null,\"street_address\":\"1001 Longwood Road\",\"locality\":\"Kennett Square\",\"latitude\":null,\"postal_code\":\"19348\",\"region\":\"PA\",\"extended_address\":null},\"id\":\"5565\"}],\"per_page\":100,\"total_entries\":6}"
+    body: "{\"total_entries\":6,\"venues\":[{\"location\":\"New York, NY\",\"upcoming_events\":{\"last\":\"2012-04-25T20:00:00Z\",\"first\":\"2012-01-15T12:00:00Z\"},\"url\":\"/venues/896\",\"name\":\"Madison Square Garden\",\"address\":{\"street_address\":\"4 Pennsylvania Plaza\",\"postal_code\":\"10001\",\"latitude\":null,\"locality\":\"New York\",\"country_code\":\"US\",\"region\":\"NY\",\"extended_address\":null,\"longitude\":null},\"id\":\"896\",\"updated_at\":\"2011-11-28T17:54:06Z\"},{\"location\":\"New York, NY\",\"upcoming_events\":{\"last\":\"2012-04-10T15:30:00Z\",\"first\":\"2012-01-28T18:30:00Z\"},\"url\":\"/venues/1562\",\"name\":\"Theater at Madison Square Garden\",\"address\":{\"street_address\":\"7th Ave & 32nd Street\",\"postal_code\":\"10001\",\"latitude\":null,\"locality\":\"New York\",\"country_code\":\"US\",\"region\":\"NY\",\"extended_address\":null,\"longitude\":null},\"id\":\"1562\",\"updated_at\":\"2011-12-08T01:13:43Z\"},{\"location\":\"New York, NY\",\"upcoming_events\":{\"last\":null,\"first\":null},\"url\":\"/venues/9922\",\"name\":\"Madison Square Garden Theater\",\"address\":{\"street_address\":\"7th Ave & 32nd Street\",\"postal_code\":\"10001\",\"latitude\":null,\"locality\":\"New York\",\"country_code\":null,\"region\":\"NY\",\"extended_address\":null,\"longitude\":null},\"id\":\"9922\",\"updated_at\":\"2011-09-27T13:32:32Z\"},{\"location\":\"New York, NY\",\"upcoming_events\":{\"last\":null,\"first\":null},\"url\":\"/venues/15755\",\"name\":\"Madison Square Park\",\"address\":{\"street_address\":\"Madison Avenue Between 23rd and 26th Street\",\"postal_code\":\"10010\",\"latitude\":null,\"locality\":\"New York\",\"country_code\":\"US\",\"region\":\"NY\",\"extended_address\":null,\"longitude\":null},\"id\":\"15755\",\"updated_at\":\"2011-11-28T18:06:49Z\"},{\"location\":\"Edinburgh, Edinburgh\",\"upcoming_events\":{\"last\":null,\"first\":null},\"url\":\"/venues/14602\",\"name\":\"Spiegeltent\",\"address\":{\"street_address\":\"87 George Square Gardens\",\"postal_code\":\"EH7 5QG\",\"latitude\":null,\"locality\":\"Edinburgh\",\"country_code\":null,\"region\":\"Edinburgh\",\"extended_address\":null,\"longitude\":null},\"id\":\"14602\",\"updated_at\":\"2011-09-27T13:44:09Z\"},{\"location\":\"Kennett Square, PA\",\"upcoming_events\":{\"last\":null,\"first\":null},\"url\":\"/venues/5565\",\"name\":\"Longwood Gardens\",\"address\":{\"street_address\":\"1001 Longwood Road\",\"postal_code\":\"19348\",\"latitude\":null,\"locality\":\"Kennett Square\",\"country_code\":\"US\",\"region\":\"PA\",\"extended_address\":null,\"longitude\":null},\"id\":\"5565\",\"updated_at\":\"2011-11-28T18:03:27Z\"}],\"current_page\":1,\"per_page\":100}"
     http_version: "1.1"
