@@ -35,11 +35,11 @@ module TicketEvolution
           end
           return venues
         elsif klass == (TicketEvolution::Category)
-          categories = response[:body][klass_container].inject([]) do |cateories, catrgory|
-            categories_hash = TicketEvolution::Category.raw_from_json(catrgory)
-            cateories.push(categories_hash)
+          categories = response[:body][klass_container].inject([]) do |categories, catagory|
+            categories_hash = TicketEvolution::Category.raw_from_json(catagory)
+            categories.push(categories_hash)
           end
-          return venues
+          return categories
         elsif klass == (TicketEvolution::Event)
           events = response[:body][klass_container].inject([]) do |events, event|
             event_hash = TicketEvolution::Event.raw_from_json(event)

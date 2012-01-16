@@ -5,10 +5,13 @@ describe "Helpers::Base" do
   
   describe "#build_params_for_get" do
     it "should take in a list of parameters and alphabetaize them" do
-      parameters = {:name => "david", :parent_id => "321", :updated_at => "TIME", :bs => "YES", :inerted_params => "dsds"}
+      parameters   = {:name => "david", :parent_id => "321", :updated_at => "TIME", :bs => "YES", :inerted_params => "dsds"}
+      not_expected = CGI.escape("inerted_params=dsds&bs=YES&name=david&parent_id=321&updated_at=TIME") 
+      
       expected   = CGI.escape("bs=YES&inerted_params=dsds&name=david&parent_id=321&updated_at=TIME")  
-      organized_parameters = TicketEvolution::Base.build_params_for_get(parameters)
-      organized_parameters.should == expected
+      organized_parameters_escaped_parameters = TicketEvolution::Base.build_params_for_get(parameters)
+      organized_parameters_escaped_parameters.should     == expected
+      organized_parameters_escaped_parameters.should_not == not_expected
     end
   end
   
@@ -17,14 +20,14 @@ describe "Helpers::Base" do
     # Rspec should include willl ONLY take strings. Bummer so the maps and the keys are really symbols be 
     # converted for rspec's sake [DKM 2012.01.15]
     params_hash = {:name => "david", :nefarious => "haackers"}
-    response = TicketEvolution::Base.sanitize_parameters(TicketEvolution::Category,"deleted", params_hash)
+    response = TicketEvolution::Base.sanitize_parameters(TicketEvolution::Category,:deleted, params_hash)
     response.keys.include?(:name).should == true
     response.values.include?("david").should == true
     response.keys.include?("nefarious").should == false
     response.values.include?("haackers") == false
     
     params_hash = {:name => "david", :parent_id => "321", :updated_at => "TIME", :bs => "YES", :inerted_params => "dsds"}
-    response = TicketEvolution::Base.sanitize_parameters(TicketEvolution::Category,"deleted", params_hash)
+    response = TicketEvolution::Base.sanitize_parameters(TicketEvolution::Category,:deleted, params_hash)
     response.keys.include?(:updated_at).should == true
     response.keys.include?(:name).should == true
     response.keys.include?(:parent_id).should == true

@@ -21,15 +21,25 @@ module TicketEvolution
 
       def sanitize_parameters(klass,mtd,params_hash)
         if klass == TicketEvolution::Category
-          if mtd == "deleted"
+          if mtd == :deleted
             allowed = %w(name parent_id updated_at deleted_at )
             params_hash = clean_and_remove(allowed,params_hash)
             return params_hash
-          elsif mtd == "search"
+          elsif mtd == :show
+            allowed = %w(name parent_id updated_at )
+            params_hash = clean_and_remove(allowed,params_hash)
+            return params_hash
+          elsif mtd == :list
+            allowed = %w(name parent_id updated_at deleted_at )
+            params_hash = clean_and_remove(allowed,params_hash)
+            return params_hash
+          else
           end
-        elsif TicketEvolution::Performer
-        elsif TicketEvolution::Venue
-        elsif TicketEvolution::Event
+        elsif klass == TicketEvolution::Performer
+        elsif klass == TicketEvolution::Venue
+        elsif klass == TicketEvolution::Event
+        else
+          
         end        
       end
                 

@@ -6,6 +6,8 @@ Dir.glob(File.join(File.dirname(__FILE__),".." ,"extensions/*.rb")).sort.each { 
 Dir.glob(File.join(File.dirname(__FILE__),"..", "lib" ,"ticket_evolution","helpers/*.rb")).sort.each { |f| require f }
 Dir.glob(File.join(File.dirname(__FILE__),"..", "lib" ,"ticket_evolution/*.rb")).sort.each { |f| require f }
 
+
+
 # Note the load pattern is important as the helpers need to be instantiated before
 # the acutal classes. The extensions are jsut additions so there will be no missing constants
 # but in interest of organization its second

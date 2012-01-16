@@ -30,7 +30,6 @@ describe "Base" do
         config.secret   = "TSalhnVkdoCbGa7I93s3S9OBcBQoogseNeccHIEh"
         config.version  = 8
         config.mode     = :sandbox
-        config.protocol = :https
       end
 
       it "#{verb} call should raise an exception when there is no token setup" do
@@ -44,32 +43,6 @@ describe "Base" do
         }.should raise_error(TicketEvolution::InvalidConfiguration)
       end
     end
-  end
-
-  describe "#protocol" do
-    it "should return back https when the protocol is initialized with https" do
-      TicketEvolution::configure do |config|
-        config.token    = "958acdf7da43b57ac93b17ff26eabf45"
-        config.secret   = "TSalhnVkdoCbGa7I93s3S9OBcBQoogseNeccHIEh"
-        config.version  = 8
-        config.mode     = :sandbox
-        config.protocol = :https
-      end
-
-      TicketEvolution.send(:protocol).should.eql?("https")
-    end
-
-    it "should return back http when the protocol is initialized with http" do
-      TicketEvolution::configure do |config|
-        config.token    = "958acdf7da43b57ac93b17ff26eabf45"
-        config.secret   = "TSalhnVkdoCbGa7I93s3S9OBcBQoogseNeccHIEh"
-        config.version  = 8
-        config.mode     = :sandbox
-        config.protocol = :http
-      end
-
-      TicketEvolution.send(:protocol).should.eql?("http")
-    end
 
   end
 
@@ -80,7 +53,6 @@ describe "Base" do
         config.secret   = "TSalhnVkdoCbGa7I93s3S9OBcBQoogseNeccHIEh"
         config.version  = 8
         config.mode     = :sandbox
-        config.protocol = :https
       end
 
       path               = "api.TicketEvolution.com/perfomers/9?"
@@ -110,7 +82,6 @@ describe "Base" do
         config.secret   = "TSalhnVkdoCbGa7I93s3S9OBcBQoogseNeccHIEh"
         config.version  = 8
         config.mode     = :sandbox
-        config.protocol = :https
       end
 
       TicketEvolution::Base.send(:environmental_base).should.eql?("api.sandbox")
@@ -121,21 +92,6 @@ describe "Base" do
     end
   end
 
-  describe "#http_base" do
-    it "should equal the base https and the sandbox" do
-      TicketEvolution::configure do |config|
-        config.token    = "958acdf7da43b57ac93b17ff26eabf45"
-        config.secret   = "TSalhnVkdoCbGa7I93s3S9OBcBQoogseNeccHIEh"
-        config.version  = 8
-        config.mode     = :sandbox
-        config.protocol = :https
-      end
-
-      TicketEvolution::Base.send(:http_base).should eql("https://api.sandbox")
-      TicketEvolution::Base.send(:http_base).should_not eql("http://sandbox.api")
-      TicketEvolution::Base.send(:http_base).should_not eql("http://api")
-    end
-  end
 
   describe "#build_params_for_get cgi escaped" do
     it "take the hash of parameter and contruct a get friendly set params" do
@@ -161,19 +117,21 @@ describe "Base" do
 
 
   describe "#klass_to_response_container" do
-    expected_1 = "venues"
-    expected_2 = "categories"
-    expected_3 = "performers"
-    expected_4 = "events"
-    response_1 =  TicketEvolution::Base.send(:klass_to_response_container, TicketEvolution::Venue)
-    response_2 =  TicketEvolution::Base.send(:klass_to_response_container, TicketEvolution::Category)
-    response_3 =  TicketEvolution::Base.send(:klass_to_response_container, TicketEvolution::Performer)
-    response_4 =  TicketEvolution::Base.send(:klass_to_response_container, TicketEvolution::Event)
+    it "should return the correct string verision of a class" do
+      expected_1 = "venues"
+      expected_2 = "categories"
+      expected_3 = "performers"
+      expected_4 = "events"
+      response_1 =  TicketEvolution::Base.send(:klass_to_response_container, TicketEvolution::Venue)
+      response_2 =  TicketEvolution::Base.send(:klass_to_response_container, TicketEvolution::Category)
+      response_3 =  TicketEvolution::Base.send(:klass_to_response_container, TicketEvolution::Performer)
+      response_4 =  TicketEvolution::Base.send(:klass_to_response_container, TicketEvolution::Event)
 
-    response_1.should == expected_1
-    response_2.should == expected_2
-    response_3.should == expected_3
-    response_4.should == expected_4
+      response_1.should == expected_1
+      response_2.should == expected_2
+      response_3.should == expected_3
+      response_4.should == expected_4
+    end
   end
 
 
@@ -211,7 +169,4 @@ describe "Base" do
     end
   end
 
-  describe "#process_response" do
-
-  end
 end

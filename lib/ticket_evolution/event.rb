@@ -2,6 +2,7 @@ module TicketEvolution
   class Event < TicketEvolution::Base
     attr_accessor :category ,:configuration ,:id ,:name ,:occurs_at ,:performances ,:products_count ,:state ,:updated_at ,:url ,:venue
 
+
     def initialize(response)
       super(response)
 

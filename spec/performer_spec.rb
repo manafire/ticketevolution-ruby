@@ -9,7 +9,6 @@ describe "TicketEvolution::Perfomer" do
         config.secret   = "TSalhnVkdoCbGa7I93s3S9OBcBQoogseNeccHIEh"
         config.version  = 8
         config.mode     = :sandbox
-        config.protocol = :https
       end
     end
 
@@ -55,9 +54,8 @@ describe "TicketEvolution::Perfomer" do
         config.secret   = "TSalhnVkdoCbGa7I93s3S9OBcBQoogseNeccHIEh"
         config.version  = 8
         config.mode     = :sandbox
-        config.protocol = :https
       end
-      @http_base = "#{TicketEvolution.protocol}://#{TicketEvolution.mode}"
+      @http_base = "https://#{TicketEvolution.mode}"
     end
 
     it "should let me search for performers and return back and array of related performers with one result" do
@@ -114,7 +112,6 @@ describe "TicketEvolution::Perfomer" do
         config.secret   = "TSalhnVkdoCbGa7I93s3S9OBcBQoogseNeccHIEh"
         config.version  = 8
         config.mode     = :sandbox
-        config.protocol = :https
       end
     end
 

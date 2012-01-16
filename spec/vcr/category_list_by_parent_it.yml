@@ -1,0 +1,42 @@
+--- 
+- !ruby/struct:VCR::HTTPInteraction 
+  request: !ruby/struct:VCR::Request 
+    method: :get
+    uri: https://api.sandbox.ticketevolution.com:443/categories?parent_id=1
+    body: 
+    headers: 
+      accept: 
+      - application/vnd.ticketevolution.api+json; version=8
+      x-signature: 
+      - wXHxzlH+jr+b4v2YMhr9AtuWf97+Qpn8mAGYKV8b56s=
+      x-token: 
+      - 958acdf7da43b57ac93b17ff26eabf45
+  response: !ruby/struct:VCR::Response 
+    status: !ruby/struct:VCR::ResponseStatus 
+      code: 200
+      message: OK
+    headers: 
+      x-ua-compatible: 
+      - IE=Edge,chrome=1
+      strict-transport-security: 
+      - max-age=31536000
+      etag: 
+      - "\"760af1354557dc838de32a4855574b60\""
+      x-powered-by: 
+      - Phusion Passenger (mod_rails/mod_rack) 3.0.11
+      connection: 
+      - keep-alive
+      content-type: 
+      - application/vnd.ticketevolution.api+json; version=8; charset=utf-8
+      server: 
+      - nginx/1.0.11 + Phusion Passenger 3.0.11 (mod_rails/mod_rack)
+      x-runtime: 
+      - "0.151167"
+      cache-control: 
+      - max-age=0, private, must-revalidate
+      status: 
+      - "200"
+      transfer-encoding: 
+      - chunked
+    body: "{\"total_entries\":15,\"current_page\":1,\"categories\":[{\"url\":\"/categories/2\",\"name\":\"Baseball\",\"id\":\"2\",\"parent\":{\"url\":\"/categories/1\",\"id\":\"1\",\"parent\":null},\"updated_at\":\"2011-04-15T05:39:23Z\"},{\"url\":\"/categories/7\",\"name\":\"Basketball\",\"id\":\"7\",\"parent\":{\"url\":\"/categories/1\",\"id\":\"1\",\"parent\":null},\"updated_at\":\"2011-04-15T05:39:23Z\"},{\"url\":\"/categories/15\",\"name\":\"Hockey\",\"id\":\"15\",\"parent\":{\"url\":\"/categories/1\",\"id\":\"1\",\"parent\":null},\"updated_at\":\"2011-04-15T05:39:23Z\"},{\"url\":\"/categories/19\",\"name\":\"Football\",\"id\":\"19\",\"parent\":{\"url\":\"/categories/1\",\"id\":\"1\",\"parent\":null},\"updated_at\":\"2011-04-15T05:39:23Z\"},{\"url\":\"/categories/24\",\"name\":\"Golf\",\"id\":\"24\",\"parent\":{\"url\":\"/categories/1\",\"id\":\"1\",\"parent\":null},\"updated_at\":\"2011-04-15T16:06:12Z\"},{\"url\":\"/categories/25\",\"name\":\"Tennis\",\"id\":\"25\",\"parent\":{\"url\":\"/categories/1\",\"id\":\"1\",\"parent\":null},\"updated_at\":\"2011-04-15T16:07:32Z\"},{\"url\":\"/categories/26\",\"name\":\"Rodeo\",\"id\":\"26\",\"parent\":{\"url\":\"/categories/1\",\"id\":\"1\",\"parent\":null},\"updated_at\":\"2011-04-15T16:07:17Z\"},{\"url\":\"/categories/27\",\"name\":\"Auto Racing\",\"id\":\"27\",\"parent\":{\"url\":\"/categories/1\",\"id\":\"1\",\"parent\":null},\"updated_at\":\"2011-04-15T16:04:42Z\"},{\"url\":\"/categories/33\",\"name\":\"Horse Racing\",\"id\":\"33\",\"parent\":{\"url\":\"/categories/1\",\"id\":\"1\",\"parent\":null},\"updated_at\":\"2011-04-15T16:06:21Z\"},{\"url\":\"/categories/34\",\"name\":\"Soccer\",\"id\":\"34\",\"parent\":{\"url\":\"/categories/1\",\"id\":\"1\",\"parent\":null},\"updated_at\":\"2011-04-15T05:39:23Z\"},{\"url\":\"/categories/44\",\"name\":\"Fighting\",\"id\":\"44\",\"parent\":{\"url\":\"/categories/1\",\"id\":\"1\",\"parent\":null},\"updated_at\":\"2011-04-15T16:06:02Z\"},{\"url\":\"/categories/48\",\"name\":\"Rugby\",\"id\":\"48\",\"parent\":{\"url\":\"/categories/1\",\"id\":\"1\",\"parent\":null},\"updated_at\":\"2011-04-15T05:39:23Z\"},{\"url\":\"/categories/49\",\"name\":\"Extreme Sports\",\"id\":\"49\",\"parent\":{\"url\":\"/categories/1\",\"id\":\"1\",\"parent\":null},\"updated_at\":\"2011-04-15T16:05:53Z\"},{\"url\":\"/categories/51\",\"name\":\"Olympics\",\"id\":\"51\",\"parent\":{\"url\":\"/categories/1\",\"id\":\"1\",\"parent\":null},\"updated_at\":\"2011-04-15T16:07:09Z\"},{\"url\":\"/categories/78\",\"name\":\"Lacrosse\",\"id\":\"78\",\"parent\":{\"url\":\"/categories/1\",\"id\":\"1\",\"parent\":null},\"updated_at\":\"2011-04-15T05:39:23Z\"}],\"per_page\":100}"
+    http_version: "1.1"

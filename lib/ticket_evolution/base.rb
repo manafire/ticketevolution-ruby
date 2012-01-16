@@ -9,7 +9,6 @@ module TicketEvolution
 
 
     def initialize(response)
-
       @attrs_for_object = response[:body]
       @response_code    = response[:response_code]
       @errors           = response[:errors]
@@ -29,7 +28,8 @@ module TicketEvolution
 
       def get(path)
         if TicketEvolution.token
-          path_for_signature = "GET #{path[8..-1]}"
+          path_to_use         = CGI.unescape(path)
+          path_for_signature  = "GET #{path_to_use[8..-1]}"
           call                = construct_call!(path,path_for_signature)
           call.perform
           handled_call = handle_response(call)
@@ -41,6 +41,7 @@ module TicketEvolution
 
       def post(path)
         if TicketEvolution.token
+          path_to_use         = CGI.unescape(path)
           path_for_signature = "POST #{path[8..-1]}"
           call               = construct_call!(path,path_for_signature)
           call.http_post
@@ -68,7 +69,6 @@ module TicketEvolution
         if response[:body]["total_entries"].to_i == 0
           return "Zero #{klass} Items Were Found"
         elsif response[:body]["total_entries"].to_i >= 1
-
           response_for_object                  = {}
           response_for_object[:body]           = build_hash_for_initializer(klass,klass_container(klass),response)
           response_for_object[:response_code]  = response[:response_code]
@@ -77,8 +77,8 @@ module TicketEvolution
 
           module_class   = klass.to_s.split(":").last.downcase
           builder_method = "build_for_#{module_class}"
-          self.send(builder_method.intern,response_for_object)
           # Hit the base class method for creating and map collections of objects or maky perhaps another class...
+          self.send(builder_method.intern,response_for_object)
         else
           # Raise some type of error
         end
