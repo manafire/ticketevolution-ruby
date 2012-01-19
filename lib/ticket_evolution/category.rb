@@ -3,16 +3,16 @@ module TicketEvolution
     attr_accessor :parent, :name, :updated_at, :id, :url
 
     
-    def initiaize(api_response)
+    def initialize(api_response)
       super(api_response)
-      self.id          @attrs_for_object["id"]
-      self.parent      @attrs_for_object["parent"]
-      self.name        @attrs_for_object["name"]
-      self.updated_at  @attrs_for_object["updated_at"]
-      self.url         @attrs_for_object["url"]
+      self.id         = @attrs_for_object["id"]
+      self.parent     = @attrs_for_object["parent"]
+      self.name       = @attrs_for_object["name"]
+      self.updated_at = @attrs_for_object["updated_at"]
+      self.url        = @attrs_for_object["url"]
     end
 
-
+    # Anything that appears more then threer times really should be apbstracted out
     class << self
       def list(params)
         sanitized_parameters = sanitize_parameters(TicketEvolution::Category,:list,params) 
@@ -24,7 +24,7 @@ module TicketEvolution
 
       def show(id)
         path               = "#{api_base}/categories/#{id}"
-        response           = TicketEvolution::Base.get(path,path_for_signature)
+        response           = TicketEvolution::Base.get(path)
         Category.new(response)
       end
 
@@ -32,11 +32,10 @@ module TicketEvolution
         sanitized_parameters = sanitize_parameters(TicketEvolution::Category,:delete,params) 
         query                = build_params_for_get(sanitized_parameters)
         path                 = "#{api_base}/categories/deleted?#{query}"
-        response             = TicketEvolution::Base.get(path)
+        response             = self.get(path)
         response             = process_response(TicketEvolution::Category,response)
       end
       
-
       # Construction Methods From Raw JSON
       def raw_from_json(category)
         ActiveSupport::HashWithIndifferentAccess.new({
