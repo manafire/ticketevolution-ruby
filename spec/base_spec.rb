@@ -168,5 +168,13 @@ describe "Base" do
       TicketEvolution::Base.per_page.should      == 100
     end
   end
-
+  
+  
+  describe "TicketEvolution#build_call_path" do
+    response = TicketEvolution::Base.send(:build_call_path, "events?", "parent_id=1".encoded)
+    call = "parent_id=1".encoded
+    expected = "https://api.sandbox.ticketevolution.com/events?" + call
+    response.should == expected
+    end
+  
 end

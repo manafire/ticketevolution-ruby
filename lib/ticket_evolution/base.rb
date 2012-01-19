@@ -106,7 +106,11 @@ module TicketEvolution
           raise TicketEvolution::InvalidConfiguration.new("You Must Supply A Token To Use The API")
         end
       end
-
+      
+      def build_call_path(path,query)
+        "#{api_base}/#{path}#{query}"
+      end
+      
       def sign!(path_for_signature)
         if TicketEvolution.secret
           digest = OpenSSL::Digest::Digest.new('sha256')

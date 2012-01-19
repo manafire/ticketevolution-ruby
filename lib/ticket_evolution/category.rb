@@ -16,23 +16,18 @@ module TicketEvolution
     class << self
       def list(params)
         sanitized_parameters = sanitize_parameters(TicketEvolution::Category,:list,params) 
-        query                = build_params_for_get(sanitized_parameters)
-        path                 = "#{api_base}/categories?#{query}"
-        response             = TicketEvolution::Base.get(path)
+        response             = TicketEvolution::Base.get(build_call_path("categories?",build_params_for_get(sanitized_parameters)))
         response             = process_response(TicketEvolution::Category,response)
       end
 
       def show(id)
-        path               = "#{api_base}/categories/#{id}"
-        response           = TicketEvolution::Base.get(path)
+        response = TicketEvolution::Base.get(build_call_path("categories/",id))
         Category.new(response)
       end
 
       def deleted(params)
         sanitized_parameters = sanitize_parameters(TicketEvolution::Category,:delete,params) 
-        query                = build_params_for_get(sanitized_parameters)
-        path                 = "#{api_base}/categories/deleted?#{query}"
-        response             = self.get(path)
+        response             = self.get(build_call_path("categories/deleted?",build_params_for_get(sanitized_parameters)))
         response             = process_response(TicketEvolution::Category,response)
       end
       
@@ -48,8 +43,8 @@ module TicketEvolution
       end
       
       def build_for_category(response)
-        categories = response[:body].inject([]) do |categories,category|
-          response_for_object = {}
+        categories                             = response[:body].inject([]) do |categories,category|
+          response_for_object                  = {}
           response_for_object[:body]           = category
           response_for_object[:response_code]  = response[:response_code]
           response_for_object[:errors]         = response[:errors]

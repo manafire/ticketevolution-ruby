@@ -12,7 +12,7 @@ describe "TicketEvolution::Venue" do
     end
     
     it "should assemble the correct signature and the correct path to perform the get with" do
-      VCR.use_cassette "venue_find_by_id" do
+      VCR.use_cassette "venue/find_by_id" do
         response = TicketEvolution::Venue.find(896)
         response.class.should           ==  TicketEvolution::Venue
         response.url.should             ==  "/venues/896"

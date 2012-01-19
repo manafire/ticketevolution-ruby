@@ -2,13 +2,13 @@
 - !ruby/struct:VCR::HTTPInteraction 
   request: !ruby/struct:VCR::Request 
     method: :get
-    uri: https://api.sandbox.ticketevolution.com:443/venues?name=Allianz+Arena
+    uri: https://api.sandbox.ticketevolution.com:443/venues/896
     body: 
     headers: 
       accept: 
       - application/vnd.ticketevolution.api+json; version=8
       x-signature: 
-      - Wl9UZ7GgEXQC37Rrj9Z+LVV/d5aVGI+WJp78v5l3y98=
+      - tEY08E+myJCH72RWP9WQH0EpxHWXr/Md5h9XTqgh66w=
       x-token: 
       - 958acdf7da43b57ac93b17ff26eabf45
   response: !ruby/struct:VCR::Response 
@@ -21,7 +21,7 @@
       strict-transport-security: 
       - max-age=31536000
       etag: 
-      - "\"2cb163894e8d15a3d348cfeea514126e\""
+      - "\"81012146e69cf500ac30ce382d32dcda\""
       x-powered-by: 
       - Phusion Passenger (mod_rails/mod_rack) 3.0.11
       connection: 
@@ -31,12 +31,12 @@
       server: 
       - nginx/1.0.11 + Phusion Passenger 3.0.11 (mod_rails/mod_rack)
       x-runtime: 
-      - "0.049981"
+      - "0.248079"
       cache-control: 
       - max-age=0, private, must-revalidate
       status: 
       - "200"
       transfer-encoding: 
       - chunked
-    body: "{\"total_entries\":1,\"venues\":[{\"location\":\"Unknown\",\"upcoming_events\":{\"last\":\"2012-05-19T00:00:00Z\",\"first\":\"2012-01-28T00:00:00Z\"},\"url\":\"/venues/6512\",\"name\":\"Allianz Arena\",\"address\":{\"street_address\":\"Munchen Stadion GmbH\",\"postal_code\":\"D-80939\",\"latitude\":null,\"locality\":null,\"country_code\":null,\"region\":null,\"extended_address\":\"Werner-Heisenberg-Allee 25\",\"longitude\":null},\"id\":\"6512\",\"updated_at\":\"2010-08-06T13:46:26Z\"}],\"current_page\":1,\"per_page\":100}"
+    body: "{\"location\":\"New York, NY\",\"upcoming_events\":{\"last\":\"2012-04-25T20:00:00Z\",\"first\":\"2012-01-18T19:30:00Z\"},\"url\":\"/venues/896\",\"name\":\"Madison Square Garden\",\"address\":{\"street_address\":\"4 Pennsylvania Plaza\",\"postal_code\":\"10001\",\"latitude\":null,\"locality\":\"New York\",\"country_code\":\"US\",\"region\":\"NY\",\"extended_address\":null,\"longitude\":null},\"id\":\"896\",\"updated_at\":\"2011-11-28T17:54:06Z\"}"
     http_version: "1.1"

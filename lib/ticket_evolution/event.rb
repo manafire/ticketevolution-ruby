@@ -22,15 +22,13 @@ module TicketEvolution
     class << self
 
       def list(params)
-        query              = build_params_for_get(params).encoded
-        path               = "#{api_base}/events?#{query}"
-        response           = TicketEvolution::Base.get(path)
-        response           = process_response(TicketEvolution::Event,response)
+        query    = build_params_for_get(params).encoded
+        response = TicketEvolution::Base.get(build_call_path("events?",query))
+        response = process_response(TicketEvolution::Event,response)
       end
 
       def show(id)
-        path               = "#{api_base}/events/#{id}?"
-        response           = TicketEvolution::Base.get(path)
+        response  = TicketEvolution::Base.get(build_call_path("events/",id))
         Event.new(response)
       end
 

@@ -21,7 +21,7 @@
       strict-transport-security: 
       - max-age=31536000
       etag: 
-      - "\"9296df22126623513ee6e17a5fc31de9\""
+      - "\"c9f1c513773ab97372305bbb55485e2a\""
       x-powered-by: 
       - Phusion Passenger (mod_rails/mod_rack) 3.0.11
       connection: 
@@ -31,12 +31,12 @@
       server: 
       - nginx/1.0.11 + Phusion Passenger 3.0.11 (mod_rails/mod_rack)
       x-runtime: 
-      - "0.054635"
+      - "0.213422"
       cache-control: 
       - max-age=0, private, must-revalidate
       status: 
       - "200"
       transfer-encoding: 
       - chunked
-    body: "{\"current_page\":1,\"per_page\":100,\"performers\":[{\"url\":\"/performers/3238\",\"upcoming_events\":{\"last\":null,\"first\":null},\"updated_at\":\"2011-12-08T05:16:46Z\",\"name\":\"Disco Biscuits\",\"venue\":null,\"id\":\"3238\",\"category\":{\"url\":\"/categories/84\",\"id\":\"84\",\"parent\":{\"url\":\"/categories/54\",\"id\":\"54\",\"parent\":null}}}],\"total_entries\":1}"
+    body: "{\"total_entries\":1,\"performers\":[{\"venue\":null,\"category\":{\"url\":\"/categories/84\",\"id\":\"84\",\"parent\":{\"url\":\"/categories/54\",\"id\":\"54\",\"parent\":null}},\"upcoming_events\":{\"last\":null,\"first\":null},\"url\":\"/performers/3238\",\"name\":\"Disco Biscuits\",\"id\":\"3238\",\"updated_at\":\"2011-12-08T05:16:46Z\"}],\"current_page\":1,\"per_page\":100}"
     http_version: "1.1"

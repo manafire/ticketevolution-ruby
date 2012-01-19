@@ -19,22 +19,18 @@ module TicketEvolution
     class << self
 
       def list(params_hash)
-        query              = build_params_for_get(params_hash)
-        path               = "#{api_base}/performers?#{query}"
-        response           = TicketEvolution::Base.get(path)
+        response           = TicketEvolution::Base.get(build_call_path("performers?",build_params_for_get(params_hash)))
         response           = process_response(TicketEvolution::Performer,response)
+      end
+      
+      def search(query)
+        response = TicketEvolution::Base.get(build_call_path("performers/search?q=",query.encoded))
+        response = process_response(TicketEvolution::Performer,response)        
       end
 
-      def search(query)
-        query              = query.encoded
-        path               = "#{api_base}/performers/search?q=#{query}"
-        response           = TicketEvolution::Base.get(path)
-        response           = process_response(TicketEvolution::Performer,response)
-      end
 
       def show(id)
-        path               = "#{api_base}/performers/#{id}"
-        response           = TicketEvolution::Base.get(path)
+        response = TicketEvolution::Base.get(build_call_path("performers/",id))
         Performer.new(response)
       end
 
