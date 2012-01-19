@@ -13,6 +13,14 @@ describe "Helpers::Base" do
       organized_parameters_escaped_parameters.should     == expected
       organized_parameters_escaped_parameters.should_not == not_expected
     end
+    
+    it "should work with integers by casting them to strings" do
+      expected     = "bs%3D21%26name%3D21%26parent_id%3D321%26updated_at%3D12"  
+      parameters   = {:name => 21, :parent_id => 321, :updated_at => 12, :bs => 21}
+      
+      organized_parameters_escaped_parameters = TicketEvolution::Base.build_params_for_get(parameters)
+      expected.should == "bs%3D21%26name%3D21%26parent_id%3D321%26updated_at%3D12"
+    end
   end
   
   
