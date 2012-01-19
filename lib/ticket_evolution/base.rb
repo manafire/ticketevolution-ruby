@@ -19,34 +19,25 @@ module TicketEvolution
 
     class << self
       attr_accessor :current_page, :total_entries, :total_pages, :per_page, :collection
+      
+      
+      %w(get post).each do |verb|
+        define_method(verb) do |path|
+          if TicketEvolution.token
+            path_to_use         = path
+            path_for_signature  = "#{verb.upcase} #{path_to_use[8..-1]}"
+            call                = construct_call!(path,path_for_signature)
 
-      def get(path)
-        if TicketEvolution.token
-          path_to_use         = path
-          path_for_signature  = "GET #{path_to_use[8..-1]}"
-          call                = construct_call!(path,path_for_signature)
-          call.perform
-          
-          handled_call = handle_response(call)
-          return handled_call
-        else
-          raise TicketEvolution::InvalidConfiguration.new("You Must Supply A Secret To Use The API")
+            verb == "post" ? call.http_post : call.perform
+        
+            handled_call = handle_response(call)
+            return handled_call
+          else
+            raise TicketEvolution::InvalidConfiguration.new("You Must Supply A Secret To Use The API")
+          end
         end
       end
-
-      def post(path)
-        if TicketEvolution.token
-          path_to_use         = CGI.unescape(path)
-          path_for_signature = "POST #{path[8..-1]}"
-          call               = construct_call!(path,path_for_signature)
-          call.http_post
-          handled_call = handle_response(call)
-          return handled_call
-        else
-          raise TicketEvolution::InvalidConfiguration.new("You Must Supply A Secret To Use The API")
-        end
-      end
-
+    
       # NEEDS SPEC
       def process_response(klass,response)
         pagination_data = {
