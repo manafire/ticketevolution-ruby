@@ -14,6 +14,10 @@ module TicketEvolution
     end
 
     def events; TicketEvolution::Event.find_by_venue(id); end
+    
+    def find_by_performer(id)
+      events_for_performer = TicketEvolution::Event.find_by_performer(id)
+    end
 
     class << self
 
