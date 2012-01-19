@@ -7,7 +7,8 @@ module TicketEvolution
     extend ::TicketEvolution::Helpers::Base
     extend ::TicketEvolution::Helpers::Catalog
 
-
+    # move up the repeted api_base calls that are sprinkled within the subclasses 
+    
     def initialize(response)
       @attrs_for_object = response[:body]
       @response_code    = response[:response_code]
@@ -15,23 +16,17 @@ module TicketEvolution
       @server_message   = response[:server_message]
     end
 
-    def next
-      if self.class.current_page < total_pages
-        yield
-      else
-        puts "There are no more objects to be returned in this collection"
-      end
-    end
 
     class << self
       attr_accessor :current_page, :total_entries, :total_pages, :per_page, :collection
 
       def get(path)
         if TicketEvolution.token
-          path_to_use         = CGI.unescape(path)
+          path_to_use         = path
           path_for_signature  = "GET #{path_to_use[8..-1]}"
           call                = construct_call!(path,path_for_signature)
           call.perform
+          
           handled_call = handle_response(call)
           return handled_call
         else
@@ -86,7 +81,12 @@ module TicketEvolution
 
 
       def handle_pagination(stats)
-        @total_pages   = stats[:total_entries].to_i <= stats[:per_page] ? 1 : (stats[:total_entries].to_f / stats[:per_page].to_f).ceil
+        
+        @total_pages = if stats[:total_entries].to_i == 0
+                        0
+                      else
+                        stats[:total_entries].to_i <= stats[:per_page] ? 1 : (stats[:total_entries].to_f / stats[:per_page].to_f).ceil
+                      end
         @current_page  = stats[:current_page]
         @total_entries = stats[:total_entries]
         @per_page      = stats[:per_page]
