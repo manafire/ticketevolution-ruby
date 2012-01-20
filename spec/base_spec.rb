@@ -1,6 +1,7 @@
-require File.join(File.dirname(File.expand_path(__FILE__)), "spec_helper")
+require "spec_helper"
 
 describe "Base" do
+  before { setup_config }
   describe "#sign" do
 
     it "should raise configuration error when secret is missing" do
@@ -25,36 +26,23 @@ describe "Base" do
 
     # ADD TESTING FOR PATH FOR SIGNATURE!!! NEXT
     %w(get post).each do |verb|
-      TicketEvolution::configure do |config|
-        config.token    = "958acdf7da43b57ac93b17ff26eabf45"
-        config.secret   = "TSalhnVkdoCbGa7I93s3S9OBcBQoogseNeccHIEh"
-        config.version  = 8
-        config.mode     = :sandbox
-      end
+      context "testing for verb #{verb}" do
+        it "#{verb} call should raise an exception when there is no token setup" do
+          TicketEvolution.secret = "secrety-ness"
+          TicketEvolution.token = nil
+          path                   = "#{verb.upcase} api.TicketEvolution.com/venues/1"
 
-      it "#{verb} call should raise an exception when there is no token setup" do
-        TicketEvolution.secret = "secrety-ness"
-        TicketEvolution.token = nil
-        path                   = "#{verb.upcase} api.TicketEvolution.com/venues/1"
-
-        lambda {
-          signature = TicketEvolution::Base.send(:sign!,path)
-          TicketEvolution::Base.send(verb,path)
-        }.should raise_error(TicketEvolution::InvalidConfiguration)
+          lambda {
+            signature = TicketEvolution::Base.send(:sign!,path)
+            TicketEvolution::Base.send(verb,path)
+          }.should raise_error(TicketEvolution::InvalidConfiguration)
+        end
       end
     end
-
   end
 
   describe "#construct_call" do
     it "should return a call object if all needed parametrs are supplied" do
-      TicketEvolution::configure do |config|
-        config.token    = "958acdf7da43b57ac93b17ff26eabf45"
-        config.secret   = "TSalhnVkdoCbGa7I93s3S9OBcBQoogseNeccHIEh"
-        config.version  = 8
-        config.mode     = :sandbox
-      end
-
       path               = "api.TicketEvolution.com/perfomers/9?"
       path_for_signature = "GET api.TicketEvolution.com/performers/9?"
 
@@ -77,13 +65,6 @@ describe "Base" do
 
   describe "#environmental_base" do
     it "use the sandbox if configuration of hte client is initialized in sandbox mode" do
-      TicketEvolution::configure do |config|
-        config.token    = "958acdf7da43b57ac93b17ff26eabf45"
-        config.secret   = "TSalhnVkdoCbGa7I93s3S9OBcBQoogseNeccHIEh"
-        config.version  = 8
-        config.mode     = :sandbox
-      end
-
       TicketEvolution::Base.send(:environmental_base).should.eql?("api.sandbox")
     end
 

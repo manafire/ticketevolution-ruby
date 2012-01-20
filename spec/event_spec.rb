@@ -1,14 +1,7 @@
 require "spec_helper"
 
 describe "TicketEvolution::Event" do
-  before(:all) do
-    TicketEvolution::configure do |config|
-      config.token    = "958acdf7da43b57ac93b17ff26eabf45"
-      config.secret   = "TSalhnVkdoCbGa7I93s3S9OBcBQoogseNeccHIEh"
-      config.version  = 8
-      config.mode     = :sandbox
-    end
-  end
+  before { setup_config }
 
   describe "#search" do
     it "should return a collection of events when given a query parmeter" do

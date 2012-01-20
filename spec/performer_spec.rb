@@ -1,16 +1,8 @@
 require "spec_helper"
 
 describe "TicketEvolution::Perfomer" do
-
+  before { setup_config }
   describe "#find" do
-    before(:all) do
-      TicketEvolution::configure do |config|
-        config.token    = "958acdf7da43b57ac93b17ff26eabf45"
-        config.secret   = "TSalhnVkdoCbGa7I93s3S9OBcBQoogseNeccHIEh"
-        config.version  = 8
-        config.mode     = :sandbox
-      end
-    end
 
     it "should assemble the correct signature and the correct path to perform the get with" do
       VCR.use_cassette "performer/find/regular_find" do
@@ -48,15 +40,7 @@ describe "TicketEvolution::Perfomer" do
 
 
   describe "#search" do
-    before(:each) do
-      TicketEvolution::configure do |config|
-        config.token    = "958acdf7da43b57ac93b17ff26eabf45"
-        config.secret   = "TSalhnVkdoCbGa7I93s3S9OBcBQoogseNeccHIEh"
-        config.version  = 8
-        config.mode     = :sandbox
-      end
-      @http_base = "https://#{TicketEvolution.mode}"
-    end
+    before(:each) { @http_base = "https://#{TicketEvolution.mode}" }
 
     it "should let me search for performers and return back and array of related performers with one result" do
       VCR.use_cassette "performer/search/arrity_test" do
@@ -106,15 +90,6 @@ describe "TicketEvolution::Perfomer" do
   end
 
   describe "#handle_pagination!" do
-    before(:each) do
-      TicketEvolution::configure do |config|
-        config.token    = "958acdf7da43b57ac93b17ff26eabf45"
-        config.secret   = "TSalhnVkdoCbGa7I93s3S9OBcBQoogseNeccHIEh"
-        config.version  = 8
-        config.mode     = :sandbox
-      end
-    end
-
     it "setup the current page, the total pages with some math , the total entries and the per_page and on the base class!" do
       VCR.use_cassette "base_handle_pagination_test_second" do
         performers = TicketEvolution::Performer.search("Dave")
@@ -134,7 +109,7 @@ describe "TicketEvolution::Perfomer" do
         TicketEvolution::Base.collection.should_not         == performers
       end
     end
-    
+
     describe "#list" do
       it "should return performers that belong to a partiucalar venue" do
         VCR.use_cassette "performer_list_venue_id_spec" do
@@ -144,7 +119,7 @@ describe "TicketEvolution::Perfomer" do
           performers_by_event.length.should      == 2
         end
       end
-      
+
       it "should return performers that belong to a partiucalar venue" do
         VCR.use_cassette "performer_list_by_name_updated_at" do
           performers_by_updated = TicketEvolution::Performer.list({:updated_at => "2011-02-05T09:27:05Z"})
@@ -152,17 +127,17 @@ describe "TicketEvolution::Perfomer" do
           performers_by_updated.should         == "Zero TicketEvolution::Performer Items Were Found"
         end
       end
-      
+
       it "should return performers that correspond to a name" do
         VCR.use_cassette "performer_list_call_with_name" do
-          performers_by_name = TicketEvolution::Performer.list({:name => "Phish"})    
+          performers_by_name = TicketEvolution::Performer.list({:name => "Phish"})
           performers_by_name.class.should       == Array
           performers_by_name.first.class.should == TicketEvolution::Performer
           performers_by_name.last.name.should  == "Phish"
         end
       end
 
-      
+
     end
   end
 end

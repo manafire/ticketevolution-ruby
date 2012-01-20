@@ -1,16 +1,9 @@
 require "spec_helper"
 
 describe "TicketEvolution::Venue" do
-  describe "#find" do
-    before(:all) do
-      TicketEvolution::configure do |config|
-        config.token    = "958acdf7da43b57ac93b17ff26eabf45"
-        config.secret   = "TSalhnVkdoCbGa7I93s3S9OBcBQoogseNeccHIEh"
-        config.version  = 8
-        config.mode     = :sandbox
-      end
-    end
+  before { setup_config }
 
+  describe "#find" do
     it "should assemble the correct signature and the correct path to perform the get with" do
       VCR.use_cassette "venue/find_by_id" do
         response = TicketEvolution::Venue.find(896)
@@ -21,19 +14,7 @@ describe "TicketEvolution::Venue" do
     end
   end
 
-  # There is an issue with VCR. EVERY time I run the specs again for some reason I get a message that http requests
-  # are banned but only AFTER it has been recorded. New Tool To Me , sure what im doing wrong.
-  # [DKM 2012.01.15]
   describe "#list" do
-    before(:all) do
-      TicketEvolution::configure do |config|
-        config.token    = "958acdf7da43b57ac93b17ff26eabf45"
-        config.secret   = "TSalhnVkdoCbGa7I93s3S9OBcBQoogseNeccHIEh"
-        config.version  = 8
-        config.mode     = :sandbox
-      end
-    end
-
     it "should assemble the correct signature and the correct path to perform the get with" do
       VCR.use_cassette "venue/list_by_name" do
         response = TicketEvolution::Venue.list(:name => "Troubadour")
@@ -67,10 +48,4 @@ describe "TicketEvolution::Venue" do
   #
   #     end
   #   end
-
-
-
-
-
-
 end
