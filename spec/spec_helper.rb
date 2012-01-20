@@ -10,7 +10,7 @@ VCR.config do |c|
   c.stub_with :webmock
 end
 
-RSpec.configure do
+RSpec.configure do |config|
   def setup_config
     TicketEvolution::configure do |config|
       config.token    = "958acdf7da43b57ac93b17ff26eabf45"
@@ -19,6 +19,8 @@ RSpec.configure do
       config.mode     = :sandbox
     end
   end
+  
+  config.extend VCR::RSpec::Macros
 end
 
 require File.join(File.dirname(File.expand_path(__FILE__)), "..", "lib", "ticket_evolution")

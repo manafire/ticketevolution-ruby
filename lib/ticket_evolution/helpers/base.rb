@@ -7,7 +7,6 @@ module TicketEvolution
       # TO REMOVE
       def environmental_base; TicketEvolution.mode == :sandbox ? "api.sandbox" : "api"; end
 
-
       def build_params_for_get(params)
         get_params = params.keys.inject([]) do |memo,key|
           current_parameter =  key.to_s + "=" + params[key].to_s

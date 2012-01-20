@@ -7,8 +7,8 @@ module TicketEvolution
     extend ::TicketEvolution::Helpers::Base
     extend ::TicketEvolution::Helpers::Catalog
 
-    # move up the repeted api_base calls that are sprinkled within the subclasses 
-    
+    # move up the repeted api_base calls that are sprinkled within the subclasses
+
     def initialize(response)
       @attrs_for_object = response[:body]
       @response_code    = response[:response_code]
@@ -19,8 +19,8 @@ module TicketEvolution
 
     class << self
       attr_accessor :current_page, :total_entries, :total_pages, :per_page, :collection
-      
-      
+
+
       %w(get post).each do |verb|
         define_method(verb) do |path|
           if TicketEvolution.token
@@ -29,7 +29,7 @@ module TicketEvolution
             call                = construct_call!(path,path_for_signature)
 
             verb == "post" ? call.http_post : call.perform
-        
+
             handled_call = handle_response(call)
             return handled_call
           else
@@ -37,7 +37,7 @@ module TicketEvolution
           end
         end
       end
-    
+
       # NEEDS SPEC
       def process_response(klass,response)
         pagination_data = {
@@ -72,7 +72,7 @@ module TicketEvolution
 
 
       def handle_pagination(stats)
-        
+
         @total_pages = if stats[:total_entries].to_i == 0
                         0
                       else
@@ -97,11 +97,11 @@ module TicketEvolution
           raise TicketEvolution::InvalidConfiguration.new("You Must Supply A Token To Use The API")
         end
       end
-      
+
       def build_call_path(path,query)
         "#{api_base}/#{path}#{query}"
       end
-      
+
       def sign!(path_for_signature)
         if TicketEvolution.secret
           digest = OpenSSL::Digest::Digest.new('sha256')
