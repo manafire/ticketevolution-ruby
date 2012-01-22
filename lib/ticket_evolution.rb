@@ -1,28 +1,29 @@
+require 'rubygems'
+require 'multi_json'
 require 'curb'
-require 'json'
-require 'active_support/core_ext/hash/indifferent_access'
-require 'active_support/core_ext/string/inflections'
-Dir.glob(File.join(File.dirname(__FILE__),".." ,"extensions/*.rb")).sort.each { |f| require f } 
-Dir.glob(File.join(File.dirname(__FILE__),"..", "lib" ,"ticket_evolution","helpers/*.rb")).sort.each { |f| require f }
-Dir.glob(File.join(File.dirname(__FILE__),"..", "lib" ,"ticket_evolution/*.rb")).sort.each { |f| require f }
 
+require 'base64'
+require 'digest/md5'
+require 'openssl'
+require 'pathname'
+require 'cgi'
+require 'uri'
 
-
-# Note the load pattern is important as the helpers need to be instantiated before
-# the acutal classes. The extensions are jsut additions so there will be no missing constants
-# but in interest of organization its second
+require 'active_support/hash_with_indifferent_access'
+require 'active_support/core_ext/class'
+require 'active_support/core_ext/module'
+require 'active_support/core_ext/object/to_param'
+require 'active_support/core_ext/object/to_query'
 
 module TicketEvolution
-  extend self
-  include Helpers::Http
-  
-  version = "0.1"
-  mattr_accessor :token, :secret, :version, :mode
+  mattr_reader :root
 
-  class InvalidConfiguration < Exception; end
-  class EmptyResourceError < Exception;   end
-
-  def configure(&block)
-    instance_eval(&block)
-  end
+  @@root = Pathname.new(File.dirname(File.expand_path(__FILE__))) + 'ticket_evolution'
 end
+
+def irequire(*parts); require TicketEvolution.root + File.join(parts); end
+
+irequire 'version.rb' unless defined?(TicketEvolution::VERSION)
+irequire 'connection.rb'
+irequire 'errors', 'invalid_configuration.rb'
+

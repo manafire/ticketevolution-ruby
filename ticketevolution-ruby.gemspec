@@ -1,8 +1,9 @@
 # -*- encoding: utf-8 -*-
+require File.join(File.dirname(File.expand_path(__FILE__)), 'lib', 'ticket_evolution', 'version.rb')
 
 Gem::Specification.new do |s|
   s.name        = "ticketevolution-ruby"
-  s.version     = "0.1"
+  s.version     = TicketEvolution::VERSION
   s.platform    = Gem::Platform::RUBY
   s.authors     = ["David Malin", "Ticket Evolution"]
   s.email       = ["dev@ticketevolution.com"]
@@ -17,7 +18,7 @@ Gem::Specification.new do |s|
   s.add_dependency 'curb'
 
   s.add_development_dependency "bundler", ">= 1.0.0"
-  s.add_development_dependency "json"
+  s.add_development_dependency "multi_json"
   s.add_development_dependency "rake"
   s.add_development_dependency "rspec", ">= 2.7.1"
   s.add_development_dependency "vcr"
