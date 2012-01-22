@@ -10,21 +10,19 @@ Installation
   
     gem install ticketevolution-ruby
     # In your ruby application
-    require 'ticketevolution-ruby
+    require 'ticketevolution-ruby'
   
 
 
 Connecting to Ticketevolution
 ---------------------
 
-    # Uses block syntax
-    Ticketevolution::configure do |config|
-      config.token   = "958acdf7da323bd7a4ac63b17ff26eabf45"
-      config.secret  = "TSaldkl34kdoCbGa7I93s3S9OBcBQoogseNeccHIEh"
-      config.version = 8
-      config.mode    = :sandbox
-    end
-
+    @connection = TicketEvolution::Connection.new({
+      :token    => "958acdf7da323bd7a4ac63b17ff26eabf45",
+      :secret   => "TSaldkl34kdoCbGa7I93s3S9OBcBQoogseNeccHIEh",
+      :version  => 8,
+      :mode     => :sandbox
+    })
 
 
 Catalog Resources :: Fetching and Interaction With A Venue
