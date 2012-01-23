@@ -1,7 +1,7 @@
 require 'spec_helper'
 
-describe TicketEvolution::Brokerage do
-  let(:klass) { TicketEvolution::Brokerage }
+describe TicketEvolution::Offices do
+  let(:klass) { TicketEvolution::Offices }
 
   it_behaves_like 'a ticket_evolution endpoint class'
   it_behaves_like 'a list endpoint'

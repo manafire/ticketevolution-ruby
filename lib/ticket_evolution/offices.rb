@@ -1,5 +1,5 @@
 module TicketEvolution
-  class Brokerage < Endpoint
+  class Offices < Endpoint
     include TicketEvolution::List
     include TicketEvolution::Search
     include TicketEvolution::Show

@@ -2,12 +2,12 @@ require 'spec_helper'
 
 describe TicketEvolution::Base do
   let(:klass) { TicketEvolution::Base }
-  let(:sample_klass) { TicketEvolution::Sample }
+  let(:sample_klass) { TicketEvolution::Samples }
   let(:base) { klass.new }
 
   describe "#method_missing" do
     it "should attempt to find a class which matches the missing method" do
-      TicketEvolution.should_receive(:const_defined?).with(:NoObject)
+      TicketEvolution.should_receive(:const_defined?).with(:NoObjects)
       expect { base.no_objects }.to raise_error
     end
 

@@ -1,7 +1,7 @@
 module TicketEvolution
-  class Category < Endpoint
-    include TicketEvolution::Deleted
+  class Brokerages < Endpoint
     include TicketEvolution::List
+    include TicketEvolution::Search
     include TicketEvolution::Show
   end
 end

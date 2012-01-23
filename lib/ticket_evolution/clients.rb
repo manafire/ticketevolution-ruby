@@ -1,7 +1,8 @@
 module TicketEvolution
-  class Event < Endpoint
-    include TicketEvolution::Deleted
+  class Clients < Endpoint
+    include TicketEvolution::Create
     include TicketEvolution::List
     include TicketEvolution::Show
+    include TicketEvolution::Update
   end
 end

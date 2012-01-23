@@ -6,7 +6,7 @@ end
 
 shared_examples_for "a ticket_evolution endpoint class" do
   let(:connection) { TicketEvolution::Connection.new({:token => Fake.token, :secret => Fake.secret}) }
-  let(:sample_parent) { TicketEvolution::Sample.new }
+  let(:sample_parent) { TicketEvolution::Samples.new }
   let(:curl) { double(:curl, :http => nil) }
   let(:instance) { klass.new({:parent => connection}) }
   let(:path) { '/search' }

@@ -1,8 +1,7 @@
 module TicketEvolution
-  class Client < Endpoint
-    include TicketEvolution::Create
+  class Users < Endpoint
     include TicketEvolution::List
+    include TicketEvolution::Search
     include TicketEvolution::Show
-    include TicketEvolution::Update
   end
 end
