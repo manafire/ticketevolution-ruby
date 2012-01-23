@@ -172,6 +172,43 @@ shared_examples_for "a ticket_evolution endpoint class" do
       end
     end
   end
+
+  describe "#process_response" do
+    let(:path) { '/list' }
+    let(:instance) { klass.new({:parent => connection}) }
+    let(:full_path) { "#{instance.base_path}#{path}" }
+    let(:response_code) { 200 }
+    let(:response) { mock(:response, {
+      :header_str => "header",
+      :response_code => response_code,
+      :body_str => body_str
+    }) }
+
+    context "with a valid body" do
+      subject { instance.process_response response }
+      let(:body_str) { "{\"test\": \"hello\"}" }
+
+      its(:header) { should == response.header_str }
+      its(:body) { should == MultiJson.decode(response.body_str) }
+
+      TicketEvolution::Endpoint::RequestHandler::CODES.each do |code, value|
+        context "with response code #{code}" do
+          let(:response_code) { code }
+
+          its(:response_code) { should == code }
+          its(:server_message) { should == value.last }
+        end
+      end
+    end
+
+    context "with an invalid body" do
+      subject { instance.process_response response }
+      let(:body_str) { "{\"test: \'hello\'}" }
+
+      its(:body) { should be_nil }
+      its(:response_code) { should == 500 }
+    end
+  end
 end
 
 shared_examples_for "a create endpoint" do

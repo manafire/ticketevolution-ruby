@@ -2,6 +2,7 @@ require 'rubygems'
 require 'multi_json'
 require 'curb'
 
+require 'ostruct'
 require 'base64'
 require 'digest/md5'
 require 'openssl'
