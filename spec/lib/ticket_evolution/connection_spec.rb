@@ -114,29 +114,52 @@ describe TicketEvolution::Connection do
 
   describe "#sign" do
     let(:path) { "/test" }
-    let(:params) do
-      {
-        :one => 1,
-        :two => "two",
-        :three => :three
-      }
-    end
-    let(:connection) { klass.new(valid_options.merge({:secret => "/3uZ9bXNe/6rxEBmlGLvoRXrcSzRDMfyJSewhlrc"})) }
 
-    it "should sign a get request" do
-      connection.sign(:GET, path, params).should == "8eaaqg6d4DJ2SEWkCvkdhc05dITmpNbUrcbN75UBGMA="
+    describe "without params" do
+      let(:connection) { klass.new(valid_options.merge({:secret => "/3uZ9bXNe/6rxEBmlGLvoRXrcSzRDMfyJSewhlrc"})) }
+
+      it "should sign a get request" do
+        connection.sign(:GET, path).should == "1Ra2c8cbuw1G5Pw8BWaowDlMcxwMte8y/sL+vW2H4mY="
+      end
+
+      it "should sign a post request" do
+        connection.sign(:POST, path).should == "pXqUawURysCxiIvPXCgTaQ1k5Nue0bAVHIyhrxJRmI0="
+      end
+
+      it "should sign a put request" do
+        connection.sign(:PUT, path).should == "+INyuqXHZv3+ybyGM/mQIJVJ6RslR/xUAmcauZnHWBo="
+      end
+
+      it "should sign a delete request" do
+        connection.sign(:DELETE, path).should == "Mwr4Z+hveuo8ITaYwaRQ/QdxYotpw97ZH1JfJmblVQY="
+      end
     end
 
-    it "should sign a post request" do
-      connection.sign(:POST, path, params).should == "6PMaU8JQ5kH4PZLl8agJrZRZqnn65UGcCUA80E2dTDg="
-    end
+    describe "with params" do
+      let(:params) do
+        {
+          :one => 1,
+          :two => "two",
+          :three => :three
+        }
+      end
+      let(:connection) { klass.new(valid_options.merge({:secret => "/3uZ9bXNe/6rxEBmlGLvoRXrcSzRDMfyJSewhlrc"})) }
 
-    it "should sign a put request" do
-      connection.sign(:PUT, path, params).should == "JEwlN3cuRXnb6rQlaorVYtlbGbBQRXs792YGQaH5BoM="
-    end
+      it "should sign a get request" do
+        connection.sign(:GET, path, params).should == "8eaaqg6d4DJ2SEWkCvkdhc05dITmpNbUrcbN75UBGMA="
+      end
 
-    it "should sign a delete request" do
-      connection.sign(:DELETE, path, params).should == "aHXaOzCmuVttO2qSnaH5Ku4SN2q/ukoxz2FIbCRWmeY="
+      it "should sign a post request" do
+        connection.sign(:POST, path, params).should == "6PMaU8JQ5kH4PZLl8agJrZRZqnn65UGcCUA80E2dTDg="
+      end
+
+      it "should sign a put request" do
+        connection.sign(:PUT, path, params).should == "JEwlN3cuRXnb6rQlaorVYtlbGbBQRXs792YGQaH5BoM="
+      end
+
+      it "should sign a delete request" do
+        connection.sign(:DELETE, path, params).should == "aHXaOzCmuVttO2qSnaH5Ku4SN2q/ukoxz2FIbCRWmeY="
+      end
     end
   end
 

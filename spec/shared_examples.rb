@@ -102,4 +102,50 @@ shared_examples_for "a ticket_evolution endpoint class" do
       end
     end
   end
+
+  describe "#connection" do
+    context "the connection object is the parent" do
+      subject { klass.new({:parent => connection}) }
+
+      its(:connection) { should == connection }
+    end
+
+    context "the connection object is not the parent" do
+      subject { klass.new({:parent => TicketEvolution::Endpoint.new({:parent => connection})}) }
+
+      its(:connection) { should == connection }
+    end
+  end
+
+  describe "#request" do
+    context "which is valid" do
+      let(:path) { '/search' }
+      let(:method) { 'GET' }
+      let(:instance) { klass.new({:parent => connection}) }
+
+      context "with params" do
+        let(:params) do
+          {
+            :page => 1,
+            :per_page => 10,
+            :name => "test"
+          }
+        end
+
+        it "should accept an http method, a url path for the call and a list of parameters as a hash and pass them to connection" do
+          connection.should_receive(:build_request).with(method, URI.join(connection.url, "#{instance.base_path}#{path}").to_s, params)
+
+          instance.request(method, path, params)
+        end
+      end
+
+      context "without params" do
+        it "should accept an http method and a url path for the call and pass them to connection" do
+          connection.should_receive(:build_request).with(method, URI.join(connection.url, "#{instance.base_path}#{path}").to_s, nil)
+
+          instance.request(method, path)
+        end
+      end
+    end
+  end
 end

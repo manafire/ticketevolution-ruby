@@ -19,14 +19,22 @@ module TicketEvolution
       end.join
     end
 
-    def has_connection?
+    def request(method, path, params = nil)
+      self.connection.build_request(method, URI.join(self.connection.url, "#{self.base_path}#{path}").to_s, params)
+    end
+
+    def connection
       if self.parent.is_a? TicketEvolution::Connection
-        true
+        self.parent
       elsif self.parent.respond_to? :parent
-        self.parent.has_connection?
+        self.parent.connection
       else
-        false
+        nil
       end
+    end
+
+    def has_connection?
+      connection.present?
     end
   end
 end

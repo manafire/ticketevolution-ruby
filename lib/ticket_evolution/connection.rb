@@ -43,7 +43,7 @@ module TicketEvolution
       end.join
     end
 
-    def sign(method, path, content)
+    def sign(method, path, content = nil)
       Base64.encode64(
         OpenSSL::HMAC.digest(
           OpenSSL::Digest::Digest.new('sha256'),
@@ -52,7 +52,7 @@ module TicketEvolution
       )).chomp
     end
 
-    def build_request(method, path, content)
+    def build_request(method, path, content = nil)
       Curl::Easy.new(process_content(method, path, content)) do |request|
         request.headers["Accept"] = "application/vnd.ticketevolution.api+json; version=#{@config[:version]}"
         request.headers["X-Signature"] = sign(method, path, content)
@@ -63,12 +63,12 @@ module TicketEvolution
     private
 
     def process_content(method, path, content)
-      "#{URI.join(url, path).to_s}?" + case method
+      "#{URI.join(url, path).to_s}?" + (content.present? ? case method
       when :GET
         content.to_query
       else
         MultiJson.encode(content)
-      end
+      end : '')
     end
   end
 end
