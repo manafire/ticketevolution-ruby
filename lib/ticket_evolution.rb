@@ -27,11 +27,29 @@ def irequire(*parts); require TicketEvolution.root + File.join(parts); end
 
 irequire 'version.rb' unless defined?(TicketEvolution::VERSION)
 
+# Core modules
+irequire 'modules', 'create.rb'
+irequire 'modules', 'deleted.rb'
+irequire 'modules', 'list.rb'
+irequire 'modules', 'search.rb'
+irequire 'modules', 'show.rb'
+irequire 'modules', 'update.rb'
+
+# Core classes
 irequire 'base.rb'
 irequire 'connection.rb'
 irequire 'endpoint.rb'
 irequire 'sample.rb'
 
+# Errors
 irequire 'errors', 'endpoint_configuration_error.rb'
 irequire 'errors', 'invalid_configuration.rb'
+irequire 'errors', 'method_unavailable_error.rb'
 
+# Endpoint Classes
+irequire 'brokerage.rb'
+irequire 'category.rb'
+irequire 'client.rb'
+irequire 'event.rb'
+irequire 'office.rb'
+irequire 'user.rb'

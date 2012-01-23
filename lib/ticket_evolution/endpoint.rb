@@ -20,6 +20,7 @@ module TicketEvolution
     end
 
     def request(method, path, params = nil)
+      raise EndpointConfigurationError, "#{self.class.to_s}#request requires it's first parameter to be a valid HTTP method" unless [:GET, :POST, :PUT, :DELETE].include? method.to_sym
       self.connection.build_request(method, URI.join(self.connection.url, "#{self.base_path}#{path}").to_s, params)
     end
 

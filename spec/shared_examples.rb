@@ -118,11 +118,10 @@ shared_examples_for "a ticket_evolution endpoint class" do
   end
 
   describe "#request" do
-    context "which is valid" do
-      let(:path) { '/search' }
-      let(:method) { 'GET' }
-      let(:instance) { klass.new({:parent => connection}) }
+    let(:path) { '/search' }
+    let(:instance) { klass.new({:parent => connection}) }
 
+    context "which is valid" do
       context "with params" do
         let(:params) do
           {
@@ -132,19 +131,193 @@ shared_examples_for "a ticket_evolution endpoint class" do
           }
         end
 
-        it "should accept an http method, a url path for the call and a list of parameters as a hash and pass them to connection" do
-          connection.should_receive(:build_request).with(method, URI.join(connection.url, "#{instance.base_path}#{path}").to_s, params)
+        [:GET, :POST, :PUT, :DELETE].each do |method|
+          it "should accept an http '#{method}' method, a url path for the call and a list of parameters as a hash and pass them to connection" do
+            connection.should_receive(:build_request).with(method, URI.join(connection.url, "#{instance.base_path}#{path}").to_s, params)
 
-          instance.request(method, path, params)
+            instance.request(method, path, params)
+          end
         end
       end
 
       context "without params" do
-        it "should accept an http method and a url path for the call and pass them to connection" do
-          connection.should_receive(:build_request).with(method, URI.join(connection.url, "#{instance.base_path}#{path}").to_s, nil)
+        [:GET, :POST, :PUT, :DELETE].each do |method|
+          it "should accept an http '#{method}' method and a url path for the call and pass them to connection" do
+            connection.should_receive(:build_request).with(method, URI.join(connection.url, "#{instance.base_path}#{path}").to_s, nil)
 
-          instance.request(method, path)
+            instance.request(method, path)
+          end
         end
+      end
+    end
+
+    context "given an invalid http method" do
+      it "should raise a EndpointConfigurationError" do
+        message = "#{klass.to_s}#request requires it's first parameter to be a valid HTTP method"
+
+        expect { instance.request('BAD', path) }.to raise_error TicketEvolution::EndpointConfigurationError, message
+      end
+    end
+  end
+end
+
+shared_examples_for "a create endpoint" do
+  let(:connection) { TicketEvolution::Connection.new({:token => Fake.token, :secret => Fake.secret}) }
+  let(:instance) { klass.new({:parent => connection}) }
+
+  describe "#create" do
+    context "with params" do
+      let(:params) { {:name => "Bob"} }
+
+      it "should pass call request as a POST, passing params" do
+        instance.should_receive(:request).with(:POST, nil, params)
+
+        instance.create(params)
+      end
+    end
+
+    context "without params" do
+      it "should pass call request as a POST, passing params" do
+        instance.should_receive(:request).with(:POST, nil, nil)
+
+        instance.create
+      end
+    end
+
+  end
+end
+
+shared_examples_for "a deleted endpoint" do
+  let(:connection) { TicketEvolution::Connection.new({:token => Fake.token, :secret => Fake.secret}) }
+  let(:instance) { klass.new({:parent => connection}) }
+
+  describe "#deleted" do
+    context "with params" do
+      let(:params) { {:page => 2, :per_page => 2} }
+
+      it "should pass call request as a GET, passing params" do
+        instance.should_receive(:request).with(:GET, '/deleted', params)
+
+        instance.deleted(params)
+      end
+    end
+
+    context "without params" do
+      it "should pass call request as a GET, passing params" do
+        instance.should_receive(:request).with(:GET, '/deleted', nil)
+
+        instance.deleted
+      end
+    end
+  end
+end
+
+shared_examples_for "a list endpoint" do
+  let(:connection) { TicketEvolution::Connection.new({:token => Fake.token, :secret => Fake.secret}) }
+  let(:instance) { klass.new({:parent => connection}) }
+
+  describe "#list" do
+    context "with params" do
+      let(:params) { {:page => 2, :per_page => 2} }
+
+      it "should pass call request as a GET, passing params" do
+        instance.should_receive(:request).with(:GET, nil, params)
+
+        instance.list(params)
+      end
+    end
+
+    context "without params" do
+      it "should pass call request as a GET, passing params" do
+        instance.should_receive(:request).with(:GET, nil, nil)
+
+        instance.list
+      end
+    end
+  end
+end
+
+shared_examples_for "a search endpoint" do
+  let(:connection) { TicketEvolution::Connection.new({:token => Fake.token, :secret => Fake.secret}) }
+  let(:instance) { klass.new({:parent => connection}) }
+
+  describe "#search" do
+    context "with params" do
+      let(:params) { {:page => 2, :per_page => 2, :q => "test"} }
+
+      it "should pass call request as a GET, passing params" do
+        instance.should_receive(:request).with(:GET, '/search', params)
+
+        instance.search(params)
+      end
+    end
+
+    context "without params" do
+      it "should pass call request as a GET, passing params" do
+        instance.should_receive(:request).with(:GET, '/search', nil)
+
+        instance.search
+      end
+    end
+
+  end
+end
+
+shared_examples_for "a show endpoint" do
+  let(:connection) { TicketEvolution::Connection.new({:token => Fake.token, :secret => Fake.secret}) }
+  let(:instance) { klass.new({:parent => connection}) }
+
+  describe "#show" do
+    context "with id" do
+      let(:id) { 1 }
+
+      it "should pass call request as a GET, passing the id as a piece of the path" do
+        instance.should_receive(:request).with(:GET, "/#{id}")
+
+        instance.show(id)
+      end
+    end
+
+    context "without id" do
+      it "should raise an ArgumentError" do
+        expect { instance.show }.to raise_error ArgumentError
+      end
+    end
+  end
+end
+
+shared_examples_for "an update endpoint" do
+  let(:connection) { TicketEvolution::Connection.new({:token => Fake.token, :secret => Fake.secret}) }
+
+  describe "#update" do
+    context "with an id" do
+      let(:instance) { klass.new({:parent => connection, :id => 1}) }
+
+      context "with params" do
+        let(:params) { {:name => "Bob"} }
+
+        it "should pass call request as a PUT, passing params" do
+          instance.should_receive(:request).with(:PUT, "/#{instance.id}", params)
+
+          instance.update(params)
+        end
+      end
+
+      context "without params" do
+        it "should pass call request as a PUT, passing params" do
+          instance.should_receive(:request).with(:PUT, "/#{instance.id}", nil)
+
+          instance.update
+        end
+      end
+    end
+
+    context "without an id" do
+      let(:instance) { klass.new({:parent => connection}) }
+
+      it "should raise an UnavailableMethodError if there is no id" do
+        message = "#{klass.to_s}#update can only be called if there is an id present on this #{klass.to_s} instance"
+        expect { instance.update }.to raise_error TicketEvolution::MethodUnavailableError, message
       end
     end
   end
