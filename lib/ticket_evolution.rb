@@ -37,6 +37,7 @@ irequire 'modules', 'show.rb'
 irequire 'modules', 'update.rb'
 
 # Core classes
+irequire 'api_error.rb'
 irequire 'base.rb'
 irequire 'connection.rb'
 irequire 'endpoint', 'request_handler.rb'

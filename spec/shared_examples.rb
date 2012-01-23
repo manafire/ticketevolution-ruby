@@ -7,6 +7,10 @@ end
 shared_examples_for "a ticket_evolution endpoint class" do
   let(:connection) { TicketEvolution::Connection.new({:token => Fake.token, :secret => Fake.secret}) }
   let(:sample_parent) { TicketEvolution::Sample.new }
+  let(:curl) { double(:curl, :http => nil) }
+  let(:instance) { klass.new({:parent => connection}) }
+  let(:path) { '/search' }
+  let(:full_path) { "#{instance.base_path}#{path}" }
 
   describe "#initialize" do
     context "with an options hash for it's first parameter" do
@@ -117,11 +121,7 @@ shared_examples_for "a ticket_evolution endpoint class" do
     end
   end
 
-  describe "#request" do
-    let(:curl) { double(:curl, :http => nil) }
-    let(:path) { '/search' }
-    let(:instance) { klass.new({:parent => connection}) }
-    let(:full_path) { "#{instance.base_path}#{path}" }
+  describe "#build_request" do
 
     context "which is valid" do
       context "with params" do
@@ -137,7 +137,7 @@ shared_examples_for "a ticket_evolution endpoint class" do
           it "should accept an http '#{method}' method, a url path for the call and a list of parameters as a hash and pass them to connection" do
             connection.should_receive(:build_request).with(method, full_path, params).and_return(curl)
 
-            instance.request(method, path, params)
+            instance.build_request(method, path, params)
           end
         end
       end
@@ -147,19 +147,8 @@ shared_examples_for "a ticket_evolution endpoint class" do
           it "should accept an http '#{method}' method and a url path for the call and pass them to connection" do
             connection.should_receive(:build_request).with(method, full_path, nil).and_return(curl)
 
-            instance.request(method, path)
+            instance.build_request(method, path)
           end
-        end
-      end
-
-      context "should retrieve http content" do
-        let(:method) { :GET }
-
-        it "calls http on the return Curl object with the method for the request" do
-          connection.should_receive(:build_request).and_return(curl)
-          curl.should_receive(:http).with(method)
-
-          instance.request(method, path)
         end
       end
     end
@@ -173,7 +162,34 @@ shared_examples_for "a ticket_evolution endpoint class" do
     end
   end
 
-  describe "#process_response" do
+  describe "#request" do
+    subject { instance.request method, full_path }
+    let(:method) { :GET }
+    let(:response) { Fake.response }
+
+    before do
+      connection.should_receive(:build_request).and_return(curl)
+      instance.should_receive(:naturalize_response).and_return(response)
+    end
+
+    it "calls http on the return Curl object with the method for the request" do
+      curl.should_receive(:http).with(method)
+
+      instance.request(method, path)
+    end
+
+    context "when there is an error from the api" do
+      let(:response) { Fake.error_response }
+
+      before { curl.should_receive(:http) }
+
+      it "should return an instance of TicketEvolution::ApiError" do
+        subject.should be_a (TicketEvolution::ApiError)
+      end
+    end
+  end
+
+  describe "#naturalize_response" do
     let(:path) { '/list' }
     let(:instance) { klass.new({:parent => connection}) }
     let(:full_path) { "#{instance.base_path}#{path}" }
@@ -185,7 +201,7 @@ shared_examples_for "a ticket_evolution endpoint class" do
     }) }
 
     context "with a valid body" do
-      subject { instance.process_response response }
+      subject { instance.naturalize_response response }
       let(:body_str) { "{\"test\": \"hello\"}" }
 
       its(:header) { should == response.header_str }
@@ -199,14 +215,6 @@ shared_examples_for "a ticket_evolution endpoint class" do
           its(:server_message) { should == value.last }
         end
       end
-    end
-
-    context "with an invalid body" do
-      subject { instance.process_response response }
-      let(:body_str) { "{\"test: \'hello\'}" }
-
-      its(:body) { should be_nil }
-      its(:response_code) { should == 500 }
     end
   end
 end

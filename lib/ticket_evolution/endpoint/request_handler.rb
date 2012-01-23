@@ -18,25 +18,23 @@ module TicketEvolution
       }
 
       def request(method, path, params = nil)
-        raise EndpointConfigurationError, "#{self.class.to_s}#request requires it's first parameter to be a valid HTTP method" unless [:GET, :POST, :PUT, :DELETE].include? method.to_sym
         request = self.build_request(method, path, params)
-        response = request.http(method)
+        response = naturalize_response(request.http(method))
+        TicketEvolution::ApiError.new(response) if response.response_code >= 400
       end
 
       def build_request(method, path, params = nil)
+        raise EndpointConfigurationError, "#{self.class.to_s}#request requires it's first parameter to be a valid HTTP method" unless [:GET, :POST, :PUT, :DELETE].include? method.to_sym
         self.connection.build_request(method, "#{self.base_path}#{path}", params)
       end
 
-      def process_response(response)
+      def naturalize_response(response)
         OpenStruct.new.tap do |resp|
           resp.header = response.header_str
           resp.response_code = response.response_code
           resp.body = MultiJson.decode(response.body_str)
           resp.server_message = CODES[response.response_code].last
         end
-
-        rescue MultiJson::DecodeError
-          return OpenStruct.new({ :body => nil, :response_code => 500, :server_message => "INVALID JSON" })
       end
     end
   end
