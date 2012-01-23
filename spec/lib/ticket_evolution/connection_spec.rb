@@ -10,11 +10,15 @@ describe TicketEvolution::Connection do
   end
   let(:basic_options) do
     {
-      :token => Digest::MD5.hexdigest("fake_token"),
-      :secret => Base64.encode64(OpenSSL::Random.random_bytes(30)).chomp
+      :token => Fake.token,
+      :secret => Fake.secret
     }
   end
   let(:valid_options) { default_options.merge(basic_options) }
+
+  subject { klass }
+
+  its(:ancestors) { should include TicketEvolution::Base }
 
   describe ".default_options" do
     subject { klass.default_options }

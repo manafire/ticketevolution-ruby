@@ -6,4 +6,7 @@ require File.join(File.dirname(File.expand_path(__FILE__)), '..', 'lib', 'ticket
 RSpec.configure do |config|
 end
 
-require File.join(File.dirname(File.expand_path(__FILE__)), 'shared_examples.rb')
+@spec_path = Pathname.new(File.join(File.dirname(File.expand_path(__FILE__))))
+
+require @spec_path + 'shared_examples.rb'
+require @spec_path + 'fixtures' + 'fake.rb'
