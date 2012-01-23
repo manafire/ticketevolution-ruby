@@ -53,9 +53,10 @@ module TicketEvolution
     end
 
     def build_request(method, path, content = nil)
-      Curl::Easy.new(process_content(method, path, content)) do |request|
+      uri = URI.join(self.url, path).to_s
+      Curl::Easy.new(process_content(method, uri, content)) do |request|
         request.headers["Accept"] = "application/vnd.ticketevolution.api+json; version=#{@config[:version]}"
-        request.headers["X-Signature"] = sign(method, path, content)
+        request.headers["X-Signature"] = sign(method, uri, content)
         request.headers["X-Token"] = @config[:token]
       end
     end

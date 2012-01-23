@@ -118,8 +118,10 @@ shared_examples_for "a ticket_evolution endpoint class" do
   end
 
   describe "#request" do
+    let(:curl) { double(:curl, :http => nil) }
     let(:path) { '/search' }
     let(:instance) { klass.new({:parent => connection}) }
+    let(:full_path) { "#{instance.base_path}#{path}" }
 
     context "which is valid" do
       context "with params" do
@@ -133,7 +135,7 @@ shared_examples_for "a ticket_evolution endpoint class" do
 
         [:GET, :POST, :PUT, :DELETE].each do |method|
           it "should accept an http '#{method}' method, a url path for the call and a list of parameters as a hash and pass them to connection" do
-            connection.should_receive(:build_request).with(method, URI.join(connection.url, "#{instance.base_path}#{path}").to_s, params)
+            connection.should_receive(:build_request).with(method, full_path, params).and_return(curl)
 
             instance.request(method, path, params)
           end
@@ -143,10 +145,21 @@ shared_examples_for "a ticket_evolution endpoint class" do
       context "without params" do
         [:GET, :POST, :PUT, :DELETE].each do |method|
           it "should accept an http '#{method}' method and a url path for the call and pass them to connection" do
-            connection.should_receive(:build_request).with(method, URI.join(connection.url, "#{instance.base_path}#{path}").to_s, nil)
+            connection.should_receive(:build_request).with(method, full_path, nil).and_return(curl)
 
             instance.request(method, path)
           end
+        end
+      end
+
+      context "should retrieve http content" do
+        let(:method) { :GET }
+
+        it "calls http on the return Curl object with the method for the request" do
+          connection.should_receive(:build_request).and_return(curl)
+          curl.should_receive(:http).with(method)
+
+          instance.request(method, path)
         end
       end
     end

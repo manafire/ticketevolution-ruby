@@ -38,6 +38,7 @@ irequire 'modules', 'update.rb'
 # Core classes
 irequire 'base.rb'
 irequire 'connection.rb'
+irequire 'endpoint', 'request_handler.rb'
 irequire 'endpoint.rb'
 irequire 'sample.rb'
 

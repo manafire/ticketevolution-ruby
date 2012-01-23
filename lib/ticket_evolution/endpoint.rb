@@ -1,5 +1,7 @@
 module TicketEvolution
   class Endpoint < Base
+    include RequestHandler
+
     def initialize(options = nil)
       raise EndpointConfigurationError, "#{self.class.to_s} instances require a hash as their first parameter" unless options.is_a? Hash
       raise EndpointConfigurationError, "The options hash must include a parent key / value pair" unless options[:parent].present?
@@ -17,11 +19,6 @@ module TicketEvolution
         parts << "/"+self.class.to_s.split('::').last.downcase.pluralize
         parts << "/#{self.id}" if self.respond_to?(:id) and self.id.present?
       end.join
-    end
-
-    def request(method, path, params = nil)
-      raise EndpointConfigurationError, "#{self.class.to_s}#request requires it's first parameter to be a valid HTTP method" unless [:GET, :POST, :PUT, :DELETE].include? method.to_sym
-      self.connection.build_request(method, URI.join(self.connection.url, "#{self.base_path}#{path}").to_s, params)
     end
 
     def connection
