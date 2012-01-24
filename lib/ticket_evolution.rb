@@ -34,6 +34,7 @@ irequire 'version.rb' unless defined?(TicketEvolution::VERSION)
 crequire 'api_error.rb'
 crequire 'base.rb'
 crequire 'builder.rb'
+crequire 'collection.rb'
 crequire 'connection.rb'
 crequire 'datum.rb'
 crequire 'endpoint', 'request_handler.rb'

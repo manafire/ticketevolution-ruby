@@ -227,4 +227,10 @@ shared_examples_for "a ticket_evolution endpoint class" do
       end
     end
   end
+
+  context "#singular_class" do
+    it "returns the singular version of an Endpoint class" do
+      instance.singular_class.should == single_klass
+    end
+  end
 end

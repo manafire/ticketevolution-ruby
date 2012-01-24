@@ -1,0 +1,171 @@
+---
+- !ruby/struct:VCR::HTTPInteraction
+  request: !ruby/struct:VCR::Request
+    method: :get
+    uri: https://api.sandbox.ticketevolution.com:443/brokerages/2?
+    body: !!null 
+    headers:
+      accept:
+      - application/vnd.ticketevolution.api+json; version=8
+      x-signature:
+      - 36B0ISsVd28X7Ml4r2v/QTYLf0q9lCnA0WFb98NZ004=
+      x-token:
+      - b2b5a7a33b1a78896ed1b53d81c5c9cc
+  response: !ruby/struct:VCR::Response
+    status: !ruby/struct:VCR::ResponseStatus
+      code: 200
+      message: OK
+    headers:
+      content-type:
+      - application/vnd.ticketevolution.api+json; version=8; charset=utf-8
+      transfer-encoding:
+      - chunked
+      connection:
+      - keep-alive
+      status:
+      - '200'
+      x-powered-by:
+      - Phusion Passenger (mod_rails/mod_rack) 3.0.11
+      etag:
+      - ! '"7acf702e43d5b618d04efe9216c05106"'
+      x-ua-compatible:
+      - IE=Edge,chrome=1
+      x-runtime:
+      - '0.181874'
+      cache-control:
+      - max-age=0, private, must-revalidate
+      strict-transport-security:
+      - max-age=31536000
+      server:
+      - nginx/1.0.11 + Phusion Passenger 3.0.11 (mod_rails/mod_rack)
+    body: ! '{"natb_member":true,"abbreviation":"Golden Tickets","name":"Golden Tickets","url":"/brokerages/2","id":"2","updated_at":"2012-01-11T23:07:43Z"}'
+    http_version: '1.1'
+- !ruby/struct:VCR::HTTPInteraction
+  request: !ruby/struct:VCR::Request
+    method: :get
+    uri: https://api.sandbox.ticketevolution.com:443/brokerages/2?
+    body: !!null 
+    headers:
+      accept:
+      - application/vnd.ticketevolution.api+json; version=8
+      x-signature:
+      - 36B0ISsVd28X7Ml4r2v/QTYLf0q9lCnA0WFb98NZ004=
+      x-token:
+      - b2b5a7a33b1a78896ed1b53d81c5c9cc
+  response: !ruby/struct:VCR::Response
+    status: !ruby/struct:VCR::ResponseStatus
+      code: 200
+      message: OK
+    headers:
+      content-type:
+      - application/vnd.ticketevolution.api+json; version=8; charset=utf-8
+      transfer-encoding:
+      - chunked
+      connection:
+      - keep-alive
+      status:
+      - '200'
+      x-powered-by:
+      - Phusion Passenger (mod_rails/mod_rack) 3.0.11
+      etag:
+      - ! '"7acf702e43d5b618d04efe9216c05106"'
+      x-ua-compatible:
+      - IE=Edge,chrome=1
+      x-runtime:
+      - '0.181874'
+      cache-control:
+      - max-age=0, private, must-revalidate
+      strict-transport-security:
+      - max-age=31536000
+      server:
+      - nginx/1.0.11 + Phusion Passenger 3.0.11 (mod_rails/mod_rack)
+    body: ! '{"natb_member":true,"abbreviation":"Golden Tickets","name":"Golden Tickets","url":"/brokerages/2","id":"2","updated_at":"2012-01-11T23:07:43Z"}'
+    http_version: '1.1'
+- !ruby/struct:VCR::HTTPInteraction
+  request: !ruby/struct:VCR::Request
+    method: :get
+    uri: https://api.sandbox.ticketevolution.com:443/brokerages?page=4&per_page=3
+    body: !!null 
+    headers:
+      accept:
+      - application/vnd.ticketevolution.api+json; version=8
+      x-signature:
+      - rv8OVh1eJVD3e7SIYIAHyRX6LnaHZIakxo7crv1s97w=
+      x-token:
+      - b2b5a7a33b1a78896ed1b53d81c5c9cc
+  response: !ruby/struct:VCR::Response
+    status: !ruby/struct:VCR::ResponseStatus
+      code: 200
+      message: OK
+    headers:
+      content-type:
+      - application/vnd.ticketevolution.api+json; version=8; charset=utf-8
+      transfer-encoding:
+      - chunked
+      connection:
+      - keep-alive
+      status:
+      - '200'
+      x-powered-by:
+      - Phusion Passenger (mod_rails/mod_rack) 3.0.11
+      etag:
+      - ! '"f103128620c280c8e5b489a6da6a17c4"'
+      x-ua-compatible:
+      - IE=Edge,chrome=1
+      x-runtime:
+      - '0.044102'
+      cache-control:
+      - max-age=0, private, must-revalidate
+      strict-transport-security:
+      - max-age=31536000
+      server:
+      - nginx/1.0.11 + Phusion Passenger 3.0.11 (mod_rails/mod_rack)
+    body: ! '{"total_entries":1379,"brokerages":[{"natb_member":true,"abbreviation":"Western
+      States","name":"Western States Ticket Service","url":"/brokerages/11","id":"11","updated_at":"2012-01-11T23:07:43Z"},{"natb_member":true,"abbreviation":"Ticket
+      Pro","name":"Ticket Pro","url":"/brokerages/12","id":"12","updated_at":"2012-01-11T23:07:43Z"},{"natb_member":false,"abbreviation":"Sit
+      In My Seats","name":"Sit In My Seats, LLC","url":"/brokerages/13","id":"13","updated_at":"2011-04-08T20:23:17Z"}],"current_page":4,"per_page":3}'
+    http_version: '1.1'
+- !ruby/struct:VCR::HTTPInteraction
+  request: !ruby/struct:VCR::Request
+    method: :get
+    uri: https://api.sandbox.ticketevolution.com:443/brokerages?page=4&per_page=3
+    body: !!null 
+    headers:
+      accept:
+      - application/vnd.ticketevolution.api+json; version=8
+      x-signature:
+      - rv8OVh1eJVD3e7SIYIAHyRX6LnaHZIakxo7crv1s97w=
+      x-token:
+      - b2b5a7a33b1a78896ed1b53d81c5c9cc
+  response: !ruby/struct:VCR::Response
+    status: !ruby/struct:VCR::ResponseStatus
+      code: 200
+      message: OK
+    headers:
+      content-type:
+      - application/vnd.ticketevolution.api+json; version=8; charset=utf-8
+      transfer-encoding:
+      - chunked
+      connection:
+      - keep-alive
+      status:
+      - '200'
+      x-powered-by:
+      - Phusion Passenger (mod_rails/mod_rack) 3.0.11
+      etag:
+      - ! '"f103128620c280c8e5b489a6da6a17c4"'
+      x-ua-compatible:
+      - IE=Edge,chrome=1
+      x-runtime:
+      - '0.044102'
+      cache-control:
+      - max-age=0, private, must-revalidate
+      strict-transport-security:
+      - max-age=31536000
+      server:
+      - nginx/1.0.11 + Phusion Passenger 3.0.11 (mod_rails/mod_rack)
+    body: ! '{"total_entries":1379,"brokerages":[{"natb_member":true,"abbreviation":"Western
+      States","name":"Western States Ticket Service","url":"/brokerages/11","id":"11","updated_at":"2012-01-11T23:07:43Z"},{"natb_member":true,"abbreviation":"Ticket
+      Pro","name":"Ticket Pro","url":"/brokerages/12","id":"12","updated_at":"2012-01-11T23:07:43Z"},{"natb_member":false,"abbreviation":"Sit
+      In My Seats","name":"Sit In My Seats, LLC","url":"/brokerages/13","id":"13","updated_at":"2011-04-08T20:23:17Z"}],"current_page":4,"per_page":3}'
+    http_version: '1.1'

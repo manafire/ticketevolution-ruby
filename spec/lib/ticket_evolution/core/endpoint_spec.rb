@@ -2,6 +2,7 @@ require 'spec_helper'
 
 describe TicketEvolution::Endpoint do
   let(:klass) { TicketEvolution::Endpoint }
+  let(:single_klass) { TicketEvolution::Endpoint }
 
   subject { klass }
 

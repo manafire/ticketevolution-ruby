@@ -5,7 +5,7 @@ module TicketEvolution
     end
 
     def build_for_show(response)
-      "TicketEvolution::#{self.class.to_s.split('::').last.singularize.camelize}".constantize.new(
+      singular_class.new(
         response.body.merge({
           :status_code => response.response_code,
           :server_message => response.server_message

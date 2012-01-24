@@ -34,5 +34,9 @@ module TicketEvolution
     def has_connection?
       connection.present?
     end
+
+   def singular_class
+      "TicketEvolution::#{self.class.name.demodulize.singularize.camelize}".constantize
+    end
   end
 end

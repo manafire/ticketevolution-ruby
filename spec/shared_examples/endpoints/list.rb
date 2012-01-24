@@ -23,4 +23,19 @@ shared_examples_for "a list endpoint" do
       end
     end
   end
+
+  context "#build_for_list" do
+    let(:response) { Fake.list_response }
+
+    it "invokes Collection#build_from_response" do
+      TicketEvolution::Collection.
+        should_receive(:build_from_response).
+        with(response, klass.name.demodulize.downcase, instance.singular_class)
+      instance.build_for_list(response)
+    end
+
+    it "returns a collection" do
+      instance.build_for_list(response).should be_a TicketEvolution::Collection
+    end
+  end
 end
