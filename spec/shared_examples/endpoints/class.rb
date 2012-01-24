@@ -162,8 +162,10 @@ shared_examples_for "a ticket_evolution endpoint class" do
     subject { instance.request method, full_path }
     let(:method) { :GET }
     let(:response) { Fake.response }
+    let(:responsible) { :list }
 
     before do
+      instance.instance_eval { @responsible = :list }
       connection.should_receive(:build_request).and_return(curl)
       instance.should_receive(:naturalize_response).and_return(response)
     end
@@ -181,6 +183,18 @@ shared_examples_for "a ticket_evolution endpoint class" do
 
       it "should return an instance of TicketEvolution::ApiError" do
         subject.should be_a (TicketEvolution::ApiError)
+      end
+    end
+
+    context "when successful" do
+      let(:response) { Fake.response }
+
+      before { curl.should_receive(:http) }
+
+      it "should pass the response object to #build_object" do
+        instance.should_receive(:build_object).with(responsible, response)
+
+        instance.request method, full_path
       end
     end
   end
@@ -214,4 +228,3 @@ shared_examples_for "a ticket_evolution endpoint class" do
     end
   end
 end
-

@@ -19,8 +19,12 @@ module TicketEvolution
 
       def request(method, path, params = nil)
         request = self.build_request(method, path, params)
-        response = naturalize_response(request.http(method))
-        TicketEvolution::ApiError.new(response) if response.response_code >= 400
+        response = self.naturalize_response(request.http(method))
+        if response.response_code >= 400
+          TicketEvolution::ApiError.new(response)
+        else
+          self.build_object(@responsible, response)
+        end
       end
 
       def build_request(method, path, params = nil)
@@ -35,6 +39,10 @@ module TicketEvolution
           resp.body = MultiJson.decode(response.body_str)
           resp.server_message = CODES[response.response_code].last
         end
+      end
+
+      def build_object(responsible, response)
+        # send("build_for_#{responsible}".to_sym, response)
       end
     end
   end
