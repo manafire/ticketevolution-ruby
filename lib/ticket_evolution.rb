@@ -43,6 +43,7 @@ irequire 'connection.rb'
 irequire 'endpoint', 'request_handler.rb'
 irequire 'endpoint.rb'
 irequire 'samples.rb'
+irequire 'time.rb'
 
 # Errors
 irequire 'errors', 'endpoint_configuration_error.rb'
