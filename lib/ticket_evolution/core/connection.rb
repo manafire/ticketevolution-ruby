@@ -48,28 +48,46 @@ module TicketEvolution
         OpenSSL::HMAC.digest(
           OpenSSL::Digest::Digest.new('sha256'),
           @config[:secret],
-          "#{method} #{process_content(method, path, content).gsub(TicketEvolution::Connection.protocol+'://', '')}"
+          "#{method} #{process_params(method, path, content).gsub(TicketEvolution::Connection.protocol+'://', '')}"
       )).chomp
     end
 
-    def build_request(method, path, content = nil)
+    def build_request(method, path, params = nil)
       uri = URI.join(self.url, path).to_s
-      Curl::Easy.new(process_content(method, uri, content)) do |request|
+      Curl::Easy.new(generate_url(method, uri, params)) do |request|
+        request.post_body = post_body(params) unless method == :GET
         request.headers["Accept"] = "application/vnd.ticketevolution.api+json; version=#{@config[:version]}"
-        request.headers["X-Signature"] = sign(method, uri, content)
+        request.headers["X-Signature"] = sign(method, uri, params)
         request.headers["X-Token"] = @config[:token]
       end
     end
 
     private
 
-    def process_content(method, path, content)
-      "#{URI.join(url, path).to_s}?" + (content.present? ? case method
+    def post_body(params)
+      MultiJson.encode(params)
+    end
+
+    def generate_url(method, uri, params)
+      case method
       when :GET
-        content.to_query
+        process_params(method, uri, params)
       else
-        MultiJson.encode(content)
-      end : '')
+        uri
+      end
+    end
+
+    def process_params(method, path, params)
+      suffix = if params.present?
+        case method
+        when :GET
+          params.to_query
+        else
+          post_body(params)
+        end
+      end
+
+      "#{URI.join(url, path).to_s}?" + suffix.to_s
     end
   end
 end

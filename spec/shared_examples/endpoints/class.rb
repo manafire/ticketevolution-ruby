@@ -228,6 +228,12 @@ shared_examples_for "a ticket_evolution endpoint class" do
     end
   end
 
+  context "#endpoint_name" do
+    it "returns the demodulized version of the endpoint name" do
+      instance.endpoint_name.should == klass.name.demodulize.downcase
+    end
+  end
+
   context "#singular_class" do
     it "returns the singular version of an Endpoint class" do
       instance.singular_class.should == single_klass

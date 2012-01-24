@@ -35,7 +35,11 @@ module TicketEvolution
       connection.present?
     end
 
-   def singular_class
+    def endpoint_name
+      self.class.name.demodulize.downcase
+    end
+
+    def singular_class
       "TicketEvolution::#{self.class.name.demodulize.singularize.camelize}".constantize
     end
   end

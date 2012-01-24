@@ -57,6 +57,24 @@ class Fake
     r
   end
 
+  def self.create_response(endpoint = nil)
+    r = self.response
+    r.body = {
+        endpoint.to_s => [
+        {
+          "url" => "/clients/2097",
+          "email_addresses" => [],
+          "updated_at"=>"2012-01-06T02:34:47Z",
+          "phone_numbers"=>[],
+          "addresses"=>[],
+          "name"=>"Morris Moe Szyslak",
+          "id"=>"2097"
+        }
+      ]
+    }
+    r
+  end
+
   def self.error_response
     OpenStruct.new.tap do |resp|
       resp.header = ''
