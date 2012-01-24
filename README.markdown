@@ -7,11 +7,16 @@ As a connivence all reposes which are returned in the format of JSON are automat
 
 Installation
 ------------
-  
+
     gem install ticketevolution-ruby
     # In your ruby application
-    require 'ticketevolution-ruby'
-  
+    require 'ticket_evolution'
+
+    ### Bundler ###
+    # In your Gemfile
+    gem 'ticketevolution-ruby'
+    # In your Application
+    require 'ticket_evolution'
 
 
 Connecting to Ticketevolution
@@ -24,6 +29,28 @@ Connecting to Ticketevolution
       :mode     => :sandbox
     })
 
+
+Interacting with an endpoint (see http://developer.ticketevolution.com for more)
+---------------------
+
+    # FORMAT => @connection.<endpoint>.<method>
+    #   where endpoint is a Ticket Evolution API endpoint defined at developer.ticketevolution.com
+
+    ### Examples ###
+
+    @connection.brokerages.list           # => builds a TicketEvolution::List object containing
+                                          #    a collection of TicketEvolution::Brokerage objects
+
+    @connection.brokerages.show(id)       # => builds a TicketEvolution::Brokerage object (if found)
+
+    @connection.brokerages.search(params) # => returns a TicketEvolution::Search object containing
+                                          #    a collection of TicketEvolution::Brokerage objects
+
+
+
+
+LEGACY DOCUMENTATION - REWRITE ME
+---------------------
 
 Catalog Resources :: Fetching and Interaction With A Venue
 ---------------------
