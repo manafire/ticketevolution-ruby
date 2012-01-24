@@ -19,7 +19,8 @@ module TicketEvolution
 
       def request(method, path, params = nil)
         request = self.build_request(method, path, params)
-        response = self.naturalize_response(request.http(method))
+        request.http(method)
+        response = self.naturalize_response(request)
         if response.response_code >= 400
           TicketEvolution::ApiError.new(response)
         else
