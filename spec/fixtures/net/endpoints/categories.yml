@@ -1,0 +1,85 @@
+---
+- !ruby/struct:VCR::HTTPInteraction
+  request: !ruby/struct:VCR::Request
+    method: :get
+    uri: https://api.sandbox.ticketevolution.com:443/categories/deleted?per_page=2
+    body: !!null 
+    headers:
+      accept:
+      - application/vnd.ticketevolution.api+json; version=8
+      x-signature:
+      - UurUXh2hiUpvRGriYl6EArO99Qx7YGislQ53lNGzflw=
+      x-token:
+      - b2b5a7a33b1a78896ed1b53d81c5c9cc
+  response: !ruby/struct:VCR::Response
+    status: !ruby/struct:VCR::ResponseStatus
+      code: 200
+      message: OK
+    headers:
+      content-type:
+      - application/vnd.ticketevolution.api+json; version=8; charset=utf-8
+      transfer-encoding:
+      - chunked
+      connection:
+      - keep-alive
+      status:
+      - '200'
+      x-powered-by:
+      - Phusion Passenger (mod_rails/mod_rack) 3.0.11
+      etag:
+      - ! '"4cf7dbf9f23ccf657a83efacbfecedb0"'
+      x-ua-compatible:
+      - IE=Edge,chrome=1
+      x-runtime:
+      - '0.043138'
+      cache-control:
+      - max-age=0, private, must-revalidate
+      strict-transport-security:
+      - max-age=31536000
+      server:
+      - nginx/1.0.11 + Phusion Passenger 3.0.11 (mod_rails/mod_rack)
+    body: ! '{"total_entries":1,"current_page":1,"categories":[{"deleted_at":"2012-01-06T03:17:18Z","url":"/categories/121","name":"Insult
+      Comedy","id":"121","updated_at":"2012-01-06T03:16:47Z"}],"per_page":2}'
+    http_version: '1.1'
+- !ruby/struct:VCR::HTTPInteraction
+  request: !ruby/struct:VCR::Request
+    method: :get
+    uri: https://api.sandbox.ticketevolution.com:443/categories/deleted?per_page=2
+    body: !!null 
+    headers:
+      accept:
+      - application/vnd.ticketevolution.api+json; version=8
+      x-signature:
+      - UurUXh2hiUpvRGriYl6EArO99Qx7YGislQ53lNGzflw=
+      x-token:
+      - b2b5a7a33b1a78896ed1b53d81c5c9cc
+  response: !ruby/struct:VCR::Response
+    status: !ruby/struct:VCR::ResponseStatus
+      code: 200
+      message: OK
+    headers:
+      content-type:
+      - application/vnd.ticketevolution.api+json; version=8; charset=utf-8
+      transfer-encoding:
+      - chunked
+      connection:
+      - keep-alive
+      status:
+      - '200'
+      x-powered-by:
+      - Phusion Passenger (mod_rails/mod_rack) 3.0.11
+      etag:
+      - ! '"4cf7dbf9f23ccf657a83efacbfecedb0"'
+      x-ua-compatible:
+      - IE=Edge,chrome=1
+      x-runtime:
+      - '0.043138'
+      cache-control:
+      - max-age=0, private, must-revalidate
+      strict-transport-security:
+      - max-age=31536000
+      server:
+      - nginx/1.0.11 + Phusion Passenger 3.0.11 (mod_rails/mod_rack)
+    body: ! '{"total_entries":1,"current_page":1,"categories":[{"deleted_at":"2012-01-06T03:17:18Z","url":"/categories/121","name":"Insult
+      Comedy","id":"121","updated_at":"2012-01-06T03:16:47Z"}],"per_page":2}'
+    http_version: '1.1'
