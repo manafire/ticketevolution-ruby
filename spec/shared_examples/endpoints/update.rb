@@ -15,6 +15,13 @@ shared_examples_for "an update endpoint" do
 
           instance.update(params)
         end
+
+        it "should set the @responsible to :update so that #request knows how to handle the response" do
+          instance.should_receive(:request)
+          instance.update(params)
+
+          instance.instance_eval("@responsible").should == :update
+        end
       end
 
       context "without params" do

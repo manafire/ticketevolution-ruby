@@ -61,3 +61,11 @@ irequire 'clients.rb'
 irequire 'events.rb'
 irequire 'offices.rb'
 irequire 'users.rb'
+
+# Builder Classes
+irequire 'brokerage.rb'
+irequire 'category.rb'
+irequire 'client.rb'
+irequire 'event.rb'
+irequire 'office.rb'
+irequire 'user.rb'
