@@ -24,33 +24,35 @@ module TicketEvolution
   @@root = Pathname.new(File.dirname(File.expand_path(__FILE__))) + 'ticket_evolution'
 end
 
+def crequire(*parts); require TicketEvolution.root + 'core' + File.join(parts); end
 def irequire(*parts); require TicketEvolution.root + File.join(parts); end
+def mrequire(*parts); require TicketEvolution.root + 'modules' + File.join(parts); end
 
 irequire 'version.rb' unless defined?(TicketEvolution::VERSION)
 
-# Core modules
-irequire 'modules', 'create.rb'
-irequire 'modules', 'deleted.rb'
-irequire 'modules', 'list.rb'
-irequire 'modules', 'search.rb'
-irequire 'modules', 'show.rb'
-irequire 'modules', 'update.rb'
-
 # Core classes
-irequire 'api_error.rb'
-irequire 'base.rb'
-irequire 'builder.rb'
-irequire 'connection.rb'
-irequire 'datum.rb'
-irequire 'endpoint', 'request_handler.rb'
-irequire 'endpoint.rb'
-irequire 'samples.rb'
-irequire 'time.rb'
+crequire 'api_error.rb'
+crequire 'base.rb'
+crequire 'builder.rb'
+crequire 'connection.rb'
+crequire 'datum.rb'
+crequire 'endpoint', 'request_handler.rb'
+crequire 'endpoint.rb'
+crequire 'samples.rb'
+crequire 'time.rb'
 
 # Errors
 irequire 'errors', 'endpoint_configuration_error.rb'
 irequire 'errors', 'invalid_configuration.rb'
 irequire 'errors', 'method_unavailable_error.rb'
+
+# Endpoint modules
+mrequire 'create.rb'
+mrequire 'deleted.rb'
+mrequire 'list.rb'
+mrequire 'search.rb'
+mrequire 'show.rb'
+mrequire 'update.rb'
 
 # Endpoint Classes
 irequire 'brokerages.rb'
