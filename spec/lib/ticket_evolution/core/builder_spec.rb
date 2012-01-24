@@ -41,8 +41,15 @@ describe TicketEvolution::Builder do
       instance.send(:process_datum, time).should == TicketEvolution::Time.parse(time)
     end
 
-    it "should convert hashed into TicketEvolution::Data objects" do
+    it "should convert hashes into TicketEvolution::Data objects" do
       instance.send(:process_datum, {:one => 1}).should be_a TicketEvolution::Datum
+    end
+
+    it "should map arrays, calling itself on each value" do
+      instance.send(:process_datum, [{:one => 1}, time]).should == [
+        TicketEvolution::Datum.new({:one => 1}),
+        TicketEvolution::Time.parse(time)
+      ]
     end
   end
 

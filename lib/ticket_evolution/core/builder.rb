@@ -10,7 +10,16 @@ module TicketEvolution
     private
 
     def process_datum(v)
-      v.is_a?(Hash) ? Datum.new(v) : Time.parse(v)
+      case v.class.to_s.to_sym
+      when :Hash
+        Datum.new(v)
+      when :Array
+        v.map{|x| process_datum(x)}
+      when :String
+        Time.parse(v)
+      else
+        v
+      end
     end
 
     def method_missing(meth, *args, &block)
