@@ -171,6 +171,7 @@ shared_examples_for "a ticket_evolution endpoint class" do
     end
 
     it "calls http on the return Curl object with the method for the request" do
+      instance.should_receive(:build_object).with(responsible, response)
       curl.should_receive(:http).with(method)
 
       instance.request(method, path)
@@ -223,6 +224,22 @@ shared_examples_for "a ticket_evolution endpoint class" do
 
           its(:response_code) { should == code }
           its(:server_message) { should == value.last }
+        end
+      end
+    end
+  end
+
+  describe "#build_object" do
+    let(:instance) { klass.new({:parent => connection}) }
+    let(:response) { stub(:response) }
+
+    [:list, :create, :show, :update, :deleted, :search].each do |verb|
+      it "should pass response on" do
+        method = :"build_for_#{verb}"
+        if instance.respond_to? method
+          instance.instance_eval "@responsible = :#{verb}"
+          instance.should_receive(method).with(response)
+          instance.build_object(verb, response)
         end
       end
     end

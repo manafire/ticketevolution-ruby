@@ -42,7 +42,7 @@ module TicketEvolution
       end
 
       def build_object(responsible, response)
-        # send("build_for_#{responsible}".to_sym, response)
+        send("build_for_#{responsible}".to_sym, response)
       end
     end
   end
