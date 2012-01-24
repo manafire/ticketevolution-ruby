@@ -33,6 +33,18 @@ describe TicketEvolution::Brokerages do
         brokerage.should be_a TicketEvolution::Brokerage
       end
     end
-  end
 
+    it "searches for a brokerage" do
+      brokerages = connection.brokerages.search(:q => "New York", "page" => 1)
+
+      # FIXME: The search API doesn't return total entries, yet (due to lack of pagination)...
+      brokerages.per_page.should be_nil
+      brokerages.current_page.should be_nil
+      brokerages.total_entries.should be_nil
+
+      brokerages.count.should == 2
+      brokerages.each { |brokerage| brokerage.should be_an_instance_of TicketEvolution::Brokerage }
+      brokerages.first.name.should == "Totally New York"
+    end
+  end
 end

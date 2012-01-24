@@ -169,3 +169,89 @@
       Pro","name":"Ticket Pro","url":"/brokerages/12","id":"12","updated_at":"2012-01-11T23:07:43Z"},{"natb_member":false,"abbreviation":"Sit
       In My Seats","name":"Sit In My Seats, LLC","url":"/brokerages/13","id":"13","updated_at":"2011-04-08T20:23:17Z"}],"current_page":4,"per_page":3}'
     http_version: '1.1'
+- !ruby/struct:VCR::HTTPInteraction
+  request: !ruby/struct:VCR::Request
+    method: :get
+    uri: https://api.sandbox.ticketevolution.com:443/brokerages/search?page=1&q=New%20York
+    body: !!null 
+    headers:
+      accept:
+      - application/vnd.ticketevolution.api+json; version=8
+      x-signature:
+      - COOBbmo7KmLzmuHJshDMMsUZzStMbzfIQJgKfJeYnmg=
+      x-token:
+      - b2b5a7a33b1a78896ed1b53d81c5c9cc
+  response: !ruby/struct:VCR::Response
+    status: !ruby/struct:VCR::ResponseStatus
+      code: 200
+      message: OK
+    headers:
+      content-type:
+      - application/vnd.ticketevolution.api+json; version=8; charset=utf-8
+      transfer-encoding:
+      - chunked
+      connection:
+      - keep-alive
+      status:
+      - '200'
+      x-powered-by:
+      - Phusion Passenger (mod_rails/mod_rack) 3.0.11
+      etag:
+      - ! '"df74ddb81f473cf71965399a8273cb9d"'
+      x-ua-compatible:
+      - IE=Edge,chrome=1
+      x-runtime:
+      - '0.177202'
+      cache-control:
+      - max-age=0, private, must-revalidate
+      strict-transport-security:
+      - max-age=31536000
+      server:
+      - nginx/1.0.11 + Phusion Passenger 3.0.11 (mod_rails/mod_rack)
+    body: ! '{"brokerages":[{"_type":"Brokerage","natb_member":false,"abbreviation":"Totally
+      - NY","_score":1.4142135,"name":"Totally New York","url":"/brokerages/725","id":"725","updated_at":"2011-02-10T13:44:47Z"},{"_type":"Brokerage","natb_member":false,"abbreviation":"At
+      New York","_score":1.4142135,"name":"At New York & Company","url":"/brokerages/781","id":"781","updated_at":"2011-03-28T16:21:41Z"}]}'
+    http_version: '1.1'
+- !ruby/struct:VCR::HTTPInteraction
+  request: !ruby/struct:VCR::Request
+    method: :get
+    uri: https://api.sandbox.ticketevolution.com:443/brokerages/search?page=1&q=New%20York
+    body: !!null 
+    headers:
+      accept:
+      - application/vnd.ticketevolution.api+json; version=8
+      x-signature:
+      - COOBbmo7KmLzmuHJshDMMsUZzStMbzfIQJgKfJeYnmg=
+      x-token:
+      - b2b5a7a33b1a78896ed1b53d81c5c9cc
+  response: !ruby/struct:VCR::Response
+    status: !ruby/struct:VCR::ResponseStatus
+      code: 200
+      message: OK
+    headers:
+      content-type:
+      - application/vnd.ticketevolution.api+json; version=8; charset=utf-8
+      transfer-encoding:
+      - chunked
+      connection:
+      - keep-alive
+      status:
+      - '200'
+      x-powered-by:
+      - Phusion Passenger (mod_rails/mod_rack) 3.0.11
+      etag:
+      - ! '"df74ddb81f473cf71965399a8273cb9d"'
+      x-ua-compatible:
+      - IE=Edge,chrome=1
+      x-runtime:
+      - '0.177202'
+      cache-control:
+      - max-age=0, private, must-revalidate
+      strict-transport-security:
+      - max-age=31536000
+      server:
+      - nginx/1.0.11 + Phusion Passenger 3.0.11 (mod_rails/mod_rack)
+    body: ! '{"brokerages":[{"_type":"Brokerage","natb_member":false,"abbreviation":"Totally
+      - NY","_score":1.4142135,"name":"Totally New York","url":"/brokerages/725","id":"725","updated_at":"2011-02-10T13:44:47Z"},{"_type":"Brokerage","natb_member":false,"abbreviation":"At
+      New York","_score":1.4142135,"name":"At New York & Company","url":"/brokerages/781","id":"781","updated_at":"2011-03-28T16:21:41Z"}]}'
+    http_version: '1.1'
