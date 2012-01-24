@@ -1,5 +1,5 @@
 module TicketEvolution
-  class Time < Time
+  class Time < ::Time
     def self.parse(str)
       if str =~ /^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}Z$/
         parts = str.split(/[-T:Z]/).collect(&:to_i)

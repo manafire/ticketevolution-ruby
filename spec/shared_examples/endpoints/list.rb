@@ -13,13 +13,6 @@ shared_examples_for "a list endpoint" do
 
         instance.list(params)
       end
-
-      it "should set the @responsible to :list so that #request knows how to handle the response" do
-        instance.should_receive(:request)
-        instance.list(params)
-
-        instance.instance_eval("@responsible").should == :list
-      end
     end
 
     context "without params" do

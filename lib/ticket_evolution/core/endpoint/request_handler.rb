@@ -17,14 +17,14 @@ module TicketEvolution
         503 => ["Service Unavailable","Returned when the API service is temporarily unavailable. This could also indicate that the rate limit for the given token has been reached. If this status is received, the request should be retried."]
       }
 
-      def request(method, path, params = nil)
+      def request(method, path, params = nil, &response_handler)
         request = self.build_request(method, path, params)
         request.http(method)
         response = self.naturalize_response(request)
         if response.response_code >= 400
           TicketEvolution::ApiError.new(response)
         else
-          self.build_object(@responsible, response)
+          response_handler.call(response)
         end
       end
 
@@ -40,10 +40,6 @@ module TicketEvolution
           resp.body = MultiJson.decode(response.body_str)
           resp.server_message = CODES[response.response_code].last
         end
-      end
-
-      def build_object(responsible, response)
-        send("build_for_#{responsible}".to_sym, response)
       end
     end
   end

@@ -162,19 +162,18 @@ shared_examples_for "a ticket_evolution endpoint class" do
     subject { instance.request method, full_path }
     let(:method) { :GET }
     let(:response) { Fake.response }
-    let(:responsible) { :list }
+    let(:mock_block) { Proc.new {} }
 
     before do
-      instance.instance_eval { @responsible = :list }
       connection.should_receive(:build_request).and_return(curl)
       instance.should_receive(:naturalize_response).and_return(response)
     end
 
     it "calls http on the return Curl object with the method for the request" do
-      instance.should_receive(:build_object).with(responsible, response)
+      mock_block.should_receive(:call).with(response)
       curl.should_receive(:http).with(method)
 
-      instance.request(method, path)
+      instance.request(method, path, nil, &mock_block)
     end
 
     context "when there is an error from the api" do
@@ -193,9 +192,9 @@ shared_examples_for "a ticket_evolution endpoint class" do
       before { curl.should_receive(:http) }
 
       it "should pass the response object to #build_object" do
-        instance.should_receive(:build_object).with(responsible, response)
+        mock_block.should_receive(:call).with(response)
 
-        instance.request method, full_path
+        instance.request(method, full_path, nil, &mock_block)
       end
     end
   end
@@ -224,22 +223,6 @@ shared_examples_for "a ticket_evolution endpoint class" do
 
           its(:response_code) { should == code }
           its(:server_message) { should == value.last }
-        end
-      end
-    end
-  end
-
-  describe "#build_object" do
-    let(:instance) { klass.new({:parent => connection}) }
-    let(:response) { stub(:response) }
-
-    [:list, :create, :show, :update, :deleted, :search].each do |verb|
-      it "should pass response on" do
-        method = :"build_for_#{verb}"
-        if instance.respond_to? method
-          instance.instance_eval "@responsible = :#{verb}"
-          instance.should_receive(method).with(response)
-          instance.build_object(verb, response)
         end
       end
     end

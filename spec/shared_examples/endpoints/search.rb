@@ -13,13 +13,6 @@ shared_examples_for "a search endpoint" do
 
         instance.search(params)
       end
-
-      it "should set the @responsible to :search so that #request knows how to handle the response" do
-        instance.should_receive(:request)
-        instance.search(params)
-
-        instance.instance_eval("@responsible").should == :search
-      end
     end
 
     context "without params" do

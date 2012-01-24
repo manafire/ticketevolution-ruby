@@ -13,13 +13,6 @@ shared_examples_for "a deleted endpoint" do
 
         instance.deleted(params)
       end
-
-      it "should set the @responsible to :deleted so that #request knows how to handle the response" do
-        instance.should_receive(:request)
-        instance.deleted(params)
-
-        instance.instance_eval("@responsible").should == :deleted
-      end
     end
 
     context "without params" do

@@ -13,13 +13,6 @@ shared_examples_for "a create endpoint" do
 
         instance.create(params)
       end
-
-      it "should set the @responsible to :create so that #request knows how to handle the response" do
-        instance.should_receive(:request)
-        instance.create(params)
-
-        instance.instance_eval("@responsible").should == :create
-      end
     end
 
     context "without params" do
