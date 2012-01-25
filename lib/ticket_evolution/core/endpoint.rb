@@ -1,6 +1,7 @@
 module TicketEvolution
   class Endpoint < Base
     include RequestHandler
+    include SingularClass
 
     def initialize(options = nil)
       raise EndpointConfigurationError, "#{self.class.to_s} instances require a hash as their first parameter" unless options.is_a? Hash
@@ -37,10 +38,6 @@ module TicketEvolution
 
     def endpoint_name
       self.class.name.demodulize.downcase
-    end
-
-    def singular_class
-      "TicketEvolution::#{self.class.name.demodulize.singularize.camelize}".constantize
     end
   end
 end

@@ -30,6 +30,9 @@ def mrequire(*parts); require TicketEvolution.root + 'modules' + File.join(parts
 
 irequire 'version.rb' unless defined?(TicketEvolution::VERSION)
 
+# Core modules
+crequire 'singular_class.rb'
+
 # Core classes
 crequire 'api_error.rb'
 crequire 'base.rb'
