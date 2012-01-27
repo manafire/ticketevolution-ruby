@@ -1,4 +1,4 @@
 module TicketEvolution
-  class User < Builder
+  class User < Model
   end
 end

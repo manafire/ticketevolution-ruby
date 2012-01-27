@@ -1,4 +1,4 @@
 module TicketEvolution
-  class Shipment < Builder
+  class Shipment < Model
   end
 end

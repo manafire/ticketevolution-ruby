@@ -1,4 +1,4 @@
 module TicketEvolution
-  class TicketGroup < Builder
+  class TicketGroup < Model
   end
 end

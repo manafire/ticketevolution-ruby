@@ -1,4 +1,4 @@
 module TicketEvolution
-  class Configuration < Builder
+  class Configuration < Model
   end
 end

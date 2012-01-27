@@ -1,4 +1,4 @@
 module TicketEvolution
-  class Office < Builder
+  class Office < Model
   end
 end

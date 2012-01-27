@@ -1,4 +1,4 @@
 module TicketEvolution
-  class Performer < Builder
+  class Performer < Model
   end
 end

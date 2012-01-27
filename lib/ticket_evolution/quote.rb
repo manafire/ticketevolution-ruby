@@ -1,4 +1,4 @@
 module TicketEvolution
-  class Quote < Builder
+  class Quote < Model
   end
 end

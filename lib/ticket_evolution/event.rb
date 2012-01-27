@@ -1,4 +1,4 @@
 module TicketEvolution
-  class Event < Builder
+  class Event < Model
   end
 end

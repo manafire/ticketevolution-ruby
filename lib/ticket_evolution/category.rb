@@ -1,4 +1,4 @@
 module TicketEvolution
-  class Category < Builder
+  class Category < Model
   end
 end

@@ -3,5 +3,5 @@ require 'spec_helper'
 describe TicketEvolution::TicketGroup do
   subject { TicketEvolution::TicketGroup }
 
-  its(:ancestors) { should include TicketEvolution::Builder }
+  it_behaves_like "a ticket_evolution model"
 end

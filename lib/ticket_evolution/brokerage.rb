@@ -1,4 +1,4 @@
 module TicketEvolution
-  class Brokerage < Builder
+  class Brokerage < Model
   end
 end
