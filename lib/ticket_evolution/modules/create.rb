@@ -8,7 +8,8 @@ module TicketEvolution
     def build_for_create(response)
       singular_class.new(response.body[endpoint_name].first.merge({
           :status_code => response.response_code,
-          :server_message => response.server_message
+          :server_message => response.server_message,
+          :connection => response.body[:connection]
         })
       )
     end

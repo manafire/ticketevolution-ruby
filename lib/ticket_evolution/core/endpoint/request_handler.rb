@@ -37,7 +37,7 @@ module TicketEvolution
         OpenStruct.new.tap do |resp|
           resp.header = response.header_str
           resp.response_code = response.response_code
-          resp.body = MultiJson.decode(response.body_str)
+          resp.body = MultiJson.decode(response.body_str).merge({:connection => self.connection})
           resp.server_message = CODES[response.response_code].last
         end
       end

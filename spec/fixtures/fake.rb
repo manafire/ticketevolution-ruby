@@ -7,6 +7,10 @@ class Fake
     Base64.encode64(OpenSSL::Random.random_bytes(30)).chomp
   end
 
+  def self.connection
+    TicketEvolution::Connection.new({:token => Fake.token, :secret => Fake.secret})
+  end
+
   def self.response
     OpenStruct.new.tap do |resp|
       resp.header = 'fake header string (we don\'t currently process this)'
@@ -19,6 +23,7 @@ class Fake
   def self.show_response
     r = self.response
     r.body = {
+      :connection => Fake.connection,
       "url" => "/brokerages/2",
       "updated_at" => "2011-12-18T17:30:06Z",
       "natb_member" => true,
@@ -32,35 +37,37 @@ class Fake
   def self.list_response
     r = self.response
     r.body = {
-       "current_page" => 1,
-       "per_page" => 2,
-       "brokerages" => [
-          {
-             "url" => "/brokerages/1",
-             "updated_at" => "2011-12-18T19:06:19Z",
-             "natb_member" => true,
-             "name" => "National Event Company",
-             "id" => "1",
-             "abbreviation" => "NECO"
-          },
-          {
-             "url" => "/brokerages/2",
-             "updated_at" => "2011-12-18T17:30:06Z",
-             "natb_member" => true,
-             "name" => "Golden Tickets",
-             "id" => "2",
-             "abbreviation" => "Golden Tickets"
-          }
-       ],
-       "total_entries" => 1379
+      :connection => Fake.connection,
+      "current_page" => 1,
+      "per_page" => 2,
+      "brokerages" => [
+        {
+          "url" => "/brokerages/1",
+          "updated_at" => "2011-12-18T19:06:19Z",
+          "natb_member" => true,
+          "name" => "National Event Company",
+          "id" => "1",
+          "abbreviation" => "NECO"
+        },
+        {
+          "url" => "/brokerages/2",
+          "updated_at" => "2011-12-18T17:30:06Z",
+          "natb_member" => true,
+          "name" => "Golden Tickets",
+          "id" => "2",
+          "abbreviation" => "Golden Tickets"
+        }
+      ],
+      "total_entries" => 1379
     }
     r
   end
 
-  def self.create_response(endpoint = nil)
+  def self.create_response(endpoint = nil, connection = Fake.connection)
     r = self.response
     r.body = {
-        endpoint.to_s => [
+      :connection => connection,
+      endpoint.to_s => [
         {
           "url" => "/clients/2097",
           "email_addresses" => [],

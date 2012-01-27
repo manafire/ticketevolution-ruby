@@ -215,7 +215,7 @@ shared_examples_for "a ticket_evolution endpoint class" do
       let(:body_str) { "{\"test\": \"hello\"}" }
 
       its(:header) { should == response.header_str }
-      its(:body) { should == MultiJson.decode(response.body_str) }
+      its(:body) { should == MultiJson.decode(response.body_str).merge({:connection => connection}) }
 
       TicketEvolution::Endpoint::RequestHandler::CODES.each do |code, value|
         context "with response code #{code}" do

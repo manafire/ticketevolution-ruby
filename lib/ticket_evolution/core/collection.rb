@@ -15,7 +15,7 @@ module TicketEvolution
         :per_page => response.body['per_page'],
         :current_page => response.body['current_page'],
         :entries => entries.collect do |entry|
-          singular_class.new(entry)
+          singular_class.new(entry.merge({:connection => response.body[:connection]}))
         end
       )
     end

@@ -22,6 +22,7 @@ describe TicketEvolution::Accounts do
       account.id.should == id.to_s
 
       account.client.should == TicketEvolution::Client.new({
+        :connection => connection,
         "url" => "/clients/3",
         "name" => "Main Office",
         "id" => "3"

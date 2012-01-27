@@ -14,12 +14,13 @@ module TicketEvolution
     def process_datum(v)
       case v.class.to_s.to_sym
       when :Hash
-        if v['url'].present?
-          name = class_name_from_url(v['url'])
-          datum_exists?(name) ? singular_class(class_name_from_url(name)).new(v) : Datum.new(v)
-        else
-          Datum.new(v)
-        end
+        Datum.new(v)
+        # if v['url'].present?
+          # name = class_name_from_url(v['url'])
+          # datum_exists?(name) ? singular_class(class_name_from_url(name)).new(v.merge({:connection => @connection})) : Datum.new(v)
+        # else
+          # Datum.new(v)
+        # end
       when :Array
         v.map{|x| process_datum(x)}
       when :String
