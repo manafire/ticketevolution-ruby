@@ -19,20 +19,20 @@ client = TicketEvolution::Connection.new(
 
 # The interface to events can be passed filtering parameters as documented in
 # (http://developer.ticketevolution.com/endpoints/events#list).
-# For example, pulling 10 events for a partiular category
+# For example, pulling 10 events for a particular category
 events = client.events.list(:category_id => 24, :per_page => 10)
 
 # Each call to the API endpoint that returns a collection returns a
 # TicketEvolution::Collection. This object responds to all Enumerable
 # methods (each, collect, etc). It will initialize each object in the
-# collection a TicketEvolution model instance.
+# collection as a TicketEvolution model instance.
 
 event_names = events.collect(&:name)
 puts "These are all the events: #{event_names.join(", ")}"
 
 # Our events each get initialized as a TicketEvolution::Event
 # object. They will respond to all the attribute values that the event API
-# call returned. The model even handles nested assocaitions.
+# call returned. The model even handles nested associations.
 # For example, each event is attached to a venue.
 
 events.each do |event|

@@ -29,6 +29,7 @@ i = Module.new { def self.req(*parts); require TicketEvolution.root + File.join(
 m = Module.new { def self.req(*parts); require TicketEvolution.root + 'modules' + File.join(parts); end }
 
 r.req 'version.rb' unless defined?(TicketEvolution::VERSION)
+i.req 'version.rb' unless defined?(TicketEvolution::VERSION)
 
 # Core modules
 c.req 'singular_class.rb'

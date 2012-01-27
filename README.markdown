@@ -6,6 +6,8 @@ The gem follows an instance based approach to the Restful API. This way multiple
 
 All API documentation can be found at [http://developer.ticketevolution.com](http://developer.ticketevolution.com/).
 
+WARNING: This gem is not ready for prime time. Some of the endpoints have not been added and a few implementation details have yet to be worked out.
+
 Installation
 ------------
     # Gemfile
@@ -27,14 +29,14 @@ Interacting with an endpoint
 
     ### Examples ###
 
-    @connection.brokerages.list           # => builds a TicketEvolution::List object containing
+    @connection.brokerages.list           # => builds a TicketEvolution::Collection object containing
                                           #    a collection of TicketEvolution::Brokerage objects
 
     @connection.brokerages.show(id)       # => builds a TicketEvolution::Brokerage object (if found)
 
-    @connection.brokerages.search(params) # => returns a TicketEvolution::Search object containing
+    @connection.brokerages.search(params) # => returns a TicketEvolution::Collection object containing
                                           #    a collection of TicketEvolution::Brokerage objects
-                                          
+
 Examples
 --------
 Please see the examples folder for usage of the API. It will require the credentials found at [https://settings.ticketevolution.com/brokerage/credentials](https://settings.ticketevolution.com/brokerage/credentials).
