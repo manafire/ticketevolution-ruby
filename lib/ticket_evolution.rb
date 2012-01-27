@@ -47,6 +47,7 @@ c.req 'samples.rb'
 c.req 'time.rb'
 
 # Errors
+i.req 'errors', 'connection_not_found.rb'
 i.req 'errors', 'endpoint_configuration_error.rb'
 i.req 'errors', 'invalid_configuration.rb'
 i.req 'errors', 'method_unavailable_error.rb'
