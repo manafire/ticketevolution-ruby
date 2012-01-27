@@ -4,7 +4,7 @@ The Ticket Evolution gem is a toolkit that provides a seamless and total wrapper
 
 The gem follows an instance based approach to the Restful API. This way multiple credentials can be used within the same environment, avoiding the static nature of ActiveResource. The classes allow you to access all endpoints of the API with a familiar ActiveRecord style -- convenient attribute methods, finders, etc.
 
-All API documentation can be found at [developer.ticketevolution.com](http://developer.ticketevolution.com/).
+All API documentation can be found at [http://developer.ticketevolution.com](http://developer.ticketevolution.com/).
 
 Installation
 ------------
