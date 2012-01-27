@@ -24,66 +24,67 @@ module TicketEvolution
   @@root = Pathname.new(File.dirname(File.expand_path(__FILE__))) + 'ticket_evolution'
 end
 
-def crequire(*parts); require TicketEvolution.root + 'core' + File.join(parts); end
-def irequire(*parts); require TicketEvolution.root + File.join(parts); end
-def mrequire(*parts); require TicketEvolution.root + 'modules' + File.join(parts); end
+c = Module.new { def self.req(*parts); require TicketEvolution.root + 'core' + File.join(parts); end }
+i = Module.new { def self.req(*parts); require TicketEvolution.root + File.join(parts); end }
+m = Module.new { def self.req(*parts); require TicketEvolution.root + 'modules' + File.join(parts); end }
 
-irequire 'version.rb' unless defined?(TicketEvolution::VERSION)
+r.req 'version.rb' unless defined?(TicketEvolution::VERSION)
 
 # Core modules
-crequire 'singular_class.rb'
+c.req 'singular_class.rb'
 
 # Core classes
-crequire 'api_error.rb'
-crequire 'base.rb'
-crequire 'builder.rb'
-crequire 'collection.rb'
-crequire 'connection.rb'
-crequire 'datum.rb'
-crequire 'endpoint', 'request_handler.rb'
-crequire 'endpoint.rb'
-crequire 'samples.rb'
-crequire 'time.rb'
+c.req 'api_error.rb'
+c.req 'base.rb'
+c.req 'builder.rb'
+c.req 'collection.rb'
+c.req 'connection.rb'
+c.req 'datum.rb'
+c.req 'endpoint', 'request_handler.rb'
+c.req 'endpoint.rb'
+c.req 'model.rb'
+c.req 'samples.rb'
+c.req 'time.rb'
 
 # Errors
-irequire 'errors', 'endpoint_configuration_error.rb'
-irequire 'errors', 'invalid_configuration.rb'
-irequire 'errors', 'method_unavailable_error.rb'
+i.req 'errors', 'endpoint_configuration_error.rb'
+i.req 'errors', 'invalid_configuration.rb'
+i.req 'errors', 'method_unavailable_error.rb'
 
 # Endpoint modules
-mrequire 'create.rb'
-mrequire 'deleted.rb'
-mrequire 'list.rb'
-mrequire 'search.rb'
-mrequire 'show.rb'
-mrequire 'update.rb'
+m.req 'create.rb'
+m.req 'deleted.rb'
+m.req 'list.rb'
+m.req 'search.rb'
+m.req 'show.rb'
+m.req 'update.rb'
 
 # Endpoint Classes
-irequire 'accounts.rb'
-irequire 'brokerages.rb'
-irequire 'categories.rb'
-irequire 'clients.rb'
-irequire 'configurations.rb'
-irequire 'events.rb'
-irequire 'offices.rb'
-irequire 'performers.rb'
-irequire 'quotes.rb'
-irequire 'shipments.rb'
-irequire 'ticket_groups.rb'
-irequire 'users.rb'
-irequire 'venues.rb'
+i.req 'accounts.rb'
+i.req 'brokerages.rb'
+i.req 'categories.rb'
+i.req 'clients.rb'
+i.req 'configurations.rb'
+i.req 'events.rb'
+i.req 'offices.rb'
+i.req 'performers.rb'
+i.req 'quotes.rb'
+i.req 'shipments.rb'
+i.req 'ticket_groups.rb'
+i.req 'users.rb'
+i.req 'venues.rb'
 
 # Builder Classes
-irequire 'account.rb'
-irequire 'brokerage.rb'
-irequire 'category.rb'
-irequire 'client.rb'
-irequire 'configuration.rb'
-irequire 'event.rb'
-irequire 'office.rb'
-irequire 'performer.rb'
-irequire 'quote.rb'
-irequire 'shipment.rb'
-irequire 'ticket_group.rb'
-irequire 'user.rb'
-irequire 'venue.rb'
+i.req 'account.rb'
+i.req 'brokerage.rb'
+i.req 'category.rb'
+i.req 'client.rb'
+i.req 'configuration.rb'
+i.req 'event.rb'
+i.req 'office.rb'
+i.req 'performer.rb'
+i.req 'quote.rb'
+i.req 'shipment.rb'
+i.req 'ticket_group.rb'
+i.req 'user.rb'
+i.req 'venue.rb'
