@@ -73,9 +73,17 @@ describe TicketEvolution::Model do
   end
 
   describe "#method_missing" do
-    it "should attempt to find a class which matches the missing method, scoped to it's plural namespace" do
-      instance.plural_class.should_receive(:const_defined?).with(:NoObjects)
-      expect { instance.no_objects }.to raise_error
+    context "when the method ends in 's'" do
+      it "should attempt to find a class which matches the missing method, scoped to it's plural namespace" do
+        instance.plural_class.should_receive(:const_defined?).with(:NoObjects)
+        instance.no_objects
+      end
+    end
+
+    context "when the method does not end in 's'" do
+      it "should fall back on the default functionality" do
+        expect { instance.no_object=('') }.to_not raise_error
+      end
     end
 
     context "when the missing class is found" do
@@ -89,13 +97,6 @@ describe TicketEvolution::Model do
         sample_klass.should_receive(:new).with({:parent => @endpoint})
 
         instance.samples
-      end
-    end
-
-    context "when the missing class is not found" do
-      it "should perform as if the method doesn't exist" do
-        message = "undefined method `coconuts' for #{instance.inspect}"
-        expect { instance.coconuts }.to raise_error NoMethodError, message
       end
     end
   end

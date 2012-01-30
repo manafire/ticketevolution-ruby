@@ -15,12 +15,6 @@ module TicketEvolution
       case v.class.to_s.to_sym
       when :Hash
         Datum.new(v)
-        # if v['url'].present?
-          # name = class_name_from_url(v['url'])
-          # datum_exists?(name) ? singular_class(class_name_from_url(name)).new(v.merge({:connection => @connection})) : Datum.new(v)
-        # else
-          # Datum.new(v)
-        # end
       when :Array
         v.map{|x| process_datum(x)}
       when :String
@@ -30,8 +24,14 @@ module TicketEvolution
       end
     end
 
-    def method_missing(meth, *args, &block)
-      args.size == 1 ? super(meth, process_datum(args.first), &block) : super(meth, process_datum(args), &block)
+    def method_missing(meth, *args)
+      if args.size == 1
+        super(meth, process_datum(args.first))
+      elsif args.size == 0
+        super(meth)
+      else
+        super(meth, process_datum(args))
+      end
     end
 
     def datum_exists?(name)

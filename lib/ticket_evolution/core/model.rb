@@ -16,6 +16,10 @@ module TicketEvolution
       self.plural_class_name.constantize
     end
 
+    def attributes
+      HashWithIndifferentAccess.new(@table)
+    end
+
     private
 
     def process_datum(v)
@@ -28,8 +32,8 @@ module TicketEvolution
     end
 
     def method_missing(method, *args)
-      seek = method.to_s.camelize.to_sym
-      if plural_class.const_defined?(seek)
+      seek = method.to_s.camelize
+      if seek !~ /=/ and plural_class.const_defined?(seek.to_sym)
         "#{plural_class_name}::#{seek}".constantize.new(:parent => plural_class.new(:connection => @connection, :id => self.id))
       else
         super

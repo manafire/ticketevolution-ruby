@@ -77,11 +77,19 @@ describe TicketEvolution::Builder do
   describe "#method_missing" do
     let(:params) { {} }
 
-    it "should invoke #process_datum with the information received" do
-      instance.should_receive(:process_datum).with(:ing)
-      instance.test = :ing
-      instance.should_receive(:process_datum).with([1,2])
-      instance.array = [1,2]
+    describe "with args" do
+      it "should invoke #process_datum with the information received" do
+        instance.should_receive(:process_datum).with(:ing)
+        instance.test = :ing
+        instance.should_receive(:process_datum).with([1,2])
+        instance.array = [1,2]
+      end
+    end
+
+    describe "without args" do
+      it "should fall back on the OpenStruct#method_missing functionality" do
+        instance.test.should == nil
+      end
     end
   end
 end
