@@ -43,8 +43,11 @@ c.req 'datum.rb'
 c.req 'endpoint', 'request_handler.rb'
 c.req 'endpoint.rb'
 c.req 'model.rb'
-c.req 'samples.rb'
 c.req 'time.rb'
+
+# Sample classes for test support
+c.req 'models', 'samples.rb'
+c.req 'samples.rb'
 
 # Errors
 i.req 'errors', 'connection_not_found.rb'
