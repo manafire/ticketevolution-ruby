@@ -4,6 +4,8 @@ module TicketEvolution
       request(:GET, "/#{id}", &method(:build_for_show))
     end
 
+    alias :find :show
+
     def build_for_show(response)
       singular_class.new(
         response.body.merge({
