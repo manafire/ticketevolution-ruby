@@ -1,7 +1,7 @@
 module TicketEvolution
   class Users < Endpoint
-    include TicketEvolution::List
-    include TicketEvolution::Search
-    include TicketEvolution::Show
+    include TicketEvolution::Modules::List
+    include TicketEvolution::Modules::Search
+    include TicketEvolution::Modules::Show
   end
 end

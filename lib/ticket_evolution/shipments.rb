@@ -1,8 +1,8 @@
 module TicketEvolution
   class Shipments < Endpoint
-    include TicketEvolution::Create
-    include TicketEvolution::List
-    include TicketEvolution::Show
-    include TicketEvolution::Update
+    include TicketEvolution::Modules::Create
+    include TicketEvolution::Modules::List
+    include TicketEvolution::Modules::Show
+    include TicketEvolution::Modules::Update
   end
 end

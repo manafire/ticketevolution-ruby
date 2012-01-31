@@ -1,7 +1,7 @@
 module TicketEvolution
   class Events < Endpoint
-    include TicketEvolution::Deleted
-    include TicketEvolution::List
-    include TicketEvolution::Show
+    include TicketEvolution::Modules::Deleted
+    include TicketEvolution::Modules::List
+    include TicketEvolution::Modules::Show
   end
 end

@@ -1,6 +1,6 @@
 module TicketEvolution
   class TicketGroups < Endpoint
-    include TicketEvolution::List
-    include TicketEvolution::Show
+    include TicketEvolution::Modules::List
+    include TicketEvolution::Modules::Show
   end
 end
