@@ -6,6 +6,7 @@ module TicketEvolution
 
     def initialize(options = {})
       options.each {|k,v| send("#{k}=", v)}
+      @entries ||= []
     end
 
     def self.build_from_response(response, entries_key, singular_class)

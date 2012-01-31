@@ -23,6 +23,7 @@ Gem::Specification.new do |s|
   s.add_development_dependency "rspec", ">= 2.7.1"
   s.add_development_dependency "vcr"
   s.add_development_dependency "webmock"
+  s.add_development_dependency "awesome_print"
 
   if RUBY_VERSION =~ /^1\.9/
     s.add_development_dependency 'ruby-debug19'

@@ -1,3 +1,4 @@
+require "ap"
 require File.join(File.dirname(File.expand_path(__FILE__)), '..', 'lib', 'ticket_evolution.rb')
 
 @spec_path = Pathname.new(File.join(File.dirname(File.expand_path(__FILE__))))

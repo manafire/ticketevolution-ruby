@@ -1,0 +1,93 @@
+---
+- !ruby/struct:VCR::HTTPInteraction
+  request: !ruby/struct:VCR::Request
+    method: :get
+    uri: https://api.sandbox.ticketevolution.com:443/search?page=1&per_page=5&q=rangers
+    body: !!null 
+    headers:
+      accept:
+      - application/vnd.ticketevolution.api+json; version=8
+      x-signature:
+      - Yztq6jerLdOVMTbgfVUZhvwQB4g3Tp6lkzhqf40jAxA=
+      x-token:
+      - b2b5a7a33b1a78896ed1b53d81c5c9cc
+  response: !ruby/struct:VCR::Response
+    status: !ruby/struct:VCR::ResponseStatus
+      code: 200
+      message: OK
+    headers:
+      content-type:
+      - application/vnd.ticketevolution.api+json; version=8; charset=utf-8
+      transfer-encoding:
+      - chunked
+      connection:
+      - keep-alive
+      status:
+      - '200'
+      x-powered-by:
+      - Phusion Passenger (mod_rails/mod_rack) 3.0.11
+      etag:
+      - ! '"473537859be54e174b948fe4740e4cd3"'
+      x-ua-compatible:
+      - IE=Edge,chrome=1
+      x-runtime:
+      - '2.962434'
+      cache-control:
+      - max-age=0, private, must-revalidate
+      strict-transport-security:
+      - max-age=31536000
+      server:
+      - nginx/1.0.11 + Phusion Passenger 3.0.11 (mod_rails/mod_rack)
+    body: ! '{"current_page":1,"results":[{"_score":1.0,"upcoming_events":{"last":"2012-04-07T15:00:00Z","first":"2012-01-31T19:00:00Z"},"url":"/performers/16397","_type":"Performer","name":"New
+      York Rangers","id":"16397"},{"_score":1.0,"upcoming_events":{"last":"2012-02-03T19:30:00Z","first":"2012-02-03T19:30:00Z"},"url":"/performers/10643","_type":"Performer","name":"Steep
+      Canyon Rangers","id":"10643"},{"_score":1.0,"upcoming_events":{"last":"2012-04-28T15:00:00Z","first":"2012-04-07T00:00:00Z"},"url":"/performers/22720","_type":"Performer","name":"Queens
+      Park Rangers","id":"22720"},{"_score":1.0,"upcoming_events":{"last":"2012-10-03T13:00:00Z","first":"2012-03-04T12:05:00Z"},"url":"/performers/15544","_type":"Performer","name":"Texas
+      Rangers","id":"15544"},{"_score":1.0,"upcoming_events":{"last":"2012-09-30T13:00:00Z","first":"2012-04-06T13:00:00Z"},"location":"Arlington,
+      TX","url":"/venues/1776","_type":"Venue","name":"Rangers Ballpark in Arlington","id":"1776"}],"per_page":5,"total_entries":5}'
+    http_version: '1.1'
+- !ruby/struct:VCR::HTTPInteraction
+  request: !ruby/struct:VCR::Request
+    method: :get
+    uri: https://api.sandbox.ticketevolution.com:443/search?page=1&per_page=5&q=rangers
+    body: !!null 
+    headers:
+      accept:
+      - application/vnd.ticketevolution.api+json; version=8
+      x-signature:
+      - Yztq6jerLdOVMTbgfVUZhvwQB4g3Tp6lkzhqf40jAxA=
+      x-token:
+      - b2b5a7a33b1a78896ed1b53d81c5c9cc
+  response: !ruby/struct:VCR::Response
+    status: !ruby/struct:VCR::ResponseStatus
+      code: 200
+      message: OK
+    headers:
+      content-type:
+      - application/vnd.ticketevolution.api+json; version=8; charset=utf-8
+      transfer-encoding:
+      - chunked
+      connection:
+      - keep-alive
+      status:
+      - '200'
+      x-powered-by:
+      - Phusion Passenger (mod_rails/mod_rack) 3.0.11
+      etag:
+      - ! '"473537859be54e174b948fe4740e4cd3"'
+      x-ua-compatible:
+      - IE=Edge,chrome=1
+      x-runtime:
+      - '2.962434'
+      cache-control:
+      - max-age=0, private, must-revalidate
+      strict-transport-security:
+      - max-age=31536000
+      server:
+      - nginx/1.0.11 + Phusion Passenger 3.0.11 (mod_rails/mod_rack)
+    body: ! '{"current_page":1,"results":[{"_score":1.0,"upcoming_events":{"last":"2012-04-07T15:00:00Z","first":"2012-01-31T19:00:00Z"},"url":"/performers/16397","_type":"Performer","name":"New
+      York Rangers","id":"16397"},{"_score":1.0,"upcoming_events":{"last":"2012-02-03T19:30:00Z","first":"2012-02-03T19:30:00Z"},"url":"/performers/10643","_type":"Performer","name":"Steep
+      Canyon Rangers","id":"10643"},{"_score":1.0,"upcoming_events":{"last":"2012-04-28T15:00:00Z","first":"2012-04-07T00:00:00Z"},"url":"/performers/22720","_type":"Performer","name":"Queens
+      Park Rangers","id":"22720"},{"_score":1.0,"upcoming_events":{"last":"2012-10-03T13:00:00Z","first":"2012-03-04T12:05:00Z"},"url":"/performers/15544","_type":"Performer","name":"Texas
+      Rangers","id":"15544"},{"_score":1.0,"upcoming_events":{"last":"2012-09-30T13:00:00Z","first":"2012-04-06T13:00:00Z"},"location":"Arlington,
+      TX","url":"/venues/1776","_type":"Venue","name":"Rangers Ballpark in Arlington","id":"1776"}],"per_page":5,"total_entries":5}'
+    http_version: '1.1'

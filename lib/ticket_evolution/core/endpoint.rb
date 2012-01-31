@@ -17,7 +17,7 @@ module TicketEvolution
     def base_path
       [].tap do |parts|
         parts << parent.base_path if parent.kind_of? TicketEvolution::Endpoint
-        parts << "/"+self.class.to_s.split('::').last.downcase.pluralize
+        parts << "/"+self.class.to_s.split('::').last.downcase
         parts << "/#{self.id}" if self.respond_to?(:id) and self.id.present?
       end.join
     end

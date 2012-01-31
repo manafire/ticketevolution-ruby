@@ -87,17 +87,17 @@ shared_examples_for "a ticket_evolution endpoint class" do
 
   describe "#base_path" do
     context "when #parent is a TicketEvolution::Connection object" do
-      let(:path) { "/#{klass.to_s.split('::').last.downcase.pluralize}" }
+      let(:path) { "/#{klass.to_s.split('::').last.downcase}" }
 
-      it "should be generated based on it's class name" do
+      it "should be generated based on its class name" do
         klass.new({:parent => connection}).base_path.should == path
       end
     end
 
     context "when #parent is not a TicketEvolution::Connection object" do
       let(:instance) { klass.new({:parent => connection, :id => 1}) }
-      let(:path) { "/#{instance.class.to_s.split('::').last.downcase.pluralize}/#{instance.id}/#{klass.to_s.split('::').last.downcase.pluralize}" }
-      it "should be generated based on it's class name and the class names of it's parents" do
+      let(:path) { "/#{instance.class.to_s.split('::').last.downcase}/#{instance.id}/#{klass.to_s.split('::').last.downcase}" }
+      it "should be generated based on its class name and the class names of its parents" do
         klass.new({:parent => instance}).base_path.should == path
       end
     end
