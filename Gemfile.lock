@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    ticketevolution-ruby (0.0.1)
+    ticketevolution-ruby (0.2.2)
       activesupport
       curb
       i18n
