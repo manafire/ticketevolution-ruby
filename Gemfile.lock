@@ -5,6 +5,7 @@ PATH
       activesupport
       curb
       i18n
+      multi_json
 
 GEM
   remote: http://rubygems.org/
@@ -53,7 +54,6 @@ PLATFORMS
 DEPENDENCIES
   awesome_print
   bundler (>= 1.0.0)
-  multi_json
   rake
   rspec (>= 2.7.1)
   ruby-debug19

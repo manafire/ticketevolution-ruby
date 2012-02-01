@@ -6,7 +6,19 @@ The gem follows an instance based approach to the Restful API. This way multiple
 
 All API documentation can be found at [http://developer.ticketevolution.com](http://developer.ticketevolution.com/).
 
-WARNING: This gem is not ready for prime time. Some of the endpoints have not been added and a few implementation details have yet to be worked out.
+[![Build Status](https://secure.travis-ci.org/ticketevolution/ticketevolution-ruby.png)](http://travis-ci.org/[YOUR_GITHUB_USERNAME]/[YOUR_PROJECT_NAME])
+
+_WARNING: This gem is not ready for prime time. Some of the endpoints have not been added and a few implementation details have yet to be worked out._
+
+**Rubies supported**
+
+- 1.9.2
+
+**Soon to be supported**
+
+- 1.8.7
+- ree
+
 
 Installation
 ------------

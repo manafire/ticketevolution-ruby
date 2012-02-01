@@ -16,20 +16,15 @@ Gem::Specification.new do |s|
   s.add_dependency 'activesupport'
   s.add_dependency 'i18n'
   s.add_dependency 'curb'
+  s.add_dependency "multi_json"
 
   s.add_development_dependency "bundler", ">= 1.0.0"
-  s.add_development_dependency "multi_json"
   s.add_development_dependency "rake"
   s.add_development_dependency "rspec", ">= 2.7.1"
   s.add_development_dependency "vcr"
   s.add_development_dependency "webmock"
   s.add_development_dependency "awesome_print"
 
-  if RUBY_VERSION =~ /^1\.9/
-    s.add_development_dependency 'ruby-debug19'
-  else
-    s.add_development_dependency 'ruby-debug'
-  end
 
   s.files        = `git ls-files`.split("\n")
   s.executables  = `git ls-files`.split("\n").map{|f| f =~ /^bin\/(.*)/ ? $1 : nil}.compact
