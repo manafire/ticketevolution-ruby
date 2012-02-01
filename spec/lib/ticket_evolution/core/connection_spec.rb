@@ -5,7 +5,8 @@ describe TicketEvolution::Connection do
   let(:default_options) do
     HashWithIndifferentAccess.new({
       :version => klass.oldest_version_in_service,
-      :mode => :sandbox
+      :mode => :sandbox,
+      :ssl_verify_host => true
     })
   end
   let(:basic_options) do
@@ -46,6 +47,26 @@ describe TicketEvolution::Connection do
         klass.new(basic_options).instance_eval {
           @config
         }.should == valid_options
+      end
+    end
+
+    context "with ssl_verify_host" do
+      context "if passed" do
+        let(:options) { valid_options.merge(:ssl_verify_host => false) }
+
+        it "sets the Curl::Easy to that value" do
+          connection = klass.new(options)
+          easy = connection.build_request(:GET, '/')
+          easy.ssl_verify_host?.should be_false
+        end
+      end
+
+      context "if not passed" do
+        it "does not set anything on the Curl::Easy object" do
+          connection = klass.new(valid_options)
+          easy = connection.build_request(:GET, '/')
+          easy.ssl_verify_host?.should be_true
+        end
       end
     end
 
