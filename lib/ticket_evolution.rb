@@ -1,4 +1,5 @@
 require 'rubygems'
+require 'yajl'
 require 'multi_json'
 require 'curb'
 
