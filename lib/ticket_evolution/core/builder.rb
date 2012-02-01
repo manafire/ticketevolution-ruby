@@ -17,6 +17,15 @@ module TicketEvolution
       hash
     end
 
+    # Ruby 1.8.7 / REE compatibility
+    def id=(id)
+      @table[:id] = id
+    end
+
+    def id
+      @table[:id]
+    end
+
     private
 
     def process_datum(v)

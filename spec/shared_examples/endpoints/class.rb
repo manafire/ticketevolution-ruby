@@ -182,7 +182,7 @@ shared_examples_for "a ticket_evolution endpoint class" do
       before { curl.should_receive(:http) }
 
       it "should return an instance of TicketEvolution::ApiError" do
-        subject.should be_a (TicketEvolution::ApiError)
+        subject.should be_a TicketEvolution::ApiError
       end
     end
 
