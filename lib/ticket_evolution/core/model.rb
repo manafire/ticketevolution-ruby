@@ -17,7 +17,7 @@ module TicketEvolution
     end
 
     def attributes
-      HashWithIndifferentAccess.new(@table)
+      HashWithIndifferentAccess.new(to_hash)
     end
 
     private

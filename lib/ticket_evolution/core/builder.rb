@@ -9,6 +9,14 @@ module TicketEvolution
       end
     end
 
+    def to_hash
+      hash = {}
+      @table.each do |k, v|
+        hash[k] = from_ostruct(v)
+      end
+      hash
+    end
+
     private
 
     def process_datum(v)
@@ -19,6 +27,16 @@ module TicketEvolution
         v.map{|x| process_datum(x)}
       when :String
         Time.parse(v)
+      else
+        v
+      end
+    end
+
+    def from_ostruct(v)
+      if v.kind_of? OpenStruct
+        v.to_hash
+      elsif v.class.to_s == "Array"
+        v.map{|x| from_ostruct(v)}
       else
         v
       end

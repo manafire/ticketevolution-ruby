@@ -39,18 +39,20 @@ shared_examples_for "an update endpoint" do
     let(:model_klass) { instance.singular_class }
     let(:model_instance) { model_klass.new(attributes.merge({:connection => connection})) }
     let(:attributes) { HashWithIndifferentAccess.new({:one => 1, :two => "two", :three => nil, :id => 1}) }
+    let(:stored_attributes) { attributes.delete_if{|k, v| k == 'id'} }
+    let(:updated_attributes) { HashWithIndifferentAccess.new({:one => "one", :three => 3}) }
+    let(:merged_attributes) { attributes.merge(updated_attributes) }
 
-    it "should set an update_attributes method on it's corresponding TE:Model class which calls #update" do
+    it "should set an update_attributes method on it's corresponding TE:Model class which adds to it's attributes and calls #update" do
       model_instance.should respond_to :update_attributes
-      klass.any_instance.should_receive(:update).with(attributes).and_return(nil)
-      model_instance.update_attributes(attributes)
+      klass.any_instance.should_receive(:update).with(updated_attributes).and_return(nil)
+      model_instance.update_attributes(updated_attributes)
+      model_instance.attributes.should == merged_attributes
     end
 
-    it "should set a save method on it's corresponding assets which calls #update with it's attributes" do
+    it "should set a save method on it's corresponding TE:Model class which calls #update with it's attributes" do
       model_instance.should respond_to :save
-      atts = model_instance.attributes
-      atts.delete(:id)
-      klass.any_instance.should_receive(:update).with(atts).and_return(nil)
+      klass.any_instance.should_receive(:update).with(stored_attributes).and_return(nil)
       model_instance.save
     end
   end

@@ -12,6 +12,7 @@ require 'uri'
 
 require 'active_support/hash_with_indifferent_access'
 require 'active_support/core_ext/class'
+require 'active_support/core_ext/hash'
 require 'active_support/core_ext/module'
 require 'active_support/core_ext/object/blank'
 require 'active_support/core_ext/object/to_param'

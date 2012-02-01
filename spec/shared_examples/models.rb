@@ -7,6 +7,8 @@ shared_examples_for "a ticket_evolution model" do
   its(:ancestors) { should include TicketEvolution::Model }
 
   describe "#attributes" do
+    let(:hash) { { "hash" => { "test" => "1.. 2... 3...." } } }
+
     it "should return a hash of attribute key/pair values" do
       instance.one = 1
       instance.two = 2
@@ -17,6 +19,11 @@ shared_examples_for "a ticket_evolution model" do
 
     it "should return a HashWithIndifferentAccess" do
       instance.attributes.should be_a HashWithIndifferentAccess
+    end
+
+    it "should convert OpenStruct based objects back into hashes recursively" do
+      instance.hash = hash
+      instance.attributes.should == { "hash" => hash }
     end
   end
 end

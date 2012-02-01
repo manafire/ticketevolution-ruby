@@ -11,8 +11,7 @@ module TicketEvolution
           :status_code => response.response_code,
           :server_message => response.server_message,
           :connection => response.body[:connection]
-        })
-                          )
+        }))
       end
     end
   end
