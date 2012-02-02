@@ -13,9 +13,6 @@ _WARNING: This gem is not ready for prime time. Some of the endpoints have not b
 **Rubies supported**
 
 - 1.9.2
-
-**Soon to be supported**
-
 - 1.8.7
 - ree
 
