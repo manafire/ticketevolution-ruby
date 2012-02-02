@@ -158,11 +158,19 @@ describe TicketEvolution::Connection do
 
     describe "with params" do
       let(:params) do
-        {
-          :one => 1,
-          :two => "two",
-          :three => :three
-        }
+        if RUBY_VERSION =~ /^1\.9/
+          {
+            :one => 1,
+            :two => "two",
+            :three => :three
+          }
+        else
+          p = ActiveSupport::OrderedHash.new
+          p[:one] = 1
+          p[:two] = "two"
+          p[:three] = "three"
+          p
+        end
       end
       let(:connection) { klass.new(valid_options.merge({:secret => "/3uZ9bXNe/6rxEBmlGLvoRXrcSzRDMfyJSewhlrc"})) }
 
