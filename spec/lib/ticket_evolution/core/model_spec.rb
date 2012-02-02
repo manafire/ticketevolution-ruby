@@ -29,6 +29,21 @@ describe TicketEvolution::Model do
         expect { klass.new }.to raise_error TicketEvolution::ConnectionNotFound, message
       end
     end
+
+    context "when it detects a scope in the url" do
+      let(:instance) { klass.new({:connection => connection, 'url' => '/clients/2/addresses/1'}) }
+      let(:scope) { '/clients/2' }
+
+      it "should set @scope" do
+        instance.instance_eval{ @scope }.should == scope
+      end
+    end
+
+    context "when it does not detect a scope in the url" do
+      it "should not error" do
+        expect { klass.new({:connection => connection}) }.to_not raise_error
+      end
+    end
   end
 
   describe "#process_datum" do
@@ -58,8 +73,19 @@ describe TicketEvolution::Model do
   end
 
   describe "#plural_class_name" do
-    it "should return the pluralized version of the current class" do
-      instance.plural_class_name.should == "TicketEvolution::#{klass.name.demodulize.pluralize.camelize}"
+    let(:plural_name) { klass.name.demodulize.pluralize.camelize }
+    context "when there is a scope" do
+      before { instance.instance_eval{ @scope = '/events/1' } }
+
+      it "should include the scoped endpoint name in the pluralized version of the current class" do
+        instance.plural_class_name.should == "TicketEvolution::Events::#{plural_name}"
+      end
+    end
+
+    context "when there is not a scope" do
+      it "should return the pluralized version of the current class" do
+        instance.plural_class_name.should == "TicketEvolution::#{plural_name}"
+      end
     end
   end
 
@@ -69,6 +95,23 @@ describe TicketEvolution::Model do
       instance.should_receive(:plural_class_name).and_return(plural_class_name)
       plural_class_name.should_receive(:constantize)
       instance.plural_class
+    end
+  end
+
+  describe "#scope" do
+    context "when @scope is set" do
+      before { instance.instance_eval{ @scope = '/events/1' } }
+      let(:scope_hash) { { :class => "TicketEvolution::Events", :id => 1 } }
+
+      it "should return and array with class and id specified" do
+        instance.scope.should == scope_hash
+      end
+    end
+
+    context "when @scope is not set" do
+      it "should return nil" do
+        instance.scope.should == nil
+      end
     end
   end
 

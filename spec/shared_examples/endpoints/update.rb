@@ -38,7 +38,7 @@ shared_examples_for "an update endpoint" do
   describe ".included" do
     let(:model_klass) { instance.singular_class }
     let(:model_instance) { model_klass.new(attributes.merge({:connection => connection})) }
-    let(:attributes) { HashWithIndifferentAccess.new({:one => 1, :two => "two", :three => nil, :id => 1}) }
+    let(:attributes) { HashWithIndifferentAccess.new(update_base.merge({:one => 1, :two => "two", :three => nil, :id => 1})) }
     let(:stored_attributes) { attributes.delete_if{|k, v| k == 'id'} }
     let(:updated_attributes) { HashWithIndifferentAccess.new({:one => "one", :three => 3}) }
     let(:merged_attributes) { attributes.merge(updated_attributes) }

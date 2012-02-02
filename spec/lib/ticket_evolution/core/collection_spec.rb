@@ -3,7 +3,7 @@ require 'spec_helper'
 describe TicketEvolution::Collection do
   subject { TicketEvolution::Collection.build_from_response(response, 'brokerages', TicketEvolution::Brokerage) }
   let(:response) { Fake.list_response }
-  
+
   context "#build_from_response" do
     it { should be_instance_of(TicketEvolution::Collection) }
     it { should be_kind_of(Enumerable) }

@@ -5,11 +5,14 @@ module TicketEvolution
       raise TicketEvolution::ConnectionNotFound.new \
         "#{self.class.name} must receive a TicketEvolution::Connection object on initialize" \
         unless @connection.is_a? TicketEvolution::Connection
+      @scope = params['url'].split('/')[0..2].join('/') if params['url'] =~ /^(\/[a-z]+s\/\d){2}$/
       super(params)
     end
 
     def plural_class_name
-      "TicketEvolution::#{self.class.name.demodulize.pluralize.camelize}"
+      parts = ["TicketEvolution", self.class.name.demodulize.pluralize.camelize]
+      parts[0] = self.scope[:class] if @scope.present?
+      parts.join('::')
     end
 
     def plural_class
@@ -18,6 +21,18 @@ module TicketEvolution
 
     def attributes
       HashWithIndifferentAccess.new(to_hash)
+    end
+
+    def scope
+      if @scope.present?
+        {}.tap do |scope|
+          parts = @scope.split('/')
+          scope[:class] = "TicketEvolution::#{parts[1].camelize}"
+          scope[:id] = parts[2].to_i
+        end
+      else
+        nil
+      end
     end
 
     private
