@@ -11,6 +11,10 @@ class Fake
     TicketEvolution::Connection.new({:token => Fake.token, :secret => Fake.secret})
   end
 
+  def self.response_handler(response)
+    "called fake handler"
+  end
+
   def self.response
     OpenStruct.new.tap do |resp|
       resp.header = 'fake header string (we don\'t currently process this)'

@@ -162,7 +162,7 @@ shared_examples_for "a ticket_evolution endpoint class" do
     subject { instance.request method, full_path }
     let(:method) { :GET }
     let(:response) { Fake.response }
-    let(:mock_block) { Proc.new {} }
+    let(:handler) { Fake.send(:method, :response_handler) }
 
     before do
       connection.should_receive(:build_request).and_return(curl)
@@ -170,10 +170,9 @@ shared_examples_for "a ticket_evolution endpoint class" do
     end
 
     it "calls http on the return Curl object with the method for the request" do
-      mock_block.should_receive(:call).with(response)
       curl.should_receive(:http).with(method)
 
-      instance.request(method, path, nil, &mock_block)
+      instance.request(method, path, nil, &handler).should == Fake.response_handler(true)
     end
 
     context "when there is an error from the api" do
@@ -192,9 +191,7 @@ shared_examples_for "a ticket_evolution endpoint class" do
       before { curl.should_receive(:http) }
 
       it "should pass the response object to #build_object" do
-        mock_block.should_receive(:call).with(response)
-
-        instance.request(method, full_path, nil, &mock_block)
+        instance.request(method, path, nil, &handler).should == Fake.response_handler(true)
       end
     end
   end
