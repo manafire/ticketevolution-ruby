@@ -8,7 +8,7 @@ module TicketEvolution
     @@default_options = HashWithIndifferentAccess.new({
       :version => @@oldest_version_in_service,
       :mode => :sandbox,
-      :ssl_verify_host => true
+      :ssl_verify => true
     })
 
     @@expected_options = [
@@ -16,7 +16,7 @@ module TicketEvolution
       'mode',
       'token',
       'secret',
-      'ssl_verify_host'
+      'ssl_verify'
     ]
 
     @@url_base = "ticketevolution.com"
@@ -57,7 +57,10 @@ module TicketEvolution
     def build_request(method, path, params = nil)
       uri = URI.join(self.url, path).to_s
       Curl::Easy.new(generate_url(method, uri, params)) do |request|
-        request.ssl_verify_host = @config[:ssl_verify_host] if @config.has_key?(:ssl_verify_host)
+        if @config.has_key?(:ssl_verify)
+          request.ssl_verify_host = @config[:ssl_verify]
+          request.ssl_verify_peer = @config[:ssl_verify]
+        end
         request.post_body = post_body(params) unless method == :GET
         request.headers["Accept"] = "application/vnd.ticketevolution.api+json; version=#{@config[:version]}"
         request.headers["X-Signature"] = sign(method, uri, params)
