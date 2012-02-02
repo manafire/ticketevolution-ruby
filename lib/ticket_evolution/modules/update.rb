@@ -17,7 +17,7 @@ module TicketEvolution
 
       def update(params = nil)
         raise TicketEvolution::MethodUnavailableError.new "#{self.class.to_s}#update can only be called if there is an id present on this #{self.class.to_s} instance" \
-          if @table[:id].blank?
+          unless self.respond_to?("id=") and self.id.present?
         request(:PUT, "/#{self.id}", params)
       end
     end
