@@ -1,4 +1,4 @@
-bundler_args: --without development
+bundler_args: --without no_travis
 language: ruby
 rvm:
   - ree
