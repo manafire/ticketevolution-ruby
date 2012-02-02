@@ -30,7 +30,7 @@ shared_examples_for "a deleted endpoint" do
     it "invokes Collection#build_from_response" do
       TicketEvolution::Collection.
         should_receive(:build_from_response).
-        with(response, klass.name.demodulize.downcase, instance.singular_class)
+        with(response, klass.name.demodulize.underscore, instance.singular_class)
       instance.build_for_deleted(response)
     end
 

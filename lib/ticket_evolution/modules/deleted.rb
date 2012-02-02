@@ -6,7 +6,7 @@ module TicketEvolution
       end
 
       def build_for_deleted(response)
-        TicketEvolution::Collection.build_from_response(response, self.class.name.demodulize.downcase, singular_class)
+        TicketEvolution::Collection.build_from_response(response, self.class.name.demodulize.underscore, singular_class)
       end
     end
   end

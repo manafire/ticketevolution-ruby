@@ -8,7 +8,7 @@ module TicketEvolution
       alias :all :list
 
       def build_for_list(response)
-        TicketEvolution::Collection.build_from_response(response, self.class.name.demodulize.downcase, singular_class)
+        TicketEvolution::Collection.build_from_response(response, self.class.name.demodulize.underscore, singular_class)
       end
     end
   end

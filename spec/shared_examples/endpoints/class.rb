@@ -86,8 +86,10 @@ shared_examples_for "a ticket_evolution endpoint class" do
   end
 
   describe "#base_path" do
+    let(:endpoint_name) { klass.name.demodulize.underscore }
+
     context "when #parent is a TicketEvolution::Connection object" do
-      let(:path) { "/#{klass.to_s.split('::').last.downcase}" }
+      let(:path) { "/#{endpoint_name}" }
 
       it "should be generated based on its class name" do
         klass.new({:parent => connection}).base_path.should == path
@@ -96,7 +98,7 @@ shared_examples_for "a ticket_evolution endpoint class" do
 
     context "when #parent is not a TicketEvolution::Connection object" do
       let(:instance) { klass.new({:parent => connection, :id => 1}) }
-      let(:path) { "/#{instance.class.to_s.split('::').last.downcase}/#{instance.id}/#{klass.to_s.split('::').last.downcase}" }
+      let(:path) { "/#{instance.endpoint_name}/#{instance.id}/#{endpoint_name}" }
       it "should be generated based on its class name and the class names of its parents" do
         klass.new({:parent => instance}).base_path.should == path
       end
@@ -227,7 +229,7 @@ shared_examples_for "a ticket_evolution endpoint class" do
 
   context "#endpoint_name" do
     it "returns the demodulized version of the endpoint name" do
-      instance.endpoint_name.should == klass.name.demodulize.downcase
+      instance.endpoint_name.should == klass.name.demodulize.underscore
     end
   end
 

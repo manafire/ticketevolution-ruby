@@ -8,4 +8,8 @@ describe TicketEvolution::Users do
   it_behaves_like 'a list endpoint'
   it_behaves_like 'a search endpoint'
   it_behaves_like 'a show endpoint'
+
+  it "should have a base path of /users" do
+    klass.new({:parent => Fake.connection}).base_path.should == '/users'
+  end
 end
