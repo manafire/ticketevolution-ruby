@@ -39,5 +39,13 @@ module TicketEvolution
     def endpoint_name
       self.class.name.demodulize.underscore
     end
+
+    private
+
+    def ensure_id
+      raise TicketEvolution::MethodUnavailableError.new \
+        "#{self.class.to_s}##{caller.first.split('`').last.split("'").first} can only be called if there is an id present on this #{self.class.to_s} instance" \
+        unless self.respond_to?("id=") and self.id.present?
+    end
   end
 end

@@ -9,9 +9,7 @@ module TicketEvolution
     alias :create_customer_order :create
 
     def accept_order(params = nil)
-      raise TicketEvolution::MethodUnavailableError.new \
-        "#{self.class.to_s}#accept_order can only be called if there is an id present on this #{self.class.to_s} instance" \
-        unless self.respond_to?("id=") and self.id.present?
+      ensure_id
       request(:POST, "/#{self.id}/accept", params, &method(:build_for_create))
     end
 
@@ -20,16 +18,12 @@ module TicketEvolution
     end
 
     def reject_order(params = nil)
-      raise TicketEvolution::MethodUnavailableError.new \
-        "#{self.class.to_s}#reject_order can only be called if there is an id present on this #{self.class.to_s} instance" \
-        unless self.respond_to?("id=") and self.id.present?
+      ensure_id
       request(:POST, "/#{self.id}/reject", params, &method(:build_for_create))
     end
 
     def complete_order
-      raise TicketEvolution::MethodUnavailableError.new \
-        "#{self.class.to_s}#complete_order can only be called if there is an id present on this #{self.class.to_s} instance" \
-        unless self.respond_to?("id=") and self.id.present?
+      ensure_id
       request(:POST, "/#{self.id}/complete", nil, &method(:build_for_create))
     end
   end
