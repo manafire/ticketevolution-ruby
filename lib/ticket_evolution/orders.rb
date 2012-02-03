@@ -25,5 +25,12 @@ module TicketEvolution
         unless self.respond_to?("id=") and self.id.present?
       request(:POST, "/#{self.id}/reject", params, &method(:build_for_create))
     end
+
+    def complete_order
+      raise TicketEvolution::MethodUnavailableError.new \
+        "#{self.class.to_s}#complete_order can only be called if there is an id present on this #{self.class.to_s} instance" \
+        unless self.respond_to?("id=") and self.id.present?
+      request(:POST, "/#{self.id}/complete", nil, &method(:build_for_create))
+    end
   end
 end
