@@ -18,5 +18,12 @@ module TicketEvolution
     def create_fulfillment_order(params = nil)
       request(:POST, "/fulfillments", params, &method(:build_for_create))
     end
+
+    def reject_order(params = nil)
+      raise TicketEvolution::MethodUnavailableError.new \
+        "#{self.class.to_s}#reject_order can only be called if there is an id present on this #{self.class.to_s} instance" \
+        unless self.respond_to?("id=") and self.id.present?
+      request(:POST, "/#{self.id}/reject", params, &method(:build_for_create))
+    end
   end
 end
