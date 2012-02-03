@@ -52,6 +52,22 @@ describe TicketEvolution::Orders do
   end
 
   describe "#create_fulfillment_order" do
+    context "with params" do
+      let(:params) { {'some' => {'order' => 'info'}} }
 
+      it "should pass call request as a POST, passing params" do
+        instance.should_receive(:request).with(:POST, "/fulfillments", params)
+
+        instance.create_fulfillment_order(params)
+      end
+    end
+
+    context "without params" do
+      it "should pass call request as a POST, passing params" do
+        instance.should_receive(:request).with(:POST, "/fulfillments", nil)
+
+        instance.create_fulfillment_order
+      end
+    end
   end
 end

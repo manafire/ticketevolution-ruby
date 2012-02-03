@@ -14,5 +14,9 @@ module TicketEvolution
         unless self.respond_to?("id=") and self.id.present?
       request(:POST, "/#{self.id}/accept", params, &method(:build_for_create))
     end
+
+    def create_fulfillment_order(params = nil)
+      request(:POST, "/fulfillments", params, &method(:build_for_create))
+    end
   end
 end
