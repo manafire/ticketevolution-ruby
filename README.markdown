@@ -162,13 +162,13 @@ Click on the links next to each endpoint for more detail.
 
 **Orders** - [http://developer.ticketevolution.com/endpoints/orders](http://developer.ticketevolution.com/endpoints/orders)
 
-    @order = @order.accept_order(params)
-    @order = @order.complete_order
+    @order = @order.accept(params)
+    @order = @order.complete
     @order = @connection.orders.create_brokerage_order(params)
     @order = @connection.orders.create_customer_order(params)
     @order = @connection.orders.create_fulfillment_order(params)
     @order = @connection.orders.list(params)
-    @order = @order.reject_order(params)
+    @order = @order.reject(params)
     @order = @connection.orders.show(id)
     @order = @order.update(params)
 
@@ -201,4 +201,4 @@ Click on the links next to each endpoint for more detail.
     @credit_card = @client.credit_cards.list(params)
 
 
-######ticketevolution-ruby v0.4.8
+######ticketevolution-ruby v0.4.9

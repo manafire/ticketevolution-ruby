@@ -93,9 +93,9 @@ module ThisTask
       when "update"
         "#{variable}.#{name}(params)"
       when "accept_order", "reject_order"
-        "#{variable}.#{name}(params)"
+        "#{variable}.#{name.gsub('_order', '')}(params)"
       when "complete_order"
-        "#{variable}.#{name}"
+        "#{variable}.#{name.gsub('_order', '')}"
       else
         "#{base}.#{chain_name}.#{name}(params)"
       end
