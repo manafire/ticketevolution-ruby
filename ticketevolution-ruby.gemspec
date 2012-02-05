@@ -1,5 +1,5 @@
 # -*- encoding: utf-8 -*-
-require File.join(File.dirname(File.expand_path(__FILE__)), 'lib', 'ticket_evolution', 'version.rb')
+require File.join(File.dirname(File.expand_path(__FILE__)), 'lib', 'ticket_evolution', 'version')
 
 Gem::Specification.new do |s|
   s.name        = 'ticketevolution-ruby'
