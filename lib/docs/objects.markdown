@@ -1,0 +1,40 @@
+Objects
+=======
+There are four main object types:
+
+**Connection objects**
+Each set of API credentials can be combined with a mode and api version to create a unique connection to Ticket Evolution. A connection object is the basis of any call and must be created before anything else can be done.
+_Your API credentials can be found [https://settings.ticketevolution.com/brokerage/credentials](https://settings.ticketevolution.com/brokerage/credentials). You must have an active brokerage account with Ticket Evolution._
+
+There are four available options:
+- :token (required)    => The API token, used to identify you
+- :secret (required)   => The API secret, used to sign requests (see: [http://developer.ticketevolution.com/signature_tool](http://developer.ticketevolution.com/signature_tool))
+- :mode (optional)     => Specifies the server to use - can be either :production or :sandbox (default)
+- :version (optional)  => API version to use - the only available version at the time of this writing is 8
+
+    @connection = TicketEvolution::Connection.new({
+      :token    => "958acdf7da323bd7a4ac63b17ff26eabf45",
+      :secret   => "TSaldkl34kdoCbGa7I93s3S9OBcBQoogseNeccHIEh",
+    })
+
+**Endpoint objects**
+
+These are almost always (except in the case of Search) pluralized class names and match the endpoints listed at [http://developer.ticketevolution.com](http://developer.ticketevolution.com/). To instantiate an endpoint instance, create a connection object and then call the endpoints name, underscored, as a method on the connection object.
+
+    @connection.brokerages
+
+Some endpoints are scoped to model objects from other endpoints. One example of this is the Addresses endpoint, which is based off of an instance of TicketEvolution::Client. These endpoints can be called directly off of the model instance.
+
+    @client = @connection.clients.show(1)
+    @address = @client.addresses.show(1)
+
+**Model objects**
+
+Calling a create, show or update method will result in the creation of a model object. The type of model object generated matches the endpoint called.
+
+    @connection.brokerages.show(1)    # => an instance of TicketEvolution::Brokerage with an id of 1
+
+**Collection objects**
+
+Calls to list and search methods will return TicketEvolution::Collection objects. These are Enumerable objects containing an array of entries. Each object in this array is an type of model object. In addition to the #entries method, #total_entries, #per_page and #current_page can all be called on collections.
+

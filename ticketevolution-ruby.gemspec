@@ -18,6 +18,7 @@ Gem::Specification.new do |s|
   s.add_dependency 'curb'
   s.add_dependency 'yajl-ruby'
   s.add_dependency 'multi_json'
+  s.add_dependency 'nokogiri'
 
   s.add_development_dependency 'rspec', '>= 2.7.1'
   s.add_development_dependency 'vcr'
