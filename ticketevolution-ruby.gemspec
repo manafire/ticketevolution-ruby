@@ -5,11 +5,11 @@ Gem::Specification.new do |s|
   s.name        = 'ticketevolution-ruby'
   s.version     = TicketEvolution::VERSION
   s.platform    = Gem::Platform::RUBY
-  s.authors     = ['David Malin', 'Ticket Evolution']
+  s.authors     = ['Ticket Evolution']
   s.email       = ['dev@ticketevolution.com']
-  s.homepage    = 'http://api.ticketevolution.com'
-  s.summary     = 'Integration gem for Ticket Evolution\'s api'
-  s.description = ''
+  s.homepage    = 'https://github.com/ticket_evolution/ticketevolution-ruby'
+  s.summary     = 'Integration gem for Ticket Evolution\'s API'
+  s.description = 'Provides Ruby wrappers for the Ticket Evolution API (http://developer.ticketevolution.com). Ticket Evolution is the industry leader in software for the Ticket Broker industry.'
 
   s.required_rubygems_version = '>= 1.3.5'
 

@@ -234,4 +234,4 @@ Click on the links next to each endpoint for more detail.
     @venue = @connection.venues.show(id)
 
 
-######ticketevolution-ruby v0.5.0
+######ticketevolution-ruby v0.5.1
