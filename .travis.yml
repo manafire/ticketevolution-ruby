@@ -4,3 +4,6 @@ rvm:
   - ree
   - 1.8.7
   - 1.9.2
+env:
+  - "active_support=3.0.0"
+  - "active_support=master"

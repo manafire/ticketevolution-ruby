@@ -13,7 +13,7 @@ Gem::Specification.new do |s|
 
   s.required_rubygems_version = '>= 1.3.5'
 
-  s.add_dependency 'activesupport'
+  s.add_dependency 'activesupport', '>= 3.0.0'
   s.add_dependency 'i18n'
   s.add_dependency 'curb'
   s.add_dependency 'yajl-ruby'
