@@ -70,6 +70,39 @@ Interacting with an endpoint
     @connection.brokerages.search(params) # => returns a TicketEvolution::Collection object containing
                                           #    a collection of TicketEvolution::Brokerage model objects
 
+Alias methods
+-------------
+To more directly match ActiveRecord style, the following aliases exist and can be called on endpoints which include thier equivalent method:
+
+#find aliases #show
+
+    @connection.brokerages.find(1)
+    # is the same as calling
+    @connection.brokerages.show(1)
+
+#update_attributes indirectly aliases #update
+_A call to #update_attributes will update the attributes on the instance as well as calling #update on the endpoint._
+
+    @brokerage = @connection.brokerages.find(1)
+    @brokerage.update_attributes(params)
+    # is an easy way to call
+    TicketEvolution::Brokerages.new({:connection => @connection, :id => 1}).update(params)
+
+#save indirectly aliases #update
+
+    @brokerage = @connection.brokerages.find(1)
+    @brokerage.attributes = params
+    @brokerage.save
+    # is an easy way to call
+    TicketEvolution::Brokerages.new({:connection => @connection, :id => 1}).update(params)
+
+#all aliases #list
+_If you use this, be aware that the list endpoints max out at 100 results, so #all defaultly has the following defined parameter - :limit => 100_
+
+    @connection.brokerages.all
+    # is the same as calling
+    @connection.brokerages.list
+
 Available endpoints
 -------------------
 Click on the links next to each endpoint for more detail.
@@ -84,7 +117,7 @@ Click on the links next to each endpoint for more detail.
     @address = @client.addresses.create(params)
     @address = @client.addresses.list(params)
     @address = @client.addresses.show(id)
-    @address = @address.update(params)
+    @address = @address.update_attributes(params)
 
 **Brokerages** - [http://developer.ticketevolution.com/endpoints/brokerages](http://developer.ticketevolution.com/endpoints/brokerages)
 
@@ -103,7 +136,7 @@ Click on the links next to each endpoint for more detail.
     @client = @connection.clients.create(params)
     @client = @connection.clients.list(params)
     @client = @connection.clients.show(id)
-    @client = @client.update(params)
+    @client = @client.update_attributes(params)
 
 **Configurations** - [http://developer.ticketevolution.com/endpoints/configurations](http://developer.ticketevolution.com/endpoints/configurations)
 
@@ -120,7 +153,7 @@ Click on the links next to each endpoint for more detail.
     @email_address = @client.email_addresses.create(params)
     @email_address = @client.email_addresses.list(params)
     @email_address = @client.email_addresses.show(id)
-    @email_address = @email_address.update(params)
+    @email_address = @email_address.update_attributes(params)
 
 **Events** - [http://developer.ticketevolution.com/endpoints/events](http://developer.ticketevolution.com/endpoints/events)
 
@@ -144,7 +177,7 @@ Click on the links next to each endpoint for more detail.
     @order = @connection.orders.list(params)
     @order = @order.reject(params)
     @order = @connection.orders.show(id)
-    @order = @order.update(params)
+    @order = @order.update_attributes(params)
 
 **Performers** - [http://developer.ticketevolution.com/endpoints/performers](http://developer.ticketevolution.com/endpoints/performers)
 
@@ -158,7 +191,7 @@ Click on the links next to each endpoint for more detail.
     @phone_number = @client.phone_numbers.create(params)
     @phone_number = @client.phone_numbers.list(params)
     @phone_number = @client.phone_numbers.show(id)
-    @phone_number = @phone_number.update(params)
+    @phone_number = @phone_number.update_attributes(params)
 
 **Quotes** - [http://developer.ticketevolution.com/endpoints/quotes](http://developer.ticketevolution.com/endpoints/quotes)
 
@@ -175,7 +208,7 @@ Click on the links next to each endpoint for more detail.
     @shipment = @connection.shipments.create(params)
     @shipment = @connection.shipments.list(params)
     @shipment = @connection.shipments.show(id)
-    @shipment = @shipment.update(params)
+    @shipment = @shipment.update_attributes(params)
 
 **Ticket Groups** - [http://developer.ticketevolution.com/endpoints/ticket-groups](http://developer.ticketevolution.com/endpoints/ticket-groups)
 
@@ -201,4 +234,4 @@ Click on the links next to each endpoint for more detail.
     @venue = @connection.venues.show(id)
 
 
-######ticketevolution-ruby v0.4.9
+######ticketevolution-ruby v0.5.0

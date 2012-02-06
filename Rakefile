@@ -91,7 +91,7 @@ module ThisTask
       when "show"
         "#{base}.#{chain_name}.#{name}(id)"
       when "update"
-        "#{variable}.#{name}(params)"
+        "#{variable}.#{name}_attributes(params)"
       when "accept_order", "reject_order"
         "#{variable}.#{name.gsub('_order', '')}(params)"
       when "complete_order"

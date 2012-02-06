@@ -115,6 +115,27 @@ describe TicketEvolution::Model do
     end
   end
 
+  describe "#attributes" do
+    let(:params) { {"one" => 1, "two" => 2} }
+    let(:expected) { HashWithIndifferentAccess.new(params) }
+
+    it "should return the set attributes" do
+      klass.new(params.merge(:connection => connection)).attributes.should == expected
+    end
+  end
+
+  describe "#attributes=" do
+    let(:initial) { {"one" => :one, "three" => 3} }
+    let(:params) { {"one" => 1, "two" => 2} }
+    let(:expected) { HashWithIndifferentAccess.new(initial.merge(params)) }
+
+    it "should set the passed attributes" do
+      instance = klass.new(initial.merge(:connection => connection))
+      instance.attributes = params
+      instance.attributes.should == expected
+    end
+  end
+
   describe "#method_missing" do
     context "when the method ends in 's'" do
       it "should attempt to find a class which matches the missing method, scoped to it's plural namespace" do

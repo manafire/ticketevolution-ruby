@@ -23,6 +23,12 @@ module TicketEvolution
       HashWithIndifferentAccess.new(to_hash)
     end
 
+    def attributes=(params)
+      params.each do |k, v|
+        send("#{k}=", v)
+      end
+    end
+
     def scope
       if @scope.present?
         {}.tap do |scope|
