@@ -36,7 +36,7 @@ namespace :documentation do
     endpoints_connection.http_get
     endpoints_xml = Nokogiri::XML(endpoints_connection.body_str)
 
-    endpoints_xml.xpath('//endpoint').each do |xml|
+    endpoints_xml.xpath('//endpoint').sort_by{|x| x.xpath('name').children.to_s}.each do |xml|
       presenter = ThisTask::EndpointPresenter.new(xml)
       contents << "
 **#{presenter.name}** - [#{presenter.url}](#{presenter.url})

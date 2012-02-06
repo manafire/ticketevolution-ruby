@@ -3,23 +3,23 @@ Objects
 There are four main object types:
 
 **Connection objects**
-Each set of API credentials can be combined with a mode and api version to create a unique connection to Ticket Evolution. A connection object is the basis of any call and must be created before anything else can be done.
-_Your API credentials can be found [https://settings.ticketevolution.com/brokerage/credentials](https://settings.ticketevolution.com/brokerage/credentials). You must have an active brokerage account with Ticket Evolution._
 
-There are four available options:
-- :token (required)    => The API token, used to identify you
-- :secret (required)   => The API secret, used to sign requests (see: [http://developer.ticketevolution.com/signature_tool](http://developer.ticketevolution.com/signature_tool))
-- :mode (optional)     => Specifies the server to use - can be either :production or :sandbox (default)
-- :version (optional)  => API version to use - the only available version at the time of this writing is 8
+Each set of API credentials can be combined with a mode and api version to create a unique connection to Ticket Evolution. A connection object is the basis of any call and must be created before anything else can be done. _Your API credentials can be found [https://settings.ticketevolution.com/brokerage/credentials](https://settings.ticketevolution.com/brokerage/credentials). You must have an active brokerage account with Ticket Evolution._
 
+    # Example connection configuration (defaults shown)
     @connection = TicketEvolution::Connection.new({
-      :token    => "958acdf7da323bd7a4ac63b17ff26eabf45",
-      :secret   => "TSaldkl34kdoCbGa7I93s3S9OBcBQoogseNeccHIEh",
+      :token => '',       # => (required) The API token, used to identify you
+      :secret => '',      # => (required) The API secret, used to sign requests
+                          #               More info: [http://developer.ticketevolution.com/signature_tool](http://developer.ticketevolution.com/signature_tool))
+      :mode => :sandbox,  # => (optional) Specifies the server environment to use
+                                          Valid options: :production or :sandbox
+      :version => 8       # => (optional) API version to use - the only available
+                                          version at the time of this writing is 8
     })
 
 **Endpoint objects**
 
-These are almost always (except in the case of Search) pluralized class names and match the endpoints listed at [http://developer.ticketevolution.com](http://developer.ticketevolution.com/). To instantiate an endpoint instance, create a connection object and then call the endpoints name, underscored, as a method on the connection object.
+These are always (except in the case of Search) pluralized class names and match the endpoints listed at [http://developer.ticketevolution.com](http://developer.ticketevolution.com/). To instantiate an endpoint instance, create a connection object and then call the endpoints name, underscored, as a method on the connection object.
 
     @connection.brokerages
 

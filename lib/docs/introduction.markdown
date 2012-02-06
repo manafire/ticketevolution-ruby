@@ -6,7 +6,7 @@ The gem follows an instance based approach to the Restful API. This way multiple
 
 All API documentation can be found at [http://developer.ticketevolution.com](http://developer.ticketevolution.com/).
 
-_WARNING: This gem is not ready for prime time. Some of the endpoints have not been added and a few implementation details have yet to be worked out._
+_WARNING: This gem is not ready for prime time. The transactions endpoint has not been added and a few implementation details have yet to be worked out. Known issues and missing functionality are documented in the [Github Issues](https://github.com/ticketevolution/ticketevolution-ruby/issues)._
 
 **Rubies supported**
 
