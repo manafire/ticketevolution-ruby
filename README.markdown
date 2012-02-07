@@ -233,3 +233,8 @@ Click on the links next to each endpoint for more detail.
 
 
 ######ticketevolution-ruby v0.5.2
+
+License
+-------
+
+See LICENSE file for licensing information.

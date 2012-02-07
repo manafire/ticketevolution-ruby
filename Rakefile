@@ -45,7 +45,10 @@ namespace :documentation do
     end
     contents << "
 
-######ticketevolution-ruby v#{TicketEvolution::VERSION}"
+######ticketevolution-ruby v#{TicketEvolution::VERSION}
+
+"
+    contents << load_doc('license')
     contents.rewind
     File.open(TicketEvolution.root + '../../README.markdown', 'w+') do |f|
       f.write contents.read
