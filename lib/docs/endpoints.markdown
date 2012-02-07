@@ -13,21 +13,20 @@ Alias methods
 -------------
 To more directly match ActiveRecord style, the following aliases exist and can be called on endpoints which include thier equivalent method:
 
-#find aliases #show
+**#find aliases #show**
 
     @connection.brokerages.find(1)
     # is the same as calling
     @connection.brokerages.show(1)
 
-#update_attributes indirectly aliases #update
-_A call to #update_attributes will update the attributes on the instance as well as calling #update on the endpoint._
+**#update_attributes indirectly aliases #update** - A call to #update_attributes will update the attributes on the instance as well as calling #update on the endpoint.
 
     @brokerage = @connection.brokerages.find(1)
     @brokerage.update_attributes(params)
     # is an easy way to call
     TicketEvolution::Brokerages.new({:connection => @connection, :id => 1}).update(params)
 
-#save indirectly aliases #update
+**#save indirectly aliases #update**
 
     @brokerage = @connection.brokerages.find(1)
     @brokerage.attributes = params
@@ -35,8 +34,7 @@ _A call to #update_attributes will update the attributes on the instance as well
     # is an easy way to call
     TicketEvolution::Brokerages.new({:connection => @connection, :id => 1}).update(params)
 
-#all aliases #list
-_If you use this, be aware that the list endpoints max out at 100 results, so #all defaultly has the following defined parameter - :limit => 100_
+**#all aliases #list** - If you use this, be aware that #list maxes out at 100 results, so #all defaultly has the following defined parameter - :limit => 100
 
     @connection.brokerages.all
     # is the same as calling
