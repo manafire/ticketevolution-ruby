@@ -40,7 +40,7 @@ module TicketEvolution
       @url ||= [].tap do |parts|
         parts << TicketEvolution::Connection.protocol
         parts << "://api."
-        parts << "#{@config[:mode]}." unless @config[:mode] == :production
+        parts << "#{@config[:mode]}." if @config[:mode].present? && @config[:mode].to_sym != :production
         parts << TicketEvolution::Connection.url_base
       end.join
     end

@@ -122,6 +122,12 @@ describe TicketEvolution::Connection do
   end
 
   describe "#url" do
+    context "mode is blank" do
+      subject { klass.new(valid_options.merge({:mode => nil}))}
+
+      its(:url) { should == "https://api.ticketevolution.com" }
+    end
+
     context "production" do
       subject { klass.new(valid_options.merge({:mode => :production}))}
 
