@@ -144,6 +144,18 @@ describe TicketEvolution::Connection do
   describe "#sign" do
     let(:path) { "/test" }
 
+    describe "with a port in the url_base" do
+      let(:connection) { klass.new(valid_options.merge({:secret => "/3uZ9bXNe/6rxEBmlGLvoRXrcSzRDMfyJSewhlrc"})) }
+
+      before { klass.url_base = "ticketevolution.com:3000" }
+
+      it "should sign a get request" do
+        connection.sign(:GET, path).should == "1Ra2c8cbuw1G5Pw8BWaowDlMcxwMte8y/sL+vW2H4mY="
+      end
+
+      after { klass.url_base = "ticketevolution.com" }
+    end
+
     describe "without params" do
       let(:connection) { klass.new(valid_options.merge({:secret => "/3uZ9bXNe/6rxEBmlGLvoRXrcSzRDMfyJSewhlrc"})) }
 

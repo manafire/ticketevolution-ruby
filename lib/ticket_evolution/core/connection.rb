@@ -50,7 +50,7 @@ module TicketEvolution
         OpenSSL::HMAC.digest(
           OpenSSL::Digest::Digest.new('sha256'),
           @config[:secret],
-          "#{method} #{process_params(method, path, content).gsub(TicketEvolution::Connection.protocol+'://', '')}"
+          "#{method} #{process_params(method, path, content).gsub(TicketEvolution::Connection.protocol+'://', '').gsub(/\:\d{2,5}\//, '/')}"
       )).chomp
     end
 
