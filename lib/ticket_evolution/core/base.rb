@@ -1,12 +1,7 @@
 module TicketEvolution
   class Base
     def method_missing(method, *args)
-      seek = method.to_s.camelize.to_sym
-      if TicketEvolution.const_defined?(seek)
-        "TicketEvolution::#{seek}".constantize.new({:parent => self})
-      else
-        super
-      end
+      "TicketEvolution::#{method.to_s.camelize.to_sym}".constantize.new({:parent => self}) rescue super
     end
   end
 end
