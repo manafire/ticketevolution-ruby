@@ -41,6 +41,30 @@ module TicketEvolution
       end
     end
 
+    def new_ostruct_member(name)
+      begin
+        endpoint_class = "#{plural_class_name}::#{name.camelize}".constantize
+        name = super(name)
+        class << self; self; end.class_eval do
+          define_method(name) do
+            begin
+              obj = @table[name]
+              obj.instance_eval "@endpoint = #{self.plural_class_name}::#{name.to_s.camelize}.new(:parent => #{self.plural_class_name}.new(:id => #{self.id}, :parent => TicketEvolution::Connection.new(#{@connection.instance_eval("@config").inspect})))"
+              def obj.method_missing(method, *args)
+                @endpoint.send(method, *args)
+              end
+              obj
+            rescue
+              @table[name]
+            end
+          end
+        end
+        name
+      rescue
+        super
+      end
+    end
+
     private
 
     def process_datum(v)
@@ -55,10 +79,13 @@ module TicketEvolution
     def method_missing(method, *args)
       seek = method.to_s.camelize
       if seek !~ /=/ and plural_class.const_defined?(seek.to_sym)
-        "#{plural_class_name}::#{seek}".constantize.new(:parent => plural_class.new(:connection => @connection, :id => self.id))
+        "#{plural_class_name}::#{seek}".constantize.new(:parent => plural_class.new(:parent => @connection, :id => self.id))
       else
         super
       end
     end
   end
 end
+
+
+

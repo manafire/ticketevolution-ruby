@@ -155,12 +155,30 @@ describe TicketEvolution::Model do
 
       it "should instantiate a new instance of the requested endpoint, passing a new instance of it's endpoint class as parent" do
         instance.plural_class.should_receive(:new).with({
-          :connection => connection,
+          :parent => connection,
           :id => instance.id
         }).and_return(@endpoint)
         sample_klass.should_receive(:new).with({:parent => @endpoint})
 
         instance.samples
+      end
+    end
+  end
+
+  describe "#new_ostruct_member" do
+    context "when the member name refers to an endpoint" do
+      before do
+        instance.samples = []
+      end
+
+      it "should respond with the value" do
+        instance.samples.should == []
+      end
+
+      it "should fall back on the endpoint" do
+        sample_klass.any_instance.should_receive(:send).with(:testing)
+
+        instance.samples.testing
       end
     end
   end
