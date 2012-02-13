@@ -36,6 +36,9 @@ Each set of API credentials can be combined with a mode and api version to creat
                                           Valid options: :production or :sandbox
       :version => 8       # => (optional) API version to use - the only available
                                           version at the time of this writing is 8
+      :logger => nil      # => (optional) Object to use for logging requests and
+                          #               responses. Any object which responds to '<<'
+                          #               is valid.
     })
 
 **Endpoint objects**
@@ -170,7 +173,7 @@ Click on the links next to each endpoint for more detail.
     @order = @order.accept(params)
     @order = @order.complete
     @order = @connection.orders.create_brokerage_order(params)
-    @order = @connection.orders.create_customer_order(params)
+    @order = @connection.orders.create_client_order(params)
     @order = @connection.orders.create_fulfillment_order(params)
     @order = @connection.orders.list(params)
     @order = @order.reject(params)
@@ -232,7 +235,7 @@ Click on the links next to each endpoint for more detail.
     @venue = @connection.venues.show(id)
 
 
-######ticketevolution-ruby v0.5.6
+######ticketevolution-ruby v0.5.7
 
 License
 -------

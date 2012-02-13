@@ -6,7 +6,8 @@ describe TicketEvolution::Connection do
     HashWithIndifferentAccess.new({
       :version => klass.oldest_version_in_service,
       :mode => :sandbox,
-      :ssl_verify => true
+      :ssl_verify => true,
+      :logger => nil
     })
   end
   let(:basic_options) do
@@ -105,6 +106,20 @@ describe TicketEvolution::Connection do
         expect {
           klass.new(valid_options.merge(:invalid => :option))
         }.to_not raise_error
+      end
+    end
+
+    context "with logger object is set" do
+      use_vcr_cassette "core/connection", :record => :all
+
+      let(:logger) { StringIO.new }
+      let(:instance) { klass.new(valid_options.merge({:logger => logger})) }
+
+      it "should add the requests and responses to the object" do
+        expect {
+          req = instance.build_request(:GET, '/', {})
+          req.http(:GET)
+        }.to change(instance.logger, :size).by_at_least(1)
       end
     end
   end

@@ -15,6 +15,9 @@ Each set of API credentials can be combined with a mode and api version to creat
                                           Valid options: :production or :sandbox
       :version => 8       # => (optional) API version to use - the only available
                                           version at the time of this writing is 8
+      :logger => nil      # => (optional) Object to use for logging requests and
+                          #               responses. Any object which responds to '<<'
+                          #               is valid.
     })
 
 **Endpoint objects**
