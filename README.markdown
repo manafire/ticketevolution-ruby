@@ -16,8 +16,29 @@ _WARNING: This gem is not ready for prime time. The transactions endpoint has no
 
 Installation
 ============
-    # Gemfile
+
+Rails / Bundler
+---------------
+In your Gemfile, add the following line
+
     gem 'ticketevolution-ruby', :require => 'ticket_evolution'
+
+Ruby / IRB
+----------
+In bash / terminal
+
+    gem install ticketevolution-ruby
+    irb
+
+Then
+
+    require 'rubygems'
+    require 'ticket_evolution'
+    @connection = TicketEvolution::Connection.new({
+      :token => '<YOUR TOKEN>',
+      :secret => '<YOUR SECRET>'
+    })
+    @connection.brokerages.list({:per_page => 1})
 
 Objects
 =======
@@ -38,7 +59,7 @@ Each set of API credentials can be combined with a mode and api version to creat
                                           version at the time of this writing is 8
       :logger => nil      # => (optional) Object to use for logging requests and
                           #               responses. Any object which responds to '<<'
-                          #               is valid.
+                          #               is valid. EX: Logger.new('log/te_api.log')
     })
 
 **Endpoint objects**
