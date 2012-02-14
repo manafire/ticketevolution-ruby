@@ -45,7 +45,7 @@ module TicketEvolution
       if v.kind_of? OpenStruct
         v.to_hash
       elsif v.class.to_s == "Array"
-        v.map{|x| from_ostruct(v)}
+        v.map{|x| from_ostruct(x)}
       else
         v
       end

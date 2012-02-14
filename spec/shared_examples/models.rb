@@ -26,4 +26,14 @@ shared_examples_for "a ticket_evolution model" do
       instance.attributes.should == { "hash" => hash }
     end
   end
+
+  describe "#to_hash" do
+    context "of a list" do
+      let(:hash) { { :test => [1,2,3,4,5] } }
+      before { instance.hash = hash }
+      it "should return the same list" do
+        instance.to_hash.should == { :hash => hash }
+      end
+    end
+  end
 end
