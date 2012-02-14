@@ -90,7 +90,11 @@ class Fake
     OpenStruct.new.tap do |resp|
       resp.header = ''
       resp.response_code = 500
-      resp.body = {'error' => 'Internal Server Error'}
+      resp.body = {
+        :connection => Fake.connection,
+        'error' => 'Internal Server Error',
+        'extra_parameter' => 'something important'
+      }
       resp.server_message = TicketEvolution::Endpoint::RequestHandler::CODES[500].last
     end
   end

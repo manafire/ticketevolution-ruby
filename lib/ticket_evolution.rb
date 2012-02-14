@@ -47,7 +47,6 @@ i.req 'version' unless defined?(TicketEvolution::VERSION)
 c.req 'singular_class'
 
 # Core classes
-c.req 'api_error'
 c.req 'base'
 c.req 'builder'
 c.req 'collection'
@@ -63,6 +62,7 @@ c.req 'models', 'samples'
 c.req 'samples'
 
 # Errors
+c.req 'api_error'
 i.req 'errors', 'connection_not_found'
 i.req 'errors', 'endpoint_configuration_error'
 i.req 'errors', 'invalid_configuration'

@@ -7,7 +7,14 @@ describe TicketEvolution::ApiError do
 
   subject { instance }
 
-  its(:error) { should == response.body['error'] }
   its(:code) { should == response.response_code }
   its(:message) { should == response.server_message }
+  its(:error) { should == response.body['error'] }
+  its(:extra_parameter) { should == response.body['extra_parameter'] }
+
+  it "should inherit from TicketEvolution::Model" do
+    klass.ancestors.should include TicketEvolution::Model
+  end
+
+  it { should be_frozen }
 end

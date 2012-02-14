@@ -1,11 +1,12 @@
 module TicketEvolution
-  class ApiError
-    attr_reader :error, :message, :code
+  class ApiError < Model
+    attr_reader :message, :code
 
     def initialize(response)
       @code = response.response_code
       @message = response.server_message
-      @error = response.body['error']
+      super(response.body)
+      self.freeze
     end
   end
 end
