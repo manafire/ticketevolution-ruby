@@ -47,6 +47,17 @@ module TicketEvolution
       end.join
     end
 
+    def uri(path)
+      @uri ||= URI.join(*[].tap do |parts|
+        parts << self.url
+        if @config[:version] > 8
+          parts << "V#{@config[:version]}/#{path}"
+        else
+          parts << path
+        end
+      end).to_s
+    end
+
     def sign(method, path, content = nil)
       Base64.encode64(
         OpenSSL::HMAC.digest(
@@ -57,8 +68,7 @@ module TicketEvolution
     end
 
     def build_request(method, path, params = nil)
-      uri = URI.join(self.url, path).to_s
-      Curl::Easy.new(generate_url(method, uri, params)) do |request|
+      Curl::Easy.new(generate_url(method, self.uri(path), params)) do |request|
         if @config.has_key?(:ssl_verify)
           request.ssl_verify_host = @config[:ssl_verify]
           request.ssl_verify_peer = @config[:ssl_verify]
@@ -67,8 +77,8 @@ module TicketEvolution
           request.on_debug { |type, data| self.logger << data }
         end
         request.post_body = post_body(params) unless method == :GET
-        request.headers["Accept"] = "application/vnd.ticketevolution.api+json; version=#{@config[:version]}"
-        request.headers["X-Signature"] = sign(method, uri, params)
+        request.headers["Accept"] = "application/vnd.ticketevolution.api+json; version=#{@config[:version]}" unless @config[:version] > 8
+        request.headers["X-Signature"] = sign(method, self.uri(path), params)
         request.headers["X-Token"] = @config[:token]
       end
     end

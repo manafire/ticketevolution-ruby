@@ -156,6 +156,26 @@ describe TicketEvolution::Connection do
     end
   end
 
+  describe "#uri" do
+    let(:path) { '/test' }
+
+    context "api version 8" do
+      subject { klass.new(valid_options) }
+
+      it "should not include the version" do
+        subject.uri(path).should == "#{URI.join(subject.url, path).to_s}"
+      end
+    end
+
+    context "api version 9 or above" do
+      subject { klass.new(valid_options.merge({:version => 9})) }
+
+      it "should include the version" do
+        subject.uri(path).should == "#{URI.join(subject.url, "V9#{path}").to_s}"
+      end
+    end
+  end
+
   describe "#sign" do
     let(:path) { "/test" }
 
@@ -228,13 +248,7 @@ describe TicketEvolution::Connection do
   end
 
   describe "#build_request" do
-    let(:headers) do
-      {
-        "Accept" => "application/vnd.ticketevolution.api+json; version=#{valid_options[:version]}",
-        "X-Signature" => "8eaaqg6d4DJ2SEWkCvkdhc05dITmpNbUrcbN75UBGMA=",
-        "X-Token" => valid_options[:token]
-      }
-    end
+    let(:req_options) { valid_options.merge(:secret => "/3uZ9bXNe/6rxEBmlGLvoRXrcSzRDMfyJSewhlrc") }
     let(:params) do
       {
         :one => 1,
@@ -244,10 +258,34 @@ describe TicketEvolution::Connection do
     end
     let(:url) { "https://api.sandbox.ticketevolution.com/test?one=1&three=three&two=two" }
 
-    subject { klass.new(valid_options.merge(:secret => "/3uZ9bXNe/6rxEBmlGLvoRXrcSzRDMfyJSewhlrc")).build_request(:GET, '/test', params) }
+    subject { klass.new(valid_options).build_request(:GET, '/test', params) }
 
     it { should be_a Curl::Easy }
-    its(:headers) { should == headers }
     its(:url) { should == url }
+
+    context "api version 8" do
+      let(:headers) do
+        {
+          "Accept" => "application/vnd.ticketevolution.api+json; version=#{valid_options[:version]}",
+          "X-Signature" => "8eaaqg6d4DJ2SEWkCvkdhc05dITmpNbUrcbN75UBGMA=",
+          "X-Token" => valid_options[:token]
+        }
+      end
+      subject { klass.new(req_options).build_request(:GET, '/test', params) }
+
+      its(:headers) { should == headers }
+    end
+
+    context "api version 9 or above" do
+      let(:headers) do
+        {
+          "X-Signature" => "qBpzNPLG7h3+kj5EA0MDWarNG8ATeLx3OHqlKEf2YF0=",
+          "X-Token" => valid_options[:token]
+        }
+      end
+      subject { klass.new(req_options.merge(:version => 9)).build_request(:GET, '/test', params) }
+
+      its(:headers) { should == headers }
+    end
   end
 end
