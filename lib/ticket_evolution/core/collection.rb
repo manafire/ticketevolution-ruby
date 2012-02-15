@@ -4,6 +4,8 @@ module TicketEvolution
 
     include Enumerable
 
+    delegate :all, :each, :last, :size, :[], :to => :entries
+
     def initialize(options = {})
       options.each {|k,v| send("#{k}=", v)}
       @entries ||= []
@@ -19,14 +21,6 @@ module TicketEvolution
           singular_class.new(entry.merge({:connection => response.body[:connection]}))
         end
       )
-    end
-
-    def size
-      @entries.size
-    end
-
-    def each(&block)
-      @entries.each(&block)
     end
   end
 end

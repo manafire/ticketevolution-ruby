@@ -20,4 +20,28 @@ describe TicketEvolution::Collection do
       end
     end
   end
+
+  describe "#last" do
+    it "should pass the request to the @entries array" do
+      subject.entries.should_receive(:last)
+
+      subject.last
+    end
+  end
+
+  describe "#all" do
+    it "should pass the request to the @entries array" do
+      subject.entries.should_receive(:all)
+
+      subject.all
+    end
+  end
+
+  describe "#[]" do
+    it "should pass the request to the @entries array" do
+      subject.entries.should_receive(:[]).with(1)
+
+      subject[1]
+    end
+  end
 end
