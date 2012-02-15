@@ -6,6 +6,7 @@ module TicketEvolution
     include TicketEvolution::Modules::Update
 
     alias :create_brokerage_order :create
+    alias :create_client_order :create
     alias :create_customer_order :create
 
     def accept_order(params = nil)
