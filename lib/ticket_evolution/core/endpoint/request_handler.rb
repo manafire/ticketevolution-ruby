@@ -13,6 +13,7 @@ module TicketEvolution
         401 => ["Unauthorized","Returned when the authentication credentials are invalid."],
         404 => ["Not Found","The requested resource could not be located."],
         406 => ["Not Acceptable","The requested content type or version is invalid."],
+        422 => ["Unprocessable Entity","Returned when the application can't processes the data."],
         500 => ["Internal Server Error","Used a general error response for processing errors or other issues with the web service. "],
         503 => ["Service Unavailable","Returned when the API service is temporarily unavailable. This could also indicate that the rate limit for the given token has been reached. If this status is received, the request should be retried."]
       }
@@ -38,7 +39,7 @@ module TicketEvolution
           resp.header = response.header_str
           resp.response_code = response.response_code
           resp.body = MultiJson.decode(response.body_str).merge({:connection => self.connection})
-          resp.server_message = CODES[response.response_code].last
+          resp.server_message = (CODES[response.response_code] || ['Unknown Error']).last
         end
       end
     end

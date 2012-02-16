@@ -224,6 +224,13 @@ shared_examples_for "a ticket_evolution endpoint class" do
           its(:server_message) { should == value.last }
         end
       end
+
+      context "with a missing response code" do
+        let(:response_code) { 900 }
+
+        its(:response_code) { should == 900 }
+        its(:server_message) { should == "Unknown Error" }
+      end
     end
   end
 
