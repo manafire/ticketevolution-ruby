@@ -50,7 +50,7 @@ module TicketEvolution
     def uri(path)
       parts = [].tap do |parts|
         parts << self.url
-        parts << "/V#{@config[:version]}" if @config[:version] > 8
+        parts << "/v#{@config[:version]}" if @config[:version] > 8
         parts << path
       end.join
     end
