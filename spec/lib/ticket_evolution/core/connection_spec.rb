@@ -163,7 +163,7 @@ describe TicketEvolution::Connection do
       subject { klass.new(valid_options) }
 
       it "should not include the version" do
-        subject.uri(path).should == "#{URI.join(subject.url, path).to_s}"
+        subject.uri(path).should == "#{subject.url}#{path}"
       end
     end
 
@@ -171,13 +171,13 @@ describe TicketEvolution::Connection do
       subject { klass.new(valid_options.merge({:version => 9})) }
 
       it "should include the version" do
-        subject.uri(path).should == "#{URI.join(subject.url, "V9#{path}").to_s}"
+        subject.uri(path).should == "#{subject.url}/V9#{path}"
       end
     end
   end
 
   describe "#sign" do
-    let(:path) { "/test" }
+    let(:path) { "#{connection.url}/test" }
 
     describe "with a port in the url_base" do
       let(:connection) { klass.new(valid_options.merge({:secret => "/3uZ9bXNe/6rxEBmlGLvoRXrcSzRDMfyJSewhlrc"})) }

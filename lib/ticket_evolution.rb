@@ -9,7 +9,6 @@ require 'digest/md5'
 require 'openssl'
 require 'pathname'
 require 'cgi'
-require 'uri'
 
 require 'active_support/hash_with_indifferent_access'
 require 'active_support/version'

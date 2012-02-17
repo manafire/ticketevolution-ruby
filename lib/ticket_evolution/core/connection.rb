@@ -48,14 +48,11 @@ module TicketEvolution
     end
 
     def uri(path)
-      @uri ||= URI.join(*[].tap do |parts|
+      parts = [].tap do |parts|
         parts << self.url
-        if @config[:version] > 8
-          parts << "V#{@config[:version]}/#{path}"
-        else
-          parts << path
-        end
-      end).to_s
+        parts << "/V#{@config[:version]}" if @config[:version] > 8
+        parts << path
+      end.join
     end
 
     def sign(method, path, content = nil)
@@ -102,17 +99,15 @@ module TicketEvolution
       end
     end
 
-    def process_params(method, path, params)
-      suffix = if params.present?
+    def process_params(method, uri, params)
+      "#{uri}?#{if params.present?
         case method
         when :GET
           params.to_query
         else
           post_body(params)
         end
-      end
-
-      "#{URI.join(url, path).to_s}?" + suffix.to_s
+      end}"
     end
   end
 end

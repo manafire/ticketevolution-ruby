@@ -43,16 +43,15 @@ module TicketEvolution
 
     def new_ostruct_member(name)
       begin
-        endpoint_class = "#{plural_class_name}::#{name.camelize}".constantize
-        name = super(name)
+        name = super
         class << self; self; end.class_eval do
           define_method(name) do
             begin
               obj = @table[name]
-              obj.instance_eval "@endpoint = #{self.plural_class_name}::#{name.to_s.camelize}.new(:parent => #{self.plural_class_name}.new(:id => #{self.id}, :parent => TicketEvolution::Connection.new(#{@connection.instance_eval("@config").inspect})))"
-              def obj.method_missing(method, *args)
-                @endpoint.send(method, *args)
-              end
+              def obj.endpoint=(e); @endpoint = e; end
+              def obj.method_missing(method, *args); @endpoint.send(method, *args); end
+              named_endpoint = "#{self.plural_class_name}::#{name.to_s.camelize}".constantize
+              obj.endpoint = named_endpoint.new(:parent => self.plural_class.new(:id => self.id, :parent => @connection))
               obj
             rescue
               @table[name]
