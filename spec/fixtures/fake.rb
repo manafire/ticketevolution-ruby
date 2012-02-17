@@ -19,9 +19,17 @@ class Fake
     OpenStruct.new.tap do |resp|
       resp.header = 'fake header string (we don\'t currently process this)'
       resp.response_code = 200
-      resp.body = {:body => "test"}
+      resp.body = {:body => "test", :connection => self.connection}
       resp.server_message = TicketEvolution::Endpoint::RequestHandler::CODES[200].last
     end
+  end
+
+  def self.redirect_response
+    r = self.response
+    r.header = "HTTP/1.1 301 Moved Permanently\r\nContent-Type: text/html\r\nConnection: keep-alive\r\nStatus: 301\r\nX-Powered-By: Phusion Passenger (mod_rails/mod_rack) 3.0.11\r\nX-UA-Compatible: IE=Edge,chrome=1\r\nLocation: http://api.ticketevolution.com/something_else/1\r\nX-Runtime: 0.001401\r\nContent-Length: 102\r\nServer: nginx/1.0.11 + Phusion Passenger 3.0.11 (mod_rails/mod_rack)\r\n\r\n"
+    r.response_code = 302
+    r.server_message = TicketEvolution::Endpoint::RequestHandler::CODES[302].last
+    r
   end
 
   def self.show_response

@@ -19,19 +19,23 @@ module TicketEvolution
       }
 
       def request(method, path, params = nil, &response_handler)
-        response = self.build_request(method, path, params)
+        redirecting = caller.first =~ /request_handler/ ? false : true
+        response = self.build_request(method, path, params, redirecting)
         response.http(method)
         response = self.naturalize_response(response)
-        if response.response_code >= 400
+        if [301, 302].include?(response.response_code)
+          new_path = response.header.match(/Location: ([\w\.:\/]*)/).to_a[1].to_s.match(/^https?:\/\/[a-zA-Z_]+[\.a-zA-Z_]+(\/[\w\/]+)[\?]*/).to_a[1]
+          self.request(method, new_path, params, &response_handler)
+        elsif response.response_code >= 300
           TicketEvolution::ApiError.new(response)
         else
           response_handler.call(response)
         end
       end
 
-      def build_request(method, path, params = nil)
+      def build_request(method, path, params = nil, build_path = true)
         raise EndpointConfigurationError, "#{self.class.to_s}#request requires it's first parameter to be a valid HTTP method" unless [:GET, :POST, :PUT, :DELETE].include? method.to_sym
-        self.connection.build_request(method, "#{self.base_path}#{path}", params)
+        self.connection.build_request(method, "#{build_path ? self.base_path : ''}#{path}", params)
       end
 
       def naturalize_response(response)
