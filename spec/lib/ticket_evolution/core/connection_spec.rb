@@ -171,7 +171,7 @@ describe TicketEvolution::Connection do
       subject { klass.new(valid_options.merge({:version => 9})) }
 
       it "should include the version" do
-        subject.uri(path).should == "#{subject.url}/V9#{path}"
+        subject.uri(path).should == "#{subject.url}/v9#{path}"
       end
     end
   end
@@ -279,7 +279,7 @@ describe TicketEvolution::Connection do
     context "api version 9 or above" do
       let(:headers) do
         {
-          "X-Signature" => "qBpzNPLG7h3+kj5EA0MDWarNG8ATeLx3OHqlKEf2YF0=",
+          "X-Signature" => "YbwEmJL9P0hvpplEr2q2iL4Mpz+KevHUOjzgYh0ewh4=",
           "X-Token" => valid_options[:token]
         }
       end
