@@ -19,6 +19,7 @@ module TicketEvolution
             client_response.each do |k, v|
               self.send("#{k}=", process_datum(v))
             end
+            self
           end
         })
       end

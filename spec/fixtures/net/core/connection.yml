@@ -86,7 +86,7 @@
       accept:
       - application/vnd.ticketevolution.api+json; version=8
       x-signature:
-      - F/qzyf3TZi71VSZ7GtP9yfgdfB/LFGKIqup6s5GoQ8E=
+      - 6tWs3CIO4szKWCKxo8OkrtPCxTsdgjAT32LrpgZvr4M=
       x-token:
       - 621e8a816a4e31a4dcf9f450e6de150f
   response: !ruby/struct:VCR::Response
@@ -107,7 +107,7 @@
       location:
       - http://developer.ticketevolution.com
       x-runtime:
-      - '0.001958'
+      - '0.001729'
       content-length:
       - '102'
       server:
@@ -123,7 +123,7 @@
       accept:
       - application/vnd.ticketevolution.api+json; version=8
       x-signature:
-      - F/qzyf3TZi71VSZ7GtP9yfgdfB/LFGKIqup6s5GoQ8E=
+      - 6tWs3CIO4szKWCKxo8OkrtPCxTsdgjAT32LrpgZvr4M=
       x-token:
       - 621e8a816a4e31a4dcf9f450e6de150f
   response: !ruby/struct:VCR::Response
@@ -144,7 +144,7 @@
       location:
       - http://developer.ticketevolution.com
       x-runtime:
-      - '0.001958'
+      - '0.001729'
       content-length:
       - '102'
       server:

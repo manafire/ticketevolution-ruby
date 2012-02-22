@@ -28,7 +28,8 @@ describe TicketEvolution::Client do
       before { client }
 
       it "updates the attributes of the instance" do
-        client.update_attributes(:name => "bar")
+        client_instance = client.update_attributes(:name => "bar")
+        client_instance.should be_an_instance_of TicketEvolution::Client
         client.id.should == initial_client_id
         client.name.should == "bar"
 
