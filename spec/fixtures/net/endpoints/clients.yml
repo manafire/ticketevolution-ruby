@@ -829,3 +829,47 @@
     body: ! '{"updated_at":"2012-02-22T14:54:47Z","addresses":[],"email_addresses":[],"phone_numbers":[],"name":"Comish
       Gordon","url":"/clients/2364","id":"2364"}'
     http_version: '1.1'
+- !ruby/struct:VCR::HTTPInteraction
+  request: !ruby/struct:VCR::Request
+    method: :get
+    uri: https://api.sandbox.ticketevolution.com:443/clients/3/addresses
+    body: !!null 
+    headers:
+      x-signature:
+      - APq/BBoPcfvNrgaOfRhClqcnCWJEXZ89M3a2mKSl3cA=
+      x-token:
+      - b2b5a7a33b1a78896ed1b53d81c5c9cc
+      accept:
+      - application/vnd.ticketevolution.api+json; version=8
+      accept-encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+  response: !ruby/struct:VCR::Response
+    status: !ruby/struct:VCR::ResponseStatus
+      code: 200
+      message: OK
+    headers:
+      content-type:
+      - application/vnd.ticketevolution.api+json; version=8; charset=utf-8
+      transfer-encoding:
+      - chunked
+      connection:
+      - keep-alive
+      status:
+      - '200'
+      x-powered-by:
+      - Phusion Passenger (mod_rails/mod_rack) 3.0.11
+      etag:
+      - ! '"5c4ea522651f1e83780e56a66ca3bc39"'
+      x-ua-compatible:
+      - IE=Edge,chrome=1
+      x-runtime:
+      - '0.057687'
+      cache-control:
+      - max-age=0, private, must-revalidate
+      strict-transport-security:
+      - max-age=31536000
+      server:
+      - nginx/1.0.11 + Phusion Passenger 3.0.11 (mod_rails/mod_rack)
+    body: ! '{"current_page":1,"addresses":[{"updated_at":"2012-01-04T18:55:29Z","latitude":null,"street_address":"035
+      McCullough Manor","locality":"West Lambertfort","extended_address":null,"longitude":null,"country_code":"AI","region":"MN","label":null,"postal_code":"68577","name":null,"url":"/clients/3/addresses/46685","id":"46685"}],"per_page":100,"total_entries":1}'
+    http_version: '1.1'
