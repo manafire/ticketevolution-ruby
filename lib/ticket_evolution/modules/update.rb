@@ -5,7 +5,9 @@ module TicketEvolution
         Class.new{extend SingularClass}.singular_class(klass.name).send(:include, Module.new{
           def update_attributes(params)
             params.each{|k, v| send("#{k}=", process_datum(v))}
-            plural_class.new({:parent => @connection, :id => params.delete(:id)}).update(params)
+            atts = self.attributes
+            id = atts.delete(:id)
+            plural_class.new({:parent => @connection, :id => id}).update(atts)
           end
 
           def save

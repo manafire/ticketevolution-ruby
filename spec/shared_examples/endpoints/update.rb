@@ -39,21 +39,58 @@ shared_examples_for "an update endpoint" do
     let(:model_klass) { instance.singular_class }
     let(:model_instance) { model_klass.new(attributes.merge({:connection => connection})) }
     let(:attributes) { HashWithIndifferentAccess.new(update_base.merge({:one => 1, :two => "two", :three => nil, :id => 1})) }
-    let(:stored_attributes) { attributes.delete_if{|k, v| k == 'id'} }
-    let(:updated_attributes) { HashWithIndifferentAccess.new({:one => "one", :three => 3}) }
-    let(:merged_attributes) { attributes.merge(updated_attributes) }
 
-    it "should set an update_attributes method on it's corresponding TE:Model class which adds to it's attributes and calls #update" do
+    it "should set an update_attributes method on it's corresponding TE:Model class" do
       model_instance.should respond_to :update_attributes
-      klass.any_instance.should_receive(:update).with(updated_attributes).and_return(nil)
-      model_instance.update_attributes(updated_attributes)
-      model_instance.attributes.should == merged_attributes
     end
 
-    it "should set a save method on it's corresponding TE:Model class which calls #update with it's attributes" do
+    it "should set a save method on it's corresponding TE:Model class" do
       model_instance.should respond_to :save
-      klass.any_instance.should_receive(:update).with(stored_attributes).and_return(nil)
-      model_instance.save
+    end
+  end
+
+  describe "it's corresponding model object" do
+    let(:singular_klass) { Class.new{extend TicketEvolution::SingularClass}.singular_class(klass.name) }
+
+    describe "#update_attributes" do
+      let(:instance) { singular_klass.new(update_base.merge({
+        :connection => connection,
+        :id => 1,
+        :first_name => "John",
+        :last_name => "Doe"
+      })) }
+      let(:params) { {:first_name => "Bob"} }
+      let(:expected) do
+        data = instance.attributes.merge(params)
+        data.delete(:id)
+        data
+      end
+
+      it "should pass call request as a PUT, passing params" do
+        klass.any_instance.should_receive(:request).with(:PUT, "/#{instance.id}", expected)
+
+        instance.update_attributes(params)
+      end
+    end
+
+    describe "#save" do
+      let(:instance) { singular_klass.new(update_base.merge({
+        :connection => connection,
+        :id => 1,
+        :first_name => "John",
+        :last_name => "Doe"
+      })) }
+      let(:expected) do
+        data = instance.attributes
+        data.delete(:id)
+        data
+      end
+
+      it "should pass call request as a PUT, passing params" do
+        klass.any_instance.should_receive(:request).with(:PUT, "/#{instance.id}", expected)
+
+        instance.save
+      end
     end
   end
 end
