@@ -12,7 +12,7 @@ shared_examples_for "an update endpoint" do
         let(:params) { {:name => "Bob"} }
 
         it "should pass call request as a PUT, passing params" do
-          instance.should_receive(:request).with(:PUT, "/#{instance.id}", params)
+          instance.should_receive(:request).with(:PUT, "", params)
 
           instance.update(params)
         end
@@ -20,7 +20,7 @@ shared_examples_for "an update endpoint" do
 
       context "without params" do
         it "should pass call request as a PUT, passing params" do
-          instance.should_receive(:request).with(:PUT, "/#{instance.id}", nil)
+          instance.should_receive(:request).with(:PUT, "", nil)
 
           instance.update
         end
@@ -45,14 +45,14 @@ shared_examples_for "an update endpoint" do
 
     it "should set an update_attributes method on it's corresponding TE:Model class which adds to it's attributes and calls #update" do
       model_instance.should respond_to :update_attributes
-      klass.any_instance.should_receive(:update).with(updated_attributes).and_return(nil)
+      klass.any_instance.should_receive(:update).with(updated_attributes).and_return(merged_attributes)
       model_instance.update_attributes(updated_attributes)
       model_instance.attributes.should == merged_attributes
     end
 
     it "should set a save method on it's corresponding TE:Model class which calls #update with it's attributes" do
       model_instance.should respond_to :save
-      klass.any_instance.should_receive(:update).with(stored_attributes).and_return(nil)
+      klass.any_instance.should_receive(:update).with(stored_attributes).and_return(merged_attributes)
       model_instance.save
     end
   end

@@ -12,9 +12,9 @@ describe TicketEvolution::Clients do
   it_behaves_like 'an update endpoint'
 
   describe "integrations" do
-    use_vcr_cassette "endpoints/clients", :record => :new_episodes, :match_requests_on => [:method, :uri, :body]
-
     context "#create" do
+      use_vcr_cassette "endpoints/clients/create", :record => :new_episodes, :match_requests_on => [:method, :uri, :body]
+
       it "returns validation errors" do
         client = connection.clients.create(:name => "")
         client.should be_an_instance_of TicketEvolution::ApiError
