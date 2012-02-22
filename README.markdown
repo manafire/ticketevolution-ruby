@@ -58,7 +58,7 @@ Each set of API credentials can be combined with a mode and api version to creat
       :version => 8       # => (optional) API version to use - the only available
                                           version at the time of this writing is 8
       :logger => nil      # => (optional) Object to use for logging requests and
-                          #               responses. Any object which responds to '<<'
+                          #               responses. Any 'Logger' instance object
                           #               is valid. EX: Logger.new('log/te_api.log')
     })
 
@@ -256,7 +256,7 @@ Click on the links next to each endpoint for more detail.
     @venue = @connection.venues.show(id)
 
 
-######ticketevolution-ruby v0.6.2
+######ticketevolution-ruby v0.7.0
 
 License
 -------

@@ -18,7 +18,7 @@ describe TicketEvolution::Accounts do
       account.url.should == "/accounts/#{id}"
       account.currency.should == "USD"
       account.updated_at.should_not be_nil
-      account.balance.should == "9922.71"
+      account.balance.should == "8583.71"
       account.id.should == id.to_s
 
       account.client.should == TicketEvolution::Client.new({

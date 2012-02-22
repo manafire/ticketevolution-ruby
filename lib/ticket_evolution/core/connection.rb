@@ -1,6 +1,6 @@
 module TicketEvolution
   class Connection < Base
-    cattr_reader :default_options, :expected_options, :oldest_version_in_service
+    cattr_reader :default_options, :expected_options, :oldest_version_in_service, :adapter
     cattr_accessor :protocol, :url_base
 
     @@oldest_version_in_service = 8
@@ -24,7 +24,10 @@ module TicketEvolution
     @@url_base = "ticketevolution.com"
     @@protocol = "https"
 
+    @@adapter = :net_http
+
     def initialize(opts = {})
+      @adapter = self.class.adapter
       @config = self.class.default_options.merge(opts)
       @config.delete_if{|k, v| ! TicketEvolution::Connection.expected_options.include?(k)}
 
@@ -56,27 +59,30 @@ module TicketEvolution
     end
 
     def sign(method, path, content = nil)
+      d = "#{method} #{process_params(method, path, content).gsub(TicketEvolution::Connection.protocol+'://', '').gsub(/\:\d{2,5}\//, '/')}"
       Base64.encode64(
         OpenSSL::HMAC.digest(
           OpenSSL::Digest::Digest.new('sha256'),
           @config[:secret],
-          "#{method} #{process_params(method, path, content).gsub(TicketEvolution::Connection.protocol+'://', '').gsub(/\:\d{2,5}\//, '/')}"
+          d
       )).chomp
     end
 
     def build_request(method, path, params = nil)
-      Curl::Easy.new(generate_url(method, self.uri(path), params)) do |request|
-        if @config.has_key?(:ssl_verify)
-          request.ssl_verify_host = @config[:ssl_verify]
-          request.ssl_verify_peer = @config[:ssl_verify]
-        end
-        if self.logger.present?
-          request.on_debug { |type, data| self.logger << data }
-        end
-        request.post_body = post_body(params) unless method == :GET
-        request.headers["Accept"] = "application/vnd.ticketevolution.api+json; version=#{@config[:version]}" unless @config[:version] > 8
-        request.headers["X-Signature"] = sign(method, self.uri(path), params)
-        request.headers["X-Token"] = @config[:token]
+      options = {
+        :headers => {
+          "X-Signature" => sign(method, self.uri(path), params),
+          "X-Token" => @config[:token]
+        },
+        :ssl => {
+          :verify => @config[:ssl_verify]
+        }
+      }
+      options[:params] = params if method == :GET
+      options[:headers]["Accept"] = "application/vnd.ticketevolution.api+json; version=#{@config[:version]}" unless @config[:version] > 8
+      Faraday.new(self.uri(path), options) do |builder|
+        builder.use Faraday::Response::VerboseLogger, self.logger if self.logger.present?
+        builder.adapter @adapter
       end
     end
 
@@ -88,15 +94,6 @@ module TicketEvolution
 
     def post_body(params)
       MultiJson.encode(params)
-    end
-
-    def generate_url(method, uri, params)
-      case method
-      when :GET
-        process_params(method, uri, params)
-      else
-        uri
-      end
     end
 
     def process_params(method, uri, params)

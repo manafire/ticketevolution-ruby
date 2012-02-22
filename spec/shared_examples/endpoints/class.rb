@@ -3,7 +3,7 @@ require 'spec_helper'
 shared_examples_for "a ticket_evolution endpoint class" do
   let(:connection) { TicketEvolution::Connection.new({:token => Fake.token, :secret => Fake.secret}) }
   let(:sample_parent) { TicketEvolution::Samples.new }
-  let(:curl) { double(:curl, :http => nil) }
+  let(:faraday) { double(:faraday, :get => nil, :post => nil, :put => nil, :delete => nil) }
   let(:instance) { klass.new({:parent => connection}) }
   let(:path) { '/search' }
   let(:full_path) { "#{instance.base_path}#{path}" }
@@ -132,7 +132,7 @@ shared_examples_for "a ticket_evolution endpoint class" do
 
         [:GET, :POST, :PUT, :DELETE].each do |method|
           it "should accept an http '#{method}' method, a url path for the call and a list of parameters as a hash and pass them to connection" do
-            connection.should_receive(:build_request).with(method, full_path, params).and_return(curl)
+            connection.should_receive(:build_request).with(method, full_path, params).and_return(faraday)
 
             instance.build_request(method, path, params)
           end
@@ -142,7 +142,7 @@ shared_examples_for "a ticket_evolution endpoint class" do
       context "without params" do
         [:GET, :POST, :PUT, :DELETE].each do |method|
           it "should accept an http '#{method}' method and a url path for the call and pass them to connection" do
-            connection.should_receive(:build_request).with(method, full_path, nil).and_return(curl)
+            connection.should_receive(:build_request).with(method, full_path, nil).and_return(faraday)
 
             instance.build_request(method, path)
           end
@@ -152,7 +152,7 @@ shared_examples_for "a ticket_evolution endpoint class" do
       context "with build_path set to false" do
         [:GET, :POST, :PUT, :DELETE].each do |method|
           it "should not include the base_path when it calls connection#build_request" do
-            connection.should_receive(:build_request).with(method, path, nil).and_return(curl)
+            connection.should_receive(:build_request).with(method, path, nil).and_return(faraday)
 
             instance.build_request(method, path, nil, false)
           end
@@ -175,13 +175,9 @@ shared_examples_for "a ticket_evolution endpoint class" do
     let(:response) { Fake.response }
     let(:handler) { Fake.send(:method, :response_handler) }
 
-    before do
-    end
-
-    it "calls http on the return Curl object with the method for the request" do
-      connection.should_receive(:build_request).and_return(curl)
+    it "calls http on the return faraday object with the method for the request" do
+      connection.should_receive(:build_request).and_return(faraday)
       instance.should_receive(:naturalize_response).and_return(response)
-      curl.should_receive(:http).with(method)
 
       instance.request(method, path, nil, &handler).should == Fake.response_handler(true)
     end
@@ -190,9 +186,8 @@ shared_examples_for "a ticket_evolution endpoint class" do
       let(:response) { Fake.error_response }
 
       before do
-        connection.should_receive(:build_request).and_return(curl)
+        connection.should_receive(:build_request).and_return(faraday)
         instance.should_receive(:naturalize_response).and_return(response)
-        curl.should_receive(:http)
       end
 
       it "should return an instance of TicketEvolution::ApiError" do
@@ -204,9 +199,8 @@ shared_examples_for "a ticket_evolution endpoint class" do
       let(:response) { Fake.response }
 
       before do
-        connection.should_receive(:build_request).and_return(curl)
+        connection.should_receive(:build_request).and_return(faraday)
         instance.should_receive(:naturalize_response).and_return(response)
-        curl.should_receive(:http)
       end
 
       it "should pass the response object to #build_object" do
@@ -216,17 +210,16 @@ shared_examples_for "a ticket_evolution endpoint class" do
 
     context "when there is a redirect response" do
       let(:response) { Fake.redirect_response }
+      let(:faraday_response) { double(:dummy_response) }
       let(:redirect_path) { '/something_else/1'}
-      let(:second_curl) { double(:curl, :http => nil) }
+      let(:second_faraday) { double(:faraday, :get => nil, :post => nil, :put => nil, :delete => nil) }
       let(:second_response) { Fake.response }
 
       before do
-        curl.should_receive(:http)
-        connection.should_receive(:build_request).with(:GET, instance.base_path, nil).and_return(curl)
-        instance.should_receive(:naturalize_response).with(curl).and_return(response)
-        second_curl.should_receive(:http)
-        instance.connection.should_receive(:build_request).with(:GET, redirect_path, nil).and_return(second_curl)
-        instance.should_receive(:naturalize_response).with(second_curl).and_return(second_response)
+        connection.should_receive(:build_request).with(:GET, instance.base_path, nil).and_return(faraday)
+        instance.should_receive(:naturalize_response).and_return(response)
+        instance.connection.should_receive(:build_request).with(:GET, redirect_path, nil).and_return(second_faraday)
+        instance.should_receive(:naturalize_response).and_return(second_response)
       end
 
       it "should follow the redirect path" do
@@ -241,17 +234,17 @@ shared_examples_for "a ticket_evolution endpoint class" do
     let(:full_path) { "#{instance.base_path}#{path}" }
     let(:response_code) { 200 }
     let(:response) { mock(:response, {
-      :header_str => "header",
-      :response_code => response_code,
-      :body_str => body_str
+      :headers => {},
+      :status => response_code,
+      :body => body_str
     }) }
 
     context "with a valid body" do
       subject { instance.naturalize_response response }
       let(:body_str) { "{\"test\": \"hello\"}" }
 
-      its(:header) { should == response.header_str }
-      its(:body) { should == MultiJson.decode(response.body_str).merge({:connection => connection}) }
+      its(:header) { should == response.headers }
+      its(:body) { should == MultiJson.decode(response.body).merge({:connection => connection}) }
 
       TicketEvolution::Endpoint::RequestHandler::CODES.each do |code, value|
         context "with response code #{code}" do
