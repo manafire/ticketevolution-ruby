@@ -7,7 +7,7 @@ describe TicketEvolution::Client do
   describe "when calling a nested endpoint method" do
     use_vcr_cassette "endpoints/clients", :record => :new_episodes
 
-    let(:client) { TicketEvolution::Clients.new(:parent => connection).list.last }
+    let(:client) { TicketEvolution::Clients.new(:parent => connection).list.first }
 
     it "should pass the request to the appropriate endpoint and get back an appropriate response" do
       collection = client.addresses.list
@@ -24,7 +24,7 @@ describe TicketEvolution::Client do
     let(:initial_client_id) { client.id }
 
     context "on success" do
-      use_vcr_cassette "endpoints/clients/update_success", :record => :none, :match_requests_on => [:method, :uri, :body]
+      use_vcr_cassette "endpoints/clients/update_success", :record => :new_episodes, :match_requests_on => [:method, :uri, :body]
       before { client }
 
       it "updates the attributes of the instance" do
@@ -39,7 +39,7 @@ describe TicketEvolution::Client do
     end
 
     context "on error" do
-      use_vcr_cassette "endpoints/clients/update_fail", :record => :none, :match_requests_on => [:method, :uri, :body]
+      use_vcr_cassette "endpoints/clients/update_fail", :record => :new_episodes, :match_requests_on => [:method, :uri, :body]
       before { client }
 
       it "doesn't update the attributes of the instance" do

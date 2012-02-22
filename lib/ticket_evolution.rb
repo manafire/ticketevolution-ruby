@@ -1,7 +1,7 @@
 require 'rubygems'
 require 'yajl'
 require 'multi_json'
-require 'curb'
+require 'faraday'
 
 require 'ostruct'
 require 'base64'
@@ -17,6 +17,8 @@ require 'active_support/core_ext/hash'
 require 'active_support/core_ext/module'
 require 'active_support/core_ext/object'
 require 'active_support/inflector'
+
+require 'faraday/response/verbose_logger'
 
 if ActiveSupport::VERSION::STRING < "3.1.0"
   class Hash

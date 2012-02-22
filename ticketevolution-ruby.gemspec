@@ -14,14 +14,14 @@ Gem::Specification.new do |s|
   s.required_rubygems_version = '>= 1.3.5'
 
   s.add_dependency 'activesupport', '>= 3.0.0'
-  s.add_dependency 'curb', '>= 0.7.8'
+  s.add_dependency 'faraday', '>= 0.7.3'
   s.add_dependency 'yajl-ruby', '>= 0.7.7'
   s.add_dependency 'multi_json', '>= 0.0.4'
   s.add_dependency 'nokogiri', '>= 1.4.3'
 
   s.add_development_dependency 'rspec', '>= 2.7.1'
   s.add_development_dependency 'vcr'
-  s.add_development_dependency 'webmock'
+  s.add_development_dependency 'webmock', '>= 1.7.0', '< 1.8.0'
   s.add_development_dependency 'awesome_print'
   s.add_development_dependency 'rake'
 

@@ -151,3 +151,42 @@
       - nginx/1.0.11 + Phusion Passenger 3.0.11 (mod_rails/mod_rack)
     body: <html><body>You are being <a href="http://developer.ticketevolution.com">redirected</a>.</body></html>
     http_version: '1.1'
+- !ruby/struct:VCR::HTTPInteraction
+  request: !ruby/struct:VCR::Request
+    method: :get
+    uri: https://api.sandbox.ticketevolution.com:443/
+    body: !!null 
+    headers:
+      x-signature:
+      - EHMCoxW80aA60GAi04x5zWHsthNwAijm8tu85Dw9mw0=
+      x-token:
+      - 621e8a816a4e31a4dcf9f450e6de150f
+      accept:
+      - application/vnd.ticketevolution.api+json; version=8
+      accept-encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+  response: !ruby/struct:VCR::Response
+    status: !ruby/struct:VCR::ResponseStatus
+      code: 301
+      message: Moved Permanently
+    headers:
+      content-type:
+      - text/html
+      connection:
+      - keep-alive
+      status:
+      - '301'
+      x-powered-by:
+      - Phusion Passenger (mod_rails/mod_rack) 3.0.11
+      x-ua-compatible:
+      - IE=Edge,chrome=1
+      location:
+      - http://developer.ticketevolution.com
+      x-runtime:
+      - '0.002040'
+      content-length:
+      - '102'
+      server:
+      - nginx/1.0.11 + Phusion Passenger 3.0.11 (mod_rails/mod_rack)
+    body: <html><body>You are being <a href="http://developer.ticketevolution.com">redirected</a>.</body></html>
+    http_version: '1.1'

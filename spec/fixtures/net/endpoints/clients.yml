@@ -1,164 +1,6 @@
 ---
 - !ruby/struct:VCR::HTTPInteraction
   request: !ruby/struct:VCR::Request
-    method: :post
-    uri: https://api.sandbox.ticketevolution.com:443/clients
-    body: ! '{"clients":[{"name":""}]}'
-    headers:
-      accept:
-      - application/vnd.ticketevolution.api+json; version=8
-      x-signature:
-      - p98E1mu3XCyp//XqsxaKakNHKnSqeWI0crCOVP6bPSM=
-      x-token:
-      - b2b5a7a33b1a78896ed1b53d81c5c9cc
-  response: !ruby/struct:VCR::Response
-    status: !ruby/struct:VCR::ResponseStatus
-      code: 400
-      message: Bad Request
-    headers:
-      content-type:
-      - application/vnd.ticketevolution.api+json; version=8; charset=utf-8
-      transfer-encoding:
-      - chunked
-      connection:
-      - keep-alive
-      status:
-      - '400'
-      x-powered-by:
-      - Phusion Passenger (mod_rails/mod_rack) 3.0.11
-      x-ua-compatible:
-      - IE=Edge,chrome=1
-      x-runtime:
-      - '0.030679'
-      cache-control:
-      - no-cache
-      strict-transport-security:
-      - max-age=31536000
-      server:
-      - nginx/1.0.11 + Phusion Passenger 3.0.11 (mod_rails/mod_rack)
-    body: ! '{"clients":[{"errors":{"name":["can''t be blank"]},"addresses":[],"phone_numbers":[],"email_addresses":[],"name":null,"id":null,"updated_at":null}]}'
-    http_version: '1.1'
-- !ruby/struct:VCR::HTTPInteraction
-  request: !ruby/struct:VCR::Request
-    method: :post
-    uri: https://api.sandbox.ticketevolution.com:443/clients
-    body: ! '{"clients":[{"name":""}]}'
-    headers:
-      accept:
-      - application/vnd.ticketevolution.api+json; version=8
-      x-signature:
-      - p98E1mu3XCyp//XqsxaKakNHKnSqeWI0crCOVP6bPSM=
-      x-token:
-      - b2b5a7a33b1a78896ed1b53d81c5c9cc
-  response: !ruby/struct:VCR::Response
-    status: !ruby/struct:VCR::ResponseStatus
-      code: 400
-      message: Bad Request
-    headers:
-      content-type:
-      - application/vnd.ticketevolution.api+json; version=8; charset=utf-8
-      transfer-encoding:
-      - chunked
-      connection:
-      - keep-alive
-      status:
-      - '400'
-      x-powered-by:
-      - Phusion Passenger (mod_rails/mod_rack) 3.0.11
-      x-ua-compatible:
-      - IE=Edge,chrome=1
-      x-runtime:
-      - '0.030679'
-      cache-control:
-      - no-cache
-      strict-transport-security:
-      - max-age=31536000
-      server:
-      - nginx/1.0.11 + Phusion Passenger 3.0.11 (mod_rails/mod_rack)
-    body: ! '{"clients":[{"errors":{"name":["can''t be blank"]},"addresses":[],"phone_numbers":[],"email_addresses":[],"name":null,"id":null,"updated_at":null}]}'
-    http_version: '1.1'
-- !ruby/struct:VCR::HTTPInteraction
-  request: !ruby/struct:VCR::Request
-    method: :post
-    uri: https://api.sandbox.ticketevolution.com:443/clients
-    body: ! '{"clients":[{"name":"Comish Gordon"}]}'
-    headers:
-      accept:
-      - application/vnd.ticketevolution.api+json; version=8
-      x-signature:
-      - eUQH8qJ9MDhnENYM83QehsKb5k7P/mxuThcPHVCA8lU=
-      x-token:
-      - b2b5a7a33b1a78896ed1b53d81c5c9cc
-  response: !ruby/struct:VCR::Response
-    status: !ruby/struct:VCR::ResponseStatus
-      code: 201
-      message: Created
-    headers:
-      content-type:
-      - application/vnd.ticketevolution.api+json; version=8; charset=utf-8
-      transfer-encoding:
-      - chunked
-      connection:
-      - keep-alive
-      status:
-      - '201'
-      x-powered-by:
-      - Phusion Passenger (mod_rails/mod_rack) 3.0.11
-      x-ua-compatible:
-      - IE=Edge,chrome=1
-      x-runtime:
-      - '0.072890'
-      cache-control:
-      - no-cache
-      strict-transport-security:
-      - max-age=31536000
-      server:
-      - nginx/1.0.11 + Phusion Passenger 3.0.11 (mod_rails/mod_rack)
-    body: ! '{"clients":[{"addresses":[],"phone_numbers":[],"email_addresses":[],"name":"Comish
-      Gordon","url":"/clients/2275","id":"2275","updated_at":"2012-01-24T22:49:11Z"}]}'
-    http_version: '1.1'
-- !ruby/struct:VCR::HTTPInteraction
-  request: !ruby/struct:VCR::Request
-    method: :post
-    uri: https://api.sandbox.ticketevolution.com:443/clients
-    body: ! '{"clients":[{"name":"Comish Gordon"}]}'
-    headers:
-      accept:
-      - application/vnd.ticketevolution.api+json; version=8
-      x-signature:
-      - eUQH8qJ9MDhnENYM83QehsKb5k7P/mxuThcPHVCA8lU=
-      x-token:
-      - b2b5a7a33b1a78896ed1b53d81c5c9cc
-  response: !ruby/struct:VCR::Response
-    status: !ruby/struct:VCR::ResponseStatus
-      code: 201
-      message: Created
-    headers:
-      content-type:
-      - application/vnd.ticketevolution.api+json; version=8; charset=utf-8
-      transfer-encoding:
-      - chunked
-      connection:
-      - keep-alive
-      status:
-      - '201'
-      x-powered-by:
-      - Phusion Passenger (mod_rails/mod_rack) 3.0.11
-      x-ua-compatible:
-      - IE=Edge,chrome=1
-      x-runtime:
-      - '0.072890'
-      cache-control:
-      - no-cache
-      strict-transport-security:
-      - max-age=31536000
-      server:
-      - nginx/1.0.11 + Phusion Passenger 3.0.11 (mod_rails/mod_rack)
-    body: ! '{"clients":[{"addresses":[],"phone_numbers":[],"email_addresses":[],"name":"Comish
-      Gordon","url":"/clients/2275","id":"2275","updated_at":"2012-01-24T22:49:11Z"}]}'
-    http_version: '1.1'
-- !ruby/struct:VCR::HTTPInteraction
-  request: !ruby/struct:VCR::Request
     method: :get
     uri: https://api.sandbox.ticketevolution.com:443/clients/2275?
     body: !!null 
@@ -486,4 +328,589 @@
       - nginx/1.0.11 + Phusion Passenger 3.0.11 (mod_rails/mod_rack)
     body: ! '{"addresses":[{"latitude":null,"postal_code":"58008-0000","label":"Billy","longitude":null,"country_code":"US","url":"/clients/2359/addresses/48597","updated_at":"2012-02-10T06:25:53Z","name":"Billy","locality":"Springfield","extended_address":null,"id":"48597","region":"MG","street_address":"555
       Evergreen Terrace"}],"current_page":1,"per_page":100,"total_entries":1}'
+    http_version: '1.1'
+- !ruby/struct:VCR::HTTPInteraction
+  request: !ruby/struct:VCR::Request
+    method: :get
+    uri: https://api.sandbox.ticketevolution.com:443/clients
+    body: !!null 
+    headers:
+      x-signature:
+      - oHMe9KFgCudRW9XqDC2pfrbw4KkBje3M2DftUa8xbGQ=
+      x-token:
+      - b2b5a7a33b1a78896ed1b53d81c5c9cc
+      accept:
+      - application/vnd.ticketevolution.api+json; version=8
+      accept-encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+  response: !ruby/struct:VCR::Response
+    status: !ruby/struct:VCR::ResponseStatus
+      code: 200
+      message: OK
+    headers:
+      content-type:
+      - application/vnd.ticketevolution.api+json; version=8; charset=utf-8
+      transfer-encoding:
+      - chunked
+      connection:
+      - keep-alive
+      status:
+      - '200'
+      x-powered-by:
+      - Phusion Passenger (mod_rails/mod_rack) 3.0.11
+      etag:
+      - ! '"7cc3b565186bf4f43ecb2b35cf66f795"'
+      x-ua-compatible:
+      - IE=Edge,chrome=1
+      x-runtime:
+      - '0.347997'
+      cache-control:
+      - max-age=0, private, must-revalidate
+      strict-transport-security:
+      - max-age=31536000
+      server:
+      - nginx/1.0.11 + Phusion Passenger 3.0.11 (mod_rails/mod_rack)
+    body: ! '{"total_entries":27,"current_page":1,"clients":[{"email_addresses":[{"label":null,"address":"tyrique@brown.info"}],"addresses":[{"region":"MN","street_address":"035
+      McCullough Manor","postal_code":"68577","latitude":null,"name":null,"country_code":"AI","locality":"West
+      Lambertfort","extended_address":null,"longitude":null}],"office":{"url":"/offices/6","brokerage":{"url":"/brokerages/61","name":"Ticket
+      Evolution","abbreviation":"Ticket Evolution","id":"61"},"name":"Main Office","id":"6"},"phone_numbers":[{"extension":"999","label":null,"country_code":null,"number":"(301)555-1234"}],"url":"/clients/3","updated_at":"2011-08-11T03:12:43Z","name":"Main
+      Office","id":"3"},{"email_addresses":[],"addresses":[{"region":"MG","street_address":"125
+      Street","postal_code":"58008-6072","latitude":null,"name":null,"country_code":"US","locality":"Springfield","extended_address":null,"longitude":null},{"region":null,"street_address":null,"postal_code":null,"latitude":null,"name":null,"country_code":null,"locality":null,"extended_address":null,"longitude":null}],"office":{"url":"/offices/1116","brokerage":{"url":"/brokerages/630","name":"SeatGeek","abbreviation":"Tevo","id":"630"},"name":"Main
+      Office","id":"1116"},"phone_numbers":[],"url":"/clients/1535","updated_at":"2011-08-29T17:08:43Z","name":"Main
+      Office","id":"1535"},{"email_addresses":[],"addresses":[],"phone_numbers":[],"url":"/clients/2022","updated_at":"2011-12-21T19:26:18Z","name":"Will
+      Smith","id":"2022"},{"email_addresses":[],"addresses":[],"phone_numbers":[],"url":"/clients/2094","updated_at":"2011-12-30T21:18:39Z","name":"Ms
+      Rogers","id":"2094"},{"email_addresses":[{"label":"work","address":"moe.szyslak@moestavern.com"},{"label":"home","address":"moeissexxxy69@compuserve.com"}],"addresses":[{"region":"MG","street_address":"555
+      Evergreen Terrace","postal_code":"58008-0000","latitude":null,"name":null,"country_code":"US","locality":"Springfield","extended_address":null,"longitude":null}],"phone_numbers":[{"extension":null,"label":"work
+      fax","country_code":null,"number":"243-6698"},{"extension":null,"label":"work","country_code":null,"number":"243-6697"}],"url":"/clients/2098","updated_at":"2012-01-06T04:30:46Z","name":"Morris
+      “Moe” Szyslak","id":"2098"},{"email_addresses":[],"addresses":[],"phone_numbers":[],"url":"/clients/2271","updated_at":"2012-01-24T20:27:04Z","name":"Brad
+      Tatum","id":"2271"},{"email_addresses":[],"addresses":[],"phone_numbers":[],"url":"/clients/2273","updated_at":"2012-01-24T22:23:43Z","name":"jimmy
+      buffet","id":"2273"},{"email_addresses":[],"addresses":[],"phone_numbers":[],"url":"/clients/2274","updated_at":"2012-01-24T22:30:24Z","name":"Comish
+      Gordon","id":"2274"},{"email_addresses":[],"addresses":[],"phone_numbers":[],"url":"/clients/2275","updated_at":"2012-01-24T22:49:11Z","name":"Comish
+      Gordon","id":"2275"},{"email_addresses":[],"addresses":[],"phone_numbers":[],"url":"/clients/2302","updated_at":"2012-01-27T10:16:50Z","name":"John
+      Raj","id":"2302"},{"email_addresses":[{"label":"john","address":"john@riverstonetech.com"},{"label":"john","address":"john@riverstonetech.com"},{"label":"john","address":"john@riverstonetech.com"},{"label":"john","address":"john@riverstonetech.com"},{"label":"john","address":"john@riverstonetech.com"},{"label":"[EMAILLABEL]","address":"[EMAILADDRESS]"}],"addresses":[],"phone_numbers":[{"extension":null,"label":"Office","country_code":null,"number":"877-326-7785"},{"extension":null,"label":"Office","country_code":null,"number":"877-326-7785"}],"url":"/clients/2303","updated_at":"2012-01-27T10:45:12Z","name":"John
+      Raj","id":"2303"},{"email_addresses":[{"label":"Billy","address":"billy@riverstonetech.com"}],"addresses":[{"region":"MG","street_address":"555
+      Evergreen Terrace","postal_code":"58008-0000","latitude":null,"name":null,"country_code":"US","locality":"Springfield","extended_address":null,"longitude":null}],"phone_numbers":[{"extension":null,"label":"Billy","country_code":null,"number":"877-326-7785"}],"url":"/clients/2307","updated_at":"2012-01-28T06:32:37Z","name":"john","id":"2307"},{"email_addresses":[{"label":"Billy","address":"billy@riverstonetech.com"}],"addresses":[{"region":"MG","street_address":"555
+      Evergreen Terrace","postal_code":"58008-0000","latitude":null,"name":null,"country_code":"US","locality":"Springfield","extended_address":null,"longitude":null}],"office":{"url":"/offices/2","brokerage":{"url":"/brokerages/86","name":"Circle
+      City Tickets","abbreviation":"Circle City","id":"86"},"name":"Downtown Office","id":"2"},"phone_numbers":[{"extension":null,"label":"Billy","country_code":null,"number":"877-326-7785"}],"url":"/clients/2308","updated_at":"2012-01-28T06:44:34Z","name":"Billy","id":"2308"},{"email_addresses":[{"label":"John","address":"john@riverstonetech.com"},{"label":"Billy","address":"billy@riverstonetech.com"}],"addresses":[{"region":"MG","street_address":"555
+      Evergreen Terrace","postal_code":"58008-0000","latitude":null,"name":null,"country_code":"US","locality":"Springfield","extended_address":null,"longitude":null}],"office":{"url":"/offices/970","brokerage":{"url":"/brokerages/434","name":"Hello
+      Tickets","abbreviation":"Hello","id":"434"},"name":"Main Office","id":"970"},"phone_numbers":[{"extension":null,"label":"Billy","country_code":null,"number":"877-326-7785"}],"url":"/clients/2310","updated_at":"2012-01-28T07:24:57Z","name":"Billy","id":"2310"},{"email_addresses":[],"addresses":[],"phone_numbers":[],"url":"/clients/2323","updated_at":"2012-01-31T05:11:02Z","name":"JohnRaj","id":"2323"},{"email_addresses":[],"addresses":[],"phone_numbers":[],"url":"/clients/2324","updated_at":"2012-01-31T05:38:18Z","name":"JohnRaj","id":"2324"},{"email_addresses":[],"addresses":[],"phone_numbers":[],"url":"/clients/2325","updated_at":"2012-01-31T05:42:28Z","name":"David","id":"2325"},{"email_addresses":[],"addresses":[],"phone_numbers":[],"url":"/clients/2326","updated_at":"2012-01-31T05:47:02Z","name":"David
+      Billy","id":"2326"},{"email_addresses":[],"addresses":[],"phone_numbers":[],"url":"/clients/2327","updated_at":"2012-01-31T06:01:19Z","name":"David
+      Billy","id":"2327"},{"email_addresses":[{"label":"John","address":"john@riverstonetech.com"}],"addresses":[{"region":"MG","street_address":"555
+      Evergreen Terrace","postal_code":"58008-0000","latitude":null,"name":null,"country_code":"US","locality":"Springfield","extended_address":null,"longitude":null}],"phone_numbers":[{"extension":null,"label":"John","country_code":null,"number":"333-444-4444"}],"url":"/clients/2328","updated_at":"2012-01-31T06:06:34Z","name":"David
+      Billy","id":"2328"},{"email_addresses":[{"label":"John","address":"john@riverstonetech.com"}],"addresses":[{"region":"MG","street_address":"555
+      Evergreen Terrace","postal_code":"58008-0000","latitude":null,"name":null,"country_code":"US","locality":"Springfield","extended_address":null,"longitude":null}],"phone_numbers":[{"extension":null,"label":"John","country_code":null,"number":"333-444-4444"}],"url":"/clients/2329","updated_at":"2012-01-31T07:31:32Z","name":"JohnRaj","id":"2329"},{"email_addresses":[{"label":"Welkins","address":"Welkins@riverstonetech.com"}],"addresses":[{"region":"MG","street_address":"555
+      Evergreen Terrace","postal_code":"58008-0000","latitude":null,"name":null,"country_code":"US","locality":"Springfield","extended_address":null,"longitude":null}],"phone_numbers":[{"extension":null,"label":"Welkins","country_code":null,"number":"333-444-4444"}],"url":"/clients/2330","updated_at":"2012-01-31T07:38:31Z","name":"Welkins","id":"2330"},{"email_addresses":[{"label":"John","address":"john@riverstonetech.com"}],"addresses":[{"region":"MG","street_address":"555
+      Evergreen Terrace","postal_code":"58008-0000","latitude":null,"name":null,"country_code":"US","locality":"Springfield","extended_address":null,"longitude":null}],"office":{"url":"/offices/1594","brokerage":{"url":"/brokerages/1609","name":"Ticket
+      Logic Pty Ltd","abbreviation":"Ticket Logic","id":"1609"},"name":"Ticket Logic","id":"1594"},"phone_numbers":[{"extension":null,"label":"John","country_code":null,"number":"333-444-4444"}],"url":"/clients/2332","updated_at":"2012-01-31T08:03:15Z","name":"JohnRaj","id":"2332"},{"email_addresses":[{"label":"Welkins","address":"Welkins@riverstonetech.com"}],"addresses":[{"region":"MG","street_address":"555
+      Evergreen Terrace","postal_code":"58008-0000","latitude":null,"name":null,"country_code":"US","locality":"Springfield","extended_address":null,"longitude":null}],"office":{"url":"/offices/1593","brokerage":{"url":"/brokerages/1608","name":"Dare
+      Ticket","abbreviation":"Dare Ticket","id":"1608"},"name":"Main Office","id":"1593"},"phone_numbers":[{"extension":null,"label":"Welkins","country_code":null,"number":"333-444-4444"}],"url":"/clients/2333","updated_at":"2012-01-31T08:08:57Z","name":"Welkins","id":"2333"},{"email_addresses":[{"label":"Billy","address":"billy@riverstonetech.com"}],"addresses":[{"region":"MG","street_address":"555
+      Evergreen Terrace","postal_code":"58008-0000","latitude":null,"name":"Billy","country_code":"US","locality":"Springfield","extended_address":null,"longitude":null}],"phone_numbers":[{"extension":null,"label":"Billy","country_code":null,"number":"877-326-7785"}],"url":"/clients/2355","updated_at":"2012-02-08T05:13:58Z","name":"Billy","id":"2355"},{"email_addresses":[{"label":"Billy","address":"billy@riverstonetech.com"}],"addresses":[{"region":"MG","street_address":"555
+      Evergreen Terrace","postal_code":"58008-0000","latitude":null,"name":"Billy","country_code":"US","locality":"Springfield","extended_address":null,"longitude":null}],"phone_numbers":[{"extension":null,"label":"Billy","country_code":null,"number":"877-326-7785"}],"url":"/clients/2356","updated_at":"2012-02-08T05:30:28Z","name":"Billy","id":"2356"},{"email_addresses":[{"label":"Billy","address":"billy@riverstonetech.com"}],"addresses":[{"region":"MG","street_address":"555
+      Evergreen Terrace","postal_code":"58008-0000","latitude":null,"name":"Billy","country_code":"US","locality":"Springfield","extended_address":null,"longitude":null}],"office":{"url":"/offices/1583","brokerage":{"url":"/brokerages/1600","name":"Fanprice,
+      Inc.","abbreviation":"Fanprice","id":"1600"},"name":"Main Office","id":"1583"},"phone_numbers":[{"extension":null,"label":"Billy","country_code":null,"number":"877-326-7785"}],"url":"/clients/2359","updated_at":"2012-02-10T06:02:34Z","name":"Billy","id":"2359"}],"per_page":100}'
+    http_version: '1.1'
+- !ruby/struct:VCR::HTTPInteraction
+  request: !ruby/struct:VCR::Request
+    method: :get
+    uri: https://api.sandbox.ticketevolution.com:443/clients/2359/addresses
+    body: !!null 
+    headers:
+      x-signature:
+      - fiDv7wgSxdmv2nG4hjzRD6V8Ti+7J8P8aijHlZk3ldE=
+      x-token:
+      - b2b5a7a33b1a78896ed1b53d81c5c9cc
+      accept:
+      - application/vnd.ticketevolution.api+json; version=8
+      accept-encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+  response: !ruby/struct:VCR::Response
+    status: !ruby/struct:VCR::ResponseStatus
+      code: 200
+      message: OK
+    headers:
+      content-type:
+      - application/vnd.ticketevolution.api+json; version=8; charset=utf-8
+      transfer-encoding:
+      - chunked
+      connection:
+      - keep-alive
+      status:
+      - '200'
+      x-powered-by:
+      - Phusion Passenger (mod_rails/mod_rack) 3.0.11
+      etag:
+      - ! '"6755f734cec02f9901dd6711e67f8fc4"'
+      x-ua-compatible:
+      - IE=Edge,chrome=1
+      x-runtime:
+      - '0.053843'
+      cache-control:
+      - max-age=0, private, must-revalidate
+      strict-transport-security:
+      - max-age=31536000
+      server:
+      - nginx/1.0.11 + Phusion Passenger 3.0.11 (mod_rails/mod_rack)
+    body: ! '{"total_entries":1,"addresses":[{"region":"MG","label":"Billy","street_address":"555
+      Evergreen Terrace","postal_code":"58008-0000","url":"/clients/2359/addresses/48597","latitude":null,"updated_at":"2012-02-10T06:25:53Z","name":"Billy","country_code":"US","id":"48597","locality":"Springfield","extended_address":null,"longitude":null}],"current_page":1,"per_page":100}'
+    http_version: '1.1'
+- !ruby/struct:VCR::HTTPInteraction
+  request: !ruby/struct:VCR::Request
+    method: :post
+    uri: https://api.sandbox.ticketevolution.com:443/clients
+    body: !!null 
+    headers:
+      x-signature:
+      - eUQH8qJ9MDhnENYM83QehsKb5k7P/mxuThcPHVCA8lU=
+      x-token:
+      - b2b5a7a33b1a78896ed1b53d81c5c9cc
+      accept:
+      - application/vnd.ticketevolution.api+json; version=8
+      content-length:
+      - '0'
+  response: !ruby/struct:VCR::Response
+    status: !ruby/struct:VCR::ResponseStatus
+      code: 401
+      message: Unauthorized
+    headers:
+      content-type:
+      - application/vnd.ticketevolution.api+json; version=8; charset=utf-8
+      transfer-encoding:
+      - chunked
+      connection:
+      - keep-alive
+      status:
+      - '401'
+      x-powered-by:
+      - Phusion Passenger (mod_rails/mod_rack) 3.0.11
+      x-ua-compatible:
+      - IE=Edge,chrome=1
+      x-runtime:
+      - '0.310506'
+      cache-control:
+      - no-cache
+      strict-transport-security:
+      - max-age=31536000
+      server:
+      - nginx/1.0.11 + Phusion Passenger 3.0.11 (mod_rails/mod_rack)
+    body: ! '{"error":"Your signature is incorrect. Please ensure you are generating
+      it correctly"}'
+    http_version: '1.1'
+- !ruby/struct:VCR::HTTPInteraction
+  request: !ruby/struct:VCR::Request
+    method: :post
+    uri: https://api.sandbox.ticketevolution.com:443/clients?bob=test
+    body: !!null 
+    headers:
+      x-signature:
+      - eUQH8qJ9MDhnENYM83QehsKb5k7P/mxuThcPHVCA8lU=
+      x-token:
+      - b2b5a7a33b1a78896ed1b53d81c5c9cc
+      accept:
+      - application/vnd.ticketevolution.api+json; version=8
+      content-length:
+      - '0'
+  response: !ruby/struct:VCR::Response
+    status: !ruby/struct:VCR::ResponseStatus
+      code: 401
+      message: Unauthorized
+    headers:
+      content-type:
+      - application/vnd.ticketevolution.api+json; version=8; charset=utf-8
+      transfer-encoding:
+      - chunked
+      connection:
+      - keep-alive
+      status:
+      - '401'
+      x-powered-by:
+      - Phusion Passenger (mod_rails/mod_rack) 3.0.11
+      x-ua-compatible:
+      - IE=Edge,chrome=1
+      x-runtime:
+      - '0.340612'
+      cache-control:
+      - no-cache
+      strict-transport-security:
+      - max-age=31536000
+      server:
+      - nginx/1.0.11 + Phusion Passenger 3.0.11 (mod_rails/mod_rack)
+    body: ! '{"error":"Your signature is incorrect. Please ensure you are generating
+      it correctly"}'
+    http_version: '1.1'
+- !ruby/struct:VCR::HTTPInteraction
+  request: !ruby/struct:VCR::Request
+    method: :post
+    uri: https://api.sandbox.ticketevolution.com:443/clients?clients=%7B:name=%3E%22Comish%20Gordon%22%7D
+    body: !!null 
+    headers:
+      x-signature:
+      - eUQH8qJ9MDhnENYM83QehsKb5k7P/mxuThcPHVCA8lU=
+      x-token:
+      - b2b5a7a33b1a78896ed1b53d81c5c9cc
+      accept:
+      - application/vnd.ticketevolution.api+json; version=8
+      content-length:
+      - '0'
+  response: !ruby/struct:VCR::Response
+    status: !ruby/struct:VCR::ResponseStatus
+      code: 401
+      message: Unauthorized
+    headers:
+      content-type:
+      - application/vnd.ticketevolution.api+json; version=8; charset=utf-8
+      transfer-encoding:
+      - chunked
+      connection:
+      - keep-alive
+      status:
+      - '401'
+      x-powered-by:
+      - Phusion Passenger (mod_rails/mod_rack) 3.0.11
+      x-ua-compatible:
+      - IE=Edge,chrome=1
+      x-runtime:
+      - '0.288885'
+      cache-control:
+      - no-cache
+      strict-transport-security:
+      - max-age=31536000
+      server:
+      - nginx/1.0.11 + Phusion Passenger 3.0.11 (mod_rails/mod_rack)
+    body: ! '{"error":"Your signature is incorrect. Please ensure you are generating
+      it correctly"}'
+    http_version: '1.1'
+- !ruby/struct:VCR::HTTPInteraction
+  request: !ruby/struct:VCR::Request
+    method: :get
+    uri: https://api.sandbox.ticketevolution.com:443/clients/2362
+    body: !!null 
+    headers:
+      x-signature:
+      - IcPb3O++m8bXQuke6A28Rn8L0mrcnubHIIfIlIPLud4=
+      x-token:
+      - b2b5a7a33b1a78896ed1b53d81c5c9cc
+      accept:
+      - application/vnd.ticketevolution.api+json; version=8
+      accept-encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+  response: !ruby/struct:VCR::Response
+    status: !ruby/struct:VCR::ResponseStatus
+      code: 200
+      message: OK
+    headers:
+      content-type:
+      - application/vnd.ticketevolution.api+json; version=8; charset=utf-8
+      transfer-encoding:
+      - chunked
+      connection:
+      - keep-alive
+      status:
+      - '200'
+      x-powered-by:
+      - Phusion Passenger (mod_rails/mod_rack) 3.0.11
+      etag:
+      - ! '"bef4da6303e8673e0d1a75c8b893a101"'
+      x-ua-compatible:
+      - IE=Edge,chrome=1
+      x-runtime:
+      - '0.060492'
+      cache-control:
+      - max-age=0, private, must-revalidate
+      strict-transport-security:
+      - max-age=31536000
+      server:
+      - nginx/1.0.11 + Phusion Passenger 3.0.11 (mod_rails/mod_rack)
+    body: ! '{"updated_at":"2012-02-21T22:33:37Z","email_addresses":[],"addresses":[],"phone_numbers":[],"name":"Comish
+      Gordon","url":"/clients/2362","id":"2362"}'
+    http_version: '1.1'
+- !ruby/struct:VCR::HTTPInteraction
+  request: !ruby/struct:VCR::Request
+    method: :get
+    uri: https://api.sandbox.ticketevolution.com:443/clients/2363
+    body: !!null 
+    headers:
+      x-signature:
+      - alm767YtRvhQe/FdZWptV4VKBDZwTAmB2GD+x/yKKb8=
+      x-token:
+      - b2b5a7a33b1a78896ed1b53d81c5c9cc
+      accept:
+      - application/vnd.ticketevolution.api+json; version=8
+      accept-encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+  response: !ruby/struct:VCR::Response
+    status: !ruby/struct:VCR::ResponseStatus
+      code: 200
+      message: OK
+    headers:
+      content-type:
+      - application/vnd.ticketevolution.api+json; version=8; charset=utf-8
+      transfer-encoding:
+      - chunked
+      connection:
+      - keep-alive
+      status:
+      - '200'
+      x-powered-by:
+      - Phusion Passenger (mod_rails/mod_rack) 3.0.11
+      etag:
+      - ! '"51515e638ef69eb9fc7a9883bd494d20"'
+      x-ua-compatible:
+      - IE=Edge,chrome=1
+      x-runtime:
+      - '0.059034'
+      cache-control:
+      - max-age=0, private, must-revalidate
+      strict-transport-security:
+      - max-age=31536000
+      server:
+      - nginx/1.0.11 + Phusion Passenger 3.0.11 (mod_rails/mod_rack)
+    body: ! '{"updated_at":"2012-02-21T22:37:58Z","addresses":[],"email_addresses":[],"phone_numbers":[],"name":"Comish
+      Gordon","url":"/clients/2363","id":"2363"}'
+    http_version: '1.1'
+- !ruby/struct:VCR::HTTPInteraction
+  request: !ruby/struct:VCR::Request
+    method: :post
+    uri: https://api.sandbox.ticketevolution.com:443/clients
+    body: ! '{"clients":[{"name":"James Gordon"}]}'
+    headers:
+      x-signature:
+      - /KNEbnM20jikzDftKQi+TCtKoZHvyuQZQOG3GIcsHbc=
+      x-token:
+      - b2b5a7a33b1a78896ed1b53d81c5c9cc
+      accept:
+      - application/vnd.ticketevolution.api+json; version=8
+  response: !ruby/struct:VCR::Response
+    status: !ruby/struct:VCR::ResponseStatus
+      code: 500
+      message: Internal Server Error
+    headers:
+      content-type:
+      - application/vnd.ticketevolution.api+json; version=8; charset=utf-8
+      transfer-encoding:
+      - chunked
+      connection:
+      - keep-alive
+      status:
+      - '500'
+      x-powered-by:
+      - Phusion Passenger (mod_rails/mod_rack) 3.0.11
+      x-ua-compatible:
+      - IE=Edge,chrome=1
+      x-runtime:
+      - '0.303332'
+      cache-control:
+      - no-cache
+      strict-transport-security:
+      - max-age=31536000
+      server:
+      - nginx/1.0.11 + Phusion Passenger 3.0.11 (mod_rails/mod_rack)
+    body: ! '{"error":"Error"}'
+    http_version: '1.1'
+- !ruby/struct:VCR::HTTPInteraction
+  request: !ruby/struct:VCR::Request
+    method: :post
+    uri: https://api.sandbox.ticketevolution.com:443/clients
+    body: ! '{"clients":[{"name":""}]}'
+    headers:
+      x-signature:
+      - p98E1mu3XCyp//XqsxaKakNHKnSqeWI0crCOVP6bPSM=
+      x-token:
+      - b2b5a7a33b1a78896ed1b53d81c5c9cc
+      accept:
+      - application/vnd.ticketevolution.api+json; version=8
+  response: !ruby/struct:VCR::Response
+    status: !ruby/struct:VCR::ResponseStatus
+      code: 422
+      message: Unprocessable Entity
+    headers:
+      content-type:
+      - application/vnd.ticketevolution.api+json; version=8; charset=utf-8
+      transfer-encoding:
+      - chunked
+      connection:
+      - keep-alive
+      status:
+      - '422'
+      x-powered-by:
+      - Phusion Passenger (mod_rails/mod_rack) 3.0.11
+      x-ua-compatible:
+      - IE=Edge,chrome=1
+      x-runtime:
+      - '0.052186'
+      cache-control:
+      - no-cache
+      strict-transport-security:
+      - max-age=31536000
+      server:
+      - nginx/1.0.11 + Phusion Passenger 3.0.11 (mod_rails/mod_rack)
+    body: ! '{"clients":[{"updated_at":null,"errors":{"name":["can''t be blank"]},"addresses":[],"email_addresses":[],"phone_numbers":[],"name":null,"id":null}]}'
+    http_version: '1.1'
+- !ruby/struct:VCR::HTTPInteraction
+  request: !ruby/struct:VCR::Request
+    method: :post
+    uri: https://api.sandbox.ticketevolution.com:443/clients
+    body: ! '{"clients":[{"name":"Comish Gordon"}]}'
+    headers:
+      x-signature:
+      - eUQH8qJ9MDhnENYM83QehsKb5k7P/mxuThcPHVCA8lU=
+      x-token:
+      - b2b5a7a33b1a78896ed1b53d81c5c9cc
+      accept:
+      - application/vnd.ticketevolution.api+json; version=8
+  response: !ruby/struct:VCR::Response
+    status: !ruby/struct:VCR::ResponseStatus
+      code: 201
+      message: Created
+    headers:
+      content-type:
+      - application/vnd.ticketevolution.api+json; version=8; charset=utf-8
+      transfer-encoding:
+      - chunked
+      connection:
+      - keep-alive
+      status:
+      - '201'
+      x-powered-by:
+      - Phusion Passenger (mod_rails/mod_rack) 3.0.11
+      x-ua-compatible:
+      - IE=Edge,chrome=1
+      x-runtime:
+      - '0.205866'
+      cache-control:
+      - no-cache
+      strict-transport-security:
+      - max-age=31536000
+      server:
+      - nginx/1.0.11 + Phusion Passenger 3.0.11 (mod_rails/mod_rack)
+    body: ! '{"clients":[{"updated_at":"2012-02-22T14:54:47Z","addresses":[],"email_addresses":[],"phone_numbers":[],"name":"Comish
+      Gordon","url":"/clients/2364","id":"2364"}]}'
+    http_version: '1.1'
+- !ruby/struct:VCR::HTTPInteraction
+  request: !ruby/struct:VCR::Request
+    method: :get
+    uri: https://api.sandbox.ticketevolution.com:443/clients/2364
+    body: !!null 
+    headers:
+      x-signature:
+      - t0+U9cUeLOHMTheTZKfJeTt+hPfv4HQ173TN/rZ7Cqg=
+      x-token:
+      - b2b5a7a33b1a78896ed1b53d81c5c9cc
+      accept:
+      - application/vnd.ticketevolution.api+json; version=8
+      accept-encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+  response: !ruby/struct:VCR::Response
+    status: !ruby/struct:VCR::ResponseStatus
+      code: 200
+      message: OK
+    headers:
+      content-type:
+      - application/vnd.ticketevolution.api+json; version=8; charset=utf-8
+      transfer-encoding:
+      - chunked
+      connection:
+      - keep-alive
+      status:
+      - '200'
+      x-powered-by:
+      - Phusion Passenger (mod_rails/mod_rack) 3.0.11
+      etag:
+      - ! '"ff630d667483b5b9fdab6f616915fcaa"'
+      x-ua-compatible:
+      - IE=Edge,chrome=1
+      x-runtime:
+      - '0.033686'
+      cache-control:
+      - max-age=0, private, must-revalidate
+      strict-transport-security:
+      - max-age=31536000
+      server:
+      - nginx/1.0.11 + Phusion Passenger 3.0.11 (mod_rails/mod_rack)
+    body: ! '{"updated_at":"2012-02-22T14:54:47Z","addresses":[],"email_addresses":[],"phone_numbers":[],"name":"Comish
+      Gordon","url":"/clients/2364","id":"2364"}'
+    http_version: '1.1'
+- !ruby/struct:VCR::HTTPInteraction
+  request: !ruby/struct:VCR::Request
+    method: :get
+    uri: https://api.sandbox.ticketevolution.com:443/clients/3/addresses
+    body: !!null 
+    headers:
+      x-signature:
+      - APq/BBoPcfvNrgaOfRhClqcnCWJEXZ89M3a2mKSl3cA=
+      x-token:
+      - b2b5a7a33b1a78896ed1b53d81c5c9cc
+      accept:
+      - application/vnd.ticketevolution.api+json; version=8
+      accept-encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+  response: !ruby/struct:VCR::Response
+    status: !ruby/struct:VCR::ResponseStatus
+      code: 200
+      message: OK
+    headers:
+      content-type:
+      - application/vnd.ticketevolution.api+json; version=8; charset=utf-8
+      transfer-encoding:
+      - chunked
+      connection:
+      - keep-alive
+      status:
+      - '200'
+      x-powered-by:
+      - Phusion Passenger (mod_rails/mod_rack) 3.0.11
+      etag:
+      - ! '"5c4ea522651f1e83780e56a66ca3bc39"'
+      x-ua-compatible:
+      - IE=Edge,chrome=1
+      x-runtime:
+      - '0.057687'
+      cache-control:
+      - max-age=0, private, must-revalidate
+      strict-transport-security:
+      - max-age=31536000
+      server:
+      - nginx/1.0.11 + Phusion Passenger 3.0.11 (mod_rails/mod_rack)
+    body: ! '{"current_page":1,"addresses":[{"updated_at":"2012-01-04T18:55:29Z","latitude":null,"street_address":"035
+      McCullough Manor","locality":"West Lambertfort","extended_address":null,"longitude":null,"country_code":"AI","region":"MN","label":null,"postal_code":"68577","name":null,"url":"/clients/3/addresses/46685","id":"46685"}],"per_page":100,"total_entries":1}'
+    http_version: '1.1'
+- !ruby/struct:VCR::HTTPInteraction
+  request: !ruby/struct:VCR::Request
+    method: :get
+    uri: https://api.sandbox.ticketevolution.com:443/clients/addresses
+    body: !!null 
+    headers:
+      x-signature:
+      - LqXlCG7JDLxST4u8SXpVMVftmxL0LJSsXIBoJO76yNQ=
+      x-token:
+      - b2b5a7a33b1a78896ed1b53d81c5c9cc
+      accept:
+      - application/vnd.ticketevolution.api+json; version=8
+      accept-encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+  response: !ruby/struct:VCR::Response
+    status: !ruby/struct:VCR::ResponseStatus
+      code: 404
+      message: Not Found
+    headers:
+      content-type:
+      - application/vnd.ticketevolution.api+json; version=8; charset=utf-8
+      transfer-encoding:
+      - chunked
+      connection:
+      - keep-alive
+      status:
+      - '404'
+      x-powered-by:
+      - Phusion Passenger (mod_rails/mod_rack) 3.0.11
+      x-ua-compatible:
+      - IE=Edge,chrome=1
+      x-runtime:
+      - '3.312279'
+      cache-control:
+      - no-cache
+      strict-transport-security:
+      - max-age=31536000
+      server:
+      - nginx/1.0.11 + Phusion Passenger 3.0.11 (mod_rails/mod_rack)
+    body: ! '{"error":"Not Found","message":"Couldn''t find Client with ID=addresses"}'
     http_version: '1.1'

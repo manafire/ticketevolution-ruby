@@ -1,4 +1,5 @@
 require 'spec_helper'
+require 'logger'
 
 describe TicketEvolution::Connection do
   let(:klass) { TicketEvolution::Connection }
@@ -40,6 +41,14 @@ describe TicketEvolution::Connection do
     it { should be_a Fixnum }
   end
 
+  describe ".adapter" do
+    subject { klass.adapter }
+
+    it "should be an available Faraday adapter" do
+      Faraday::Adapter.constants.collect{|a| a.to_s.underscore.to_sym}.should include subject
+    end
+  end
+
   describe "#initialize" do
     let(:expected_options) { klass.expected_options }
 
@@ -55,20 +64,19 @@ describe TicketEvolution::Connection do
       context "if passed" do
         let(:options) { valid_options.merge(:ssl_verify => false) }
 
-        it "sets the Curl::Easy to that value" do
+        it "sets the request object to ssl verify false" do
           connection = klass.new(options)
-          easy = connection.build_request(:GET, '/')
-          easy.ssl_verify_host?.should be_false
-          easy.ssl_verify_peer?.should be_false
+          request = connection.build_request(:GET, '/')
+          request.ssl[:verify].should be_false
         end
       end
 
       context "if not passed" do
-        it "does not set anything on the Curl::Easy object" do
+        it "sets the request object to ssl verify true" do
+          pending "sandbox ssl being fixed"
           connection = klass.new(valid_options)
-          easy = connection.build_request(:GET, '/')
-          easy.ssl_verify_host?.should be_true
-          easy.ssl_verify_peer?.should be_true
+          request = connection.build_request(:GET, '/')
+          request.ssl[:verify].should be_true
         end
       end
     end
@@ -112,14 +120,15 @@ describe TicketEvolution::Connection do
     context "with logger object is set" do
       use_vcr_cassette "core/connection", :record => :all
 
-      let(:logger) { StringIO.new }
+      let(:target) { StringIO.new }
+      let(:logger) { Logger.new(target) }
       let(:instance) { klass.new(valid_options.merge({:logger => logger})) }
 
       it "should add the requests and responses to the object" do
         expect {
           req = instance.build_request(:GET, '/', {})
-          req.http(:GET)
-        }.to change(instance.logger, :size).by_at_least(1)
+          req.get
+        }.to change(target, :size).by_at_least(1)
       end
     end
   end
@@ -260,8 +269,7 @@ describe TicketEvolution::Connection do
 
     subject { klass.new(valid_options).build_request(:GET, '/test', params) }
 
-    it { should be_a Curl::Easy }
-    its(:url) { should == url }
+    it { should be_a Faraday::Connection }
 
     context "api version 8" do
       let(:headers) do

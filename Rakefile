@@ -32,9 +32,8 @@ namespace :documentation do
     # Endpoints
     contents << load_doc('endpoints')
 
-    endpoints_connection = Curl::Easy.new('http://developer.ticketevolution.com/endpoints.xml')
-    endpoints_connection.http_get
-    endpoints_xml = Nokogiri::XML(endpoints_connection.body_str)
+    endpoints_connection = Faraday.new('http://developer.ticketevolution.com/endpoints.xml').get
+    endpoints_xml = Nokogiri::XML(endpoints_connection.body)
 
     endpoints_xml.xpath('//endpoint').sort_by{|x| x.xpath('name').children.to_s}.each do |xml|
       presenter = ThisTask::EndpointPresenter.new(xml)

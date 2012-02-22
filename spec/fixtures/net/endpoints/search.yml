@@ -91,3 +91,52 @@
       Rangers","id":"15544"},{"_score":1.0,"upcoming_events":{"last":"2012-09-30T13:00:00Z","first":"2012-04-06T13:00:00Z"},"location":"Arlington,
       TX","url":"/venues/1776","_type":"Venue","name":"Rangers Ballpark in Arlington","id":"1776"}],"per_page":5,"total_entries":5}'
     http_version: '1.1'
+- !ruby/struct:VCR::HTTPInteraction
+  request: !ruby/struct:VCR::Request
+    method: :get
+    uri: https://api.sandbox.ticketevolution.com:443/search?page=1&per_page=5&q=play
+    body: !!null 
+    headers:
+      x-signature:
+      - lPr828LG8Mp8hevhwMIsxCs8shevGTSLw/5Y8cABLtU=
+      x-token:
+      - b2b5a7a33b1a78896ed1b53d81c5c9cc
+      accept:
+      - application/vnd.ticketevolution.api+json; version=8
+      accept-encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+  response: !ruby/struct:VCR::Response
+    status: !ruby/struct:VCR::ResponseStatus
+      code: 200
+      message: OK
+    headers:
+      content-type:
+      - application/vnd.ticketevolution.api+json; version=8; charset=utf-8
+      transfer-encoding:
+      - chunked
+      connection:
+      - keep-alive
+      status:
+      - '200'
+      x-powered-by:
+      - Phusion Passenger (mod_rails/mod_rack) 3.0.11
+      etag:
+      - ! '"86734a4cc711fc99c4d796772409e496"'
+      x-ua-compatible:
+      - IE=Edge,chrome=1
+      x-runtime:
+      - '0.783169'
+      cache-control:
+      - max-age=0, private, must-revalidate
+      strict-transport-security:
+      - max-age=31536000
+      server:
+      - nginx/1.0.11 + Phusion Passenger 3.0.11 (mod_rails/mod_rack)
+    body: ! '{"current_page":1,"per_page":5,"total_entries":17,"results":[{"_type":"Performer","_score":1.0,"upcoming_events":{"last":"2012-05-13T07:00:00Z","first":"2012-05-07T06:00:00Z"},"name":"The
+      Players Championship","id":"15088","url":"/performers/15088"},{"_type":"Performer","_score":1.0,"upcoming_events":{"last":"2012-04-01T15:00:00Z","first":"2012-03-23T19:30:00Z"},"name":"In
+      the Next Room [or the Vibrator Play]","id":"18830","url":"/performers/18830"},{"_type":"Performer","_score":1.0,"upcoming_events":{"last":"2012-03-01T19:30:00Z","first":"2012-02-24T20:00:00Z"},"name":"Playing
+      for Change","id":"8942","url":"/performers/8942"},{"_type":"Performer","_score":1.0,"upcoming_events":{"last":"2012-02-26T12:05:00Z","first":"2012-02-22T09:00:00Z"},"name":"Accenture
+      Match Play Championship","id":"14994","url":"/performers/14994"},{"location":"Fort
+      Lauderdale, FL","_type":"Venue","_score":1.0,"upcoming_events":{"last":"2012-03-23T20:00:00Z","first":"2012-03-23T20:00:00Z"},"name":"Parker
+      Playhouse","id":"1200","url":"/venues/1200"}]}'
+    http_version: '1.1'

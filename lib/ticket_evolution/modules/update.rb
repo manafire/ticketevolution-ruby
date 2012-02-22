@@ -4,33 +4,33 @@ module TicketEvolution
       def self.included(klass)
         Class.new{extend SingularClass}.singular_class(klass.name).send(:include, Module.new{
           def update_attributes(params)
-            params.merge!({ :id => self.attributes[:id] })
-            client_response = plural_class.new({:parent => @connection, :id => params.delete(:id) }).update(params)
-            return client_response if client_response.is_a? TicketEvolution::ApiError
-            hydrate(client_response)
+            atts = self.attributes.merge(params)
+            id = atts.delete(:id)
+            response = plural_class.new({:parent => @connection, :id => id}).update(atts)
+            if response.is_a?(TicketEvolution::ApiError)
+              response
+            else
+              self.attributes = response.attributes
+              self
+            end
           end
 
           def save
-            update_attributes(self.attributes)
-          end
-
-          private
-          def hydrate(client_response)
-            client_response.each do |k, v|
-              self.send("#{k}=", process_datum(v))
-            end
-            self
+            update_attributes({})
           end
         })
       end
 
       def update(params = nil)
         ensure_id
-        request(:PUT, "", params) do |response|
-          client_response = response.body
-          client_response.delete(:connection)
-          client_response
-        end
+        request(:PUT, nil, params, &method(:build_for_update))
+      end
+
+      def build_for_update(response)
+        singular_class.new(response.body.merge({
+          :status_code => response.response_code,
+          :server_message => response.server_message
+        }))
       end
     end
   end
