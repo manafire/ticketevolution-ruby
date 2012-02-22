@@ -7,7 +7,7 @@ Gem::Specification.new do |s|
   s.platform    = Gem::Platform::RUBY
   s.authors     = ['Ticket Evolution']
   s.email       = ['dev@ticketevolution.com']
-  s.homepage    = 'https://github.com/ticket_evolution/ticketevolution-ruby'
+  s.homepage    = 'https://github.com/ticketevolution/ticketevolution-ruby'
   s.summary     = 'Integration gem for Ticket Evolution\'s API'
   s.description = 'Provides Ruby wrappers for the Ticket Evolution API (http://developer.ticketevolution.com). Ticket Evolution is the industry leader in software for the Ticket Broker industry.'
 
