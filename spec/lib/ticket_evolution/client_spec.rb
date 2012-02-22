@@ -7,7 +7,7 @@ describe TicketEvolution::Client do
   describe "when calling a nested endpoint method" do
     use_vcr_cassette "endpoints/clients", :record => :new_episodes
 
-    let(:client) { TicketEvolution::Clients.new(:parent => connection).list.last }
+    let(:client) { TicketEvolution::Clients.new(:parent => connection).list.first }
 
     it "should pass the request to the appropriate endpoint and get back an appropriate response" do
       collection = client.addresses.list
