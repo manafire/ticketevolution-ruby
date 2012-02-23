@@ -137,16 +137,9 @@ describe TicketEvolution::Model do
   end
 
   describe "#method_missing" do
-    context "when the method ends in 's'" do
-      it "should attempt to find a class which matches the missing method, scoped to it's plural namespace" do
-        instance.plural_class.should_receive(:const_defined?).with(:NoObjects)
-        instance.no_objects
-      end
-    end
-
-    context "when the method does not end in 's'" do
+    context "when the missing class is not found" do
       it "should fall back on the default functionality" do
-        expect { instance.no_object=('') }.to_not raise_error
+        expect { instance.no_objects }.to_not raise_error
       end
     end
 

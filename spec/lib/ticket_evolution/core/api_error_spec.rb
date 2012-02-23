@@ -17,4 +17,10 @@ describe TicketEvolution::ApiError do
   end
 
   it { should be_frozen }
+
+  it "should not raise if a missing method is called" do
+    expect {
+      subject.not_a_method
+    }.to_not raise_error
+  end
 end

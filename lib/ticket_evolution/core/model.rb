@@ -16,7 +16,7 @@ module TicketEvolution
     end
 
     def plural_class
-      self.plural_class_name.constantize
+      self.plural_class_name.constantize rescue nil
     end
 
     def attributes
@@ -78,10 +78,9 @@ module TicketEvolution
     end
 
     def method_missing(method, *args)
-      seek = method.to_s.camelize
-      if seek !~ /=/ and plural_class.const_defined?(seek.to_sym)
-        "#{plural_class_name}::#{seek}".constantize.new(:parent => plural_class.new(:parent => @connection, :id => self.id))
-      else
+      begin
+        "#{plural_class_name}::#{method.to_s.camelize}".constantize.new(:parent => plural_class.new(:parent => @connection, :id => self.id))
+      rescue
         super
       end
     end
