@@ -30,10 +30,8 @@ describe TicketEvolution::Collection do
   end
 
   describe "#all" do
-    it "should pass the request to the @entries array" do
-      subject.entries.should_receive(:all)
-
-      subject.all
+    it "should alias entries" do
+      subject.all.should == subject.entries
     end
   end
 

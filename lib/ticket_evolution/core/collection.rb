@@ -4,7 +4,8 @@ module TicketEvolution
 
     include Enumerable
 
-    delegate :all, :each, :last, :size, :[], :to => :entries
+    delegate :each, :last, :size, :[], :to => :entries
+    alias :all :entries
 
     def initialize(options = {})
       options.each {|k,v| send("#{k}=", v)}
