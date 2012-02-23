@@ -1,7 +1,7 @@
 module TicketEvolution
   class Connection < Base
-    cattr_reader :default_options, :expected_options, :oldest_version_in_service, :adapter
-    cattr_accessor :protocol, :url_base
+    cattr_reader :default_options, :expected_options, :oldest_version_in_service
+    cattr_accessor :protocol, :url_base, :adapter
 
     @@oldest_version_in_service = 8
 

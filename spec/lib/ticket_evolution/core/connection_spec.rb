@@ -47,6 +47,10 @@ describe TicketEvolution::Connection do
     it "should be an available Faraday adapter" do
       Faraday::Adapter.constants.collect{|a| a.to_s.underscore.to_sym}.should include subject
     end
+
+    it "should be settable at a class level" do
+      klass.should respond_to :adapter=
+    end
   end
 
   describe "#initialize" do

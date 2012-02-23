@@ -62,6 +62,10 @@ Each set of API credentials can be combined with a mode and api version to creat
                           #               is valid. EX: Logger.new('log/te_api.log')
     })
 
+Behind the scenes we use [Faraday](https://github.com/technoweenie/faraday) with the [:net_http](https://github.com/technoweenie/faraday/blob/master/lib/faraday/adapter/net_http.rb) adapter to process connections. You can change this [adapter](https://github.com/technoweenie/faraday/tree/master/lib/faraday/adapter) by setting it on the connection class _before_ you instantiate your connection object.
+
+    TicketEvolution::Connection.adapter = :typhoeus
+
 **Endpoint objects**
 
 These are always (except in the case of Search) pluralized class names and match the endpoints listed at [http://developer.ticketevolution.com](http://developer.ticketevolution.com/). To instantiate an endpoint instance, create a connection object and then call the endpoints name, underscored, as a method on the connection object.
