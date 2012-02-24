@@ -101,7 +101,7 @@ module TicketEvolution
       "#{uri}?#{if params.present?
         case method
         when :GET
-          params.to_query
+          Faraday::Utils.build_nested_query(params)
         else
           post_body(params)
         end

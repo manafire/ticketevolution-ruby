@@ -20,6 +20,7 @@ require 'active_support/inflector'
 require 'active_support/ordered_hash'
 
 require 'ext/hash'
+require 'ext/faraday/utils'
 
 require 'faraday/response/verbose_logger'
 
