@@ -10,6 +10,7 @@ describe TicketEvolution::Collection do
     its(:per_page) { should == 2 }
     its(:total_entries) { should == 1379 }
     its(:current_page) { should == 1 }
+    its(:code) { should == 200 }
   end
 
   context "#each" do

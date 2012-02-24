@@ -1,6 +1,6 @@
 module TicketEvolution
   class Collection
-    attr_accessor :total_entries, :per_page, :current_page, :entries
+    attr_accessor :total_entries, :per_page, :current_page, :entries, :code
 
     include Enumerable
 
@@ -15,6 +15,7 @@ module TicketEvolution
     def self.build_from_response(response, entries_key, singular_class)
       entries = response.body[entries_key] || []
       new(
+        :code => response.response_code,
         :total_entries => response.body['total_entries'],
         :per_page => response.body['per_page'],
         :current_page => response.body['current_page'],
