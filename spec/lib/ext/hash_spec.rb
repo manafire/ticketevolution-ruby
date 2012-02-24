@@ -22,7 +22,7 @@ describe 'Hash' do
 
     it "should order it's keys alphabetically" do
       keys = ordered_hash.keys.clone
-      keys.sort_by{|x|x}.should == ordered_hash.keys
+      keys.sort_by{|x|x.to_s}.should == ordered_hash.keys
     end
   end
 end
