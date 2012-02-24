@@ -818,3 +818,53 @@
       - nginx/1.0.11 + Phusion Passenger 3.0.11 (mod_rails/mod_rack)
     body: ! '{"updated_at":"2012-02-22T17:07:29Z","addresses":[],"email_addresses":[],"phone_numbers":[],"name":"bar","url":"/clients/2404","id":"2404"}'
     http_version: '1.1'
+- !ruby/struct:VCR::HTTPInteraction
+  request: !ruby/struct:VCR::Request
+    method: :put
+    uri: https://api.sandbox.ticketevolution.com:443/clients/2404
+    body: ! '{"addresses":[],"email_addresses":[],"name":"bar","phone_numbers":[],"server_message":"Generally
+      returned by successful POST requests. ","status_code":201,"updated_at":"2012-02-22T17:07:29Z","url":"/clients/2404"}'
+    headers:
+      x-signature:
+      - 6qfTnv9NQPgeC4ZDAdzfRiTlYz0/VMBTQgX8SNPlYD0=
+      x-token:
+      - b2b5a7a33b1a78896ed1b53d81c5c9cc
+      accept:
+      - application/vnd.ticketevolution.api+json; version=8
+  response: !ruby/struct:VCR::Response
+    status: !ruby/struct:VCR::ResponseStatus
+      code: 200
+      message: OK
+    headers:
+      content-type:
+      - application/vnd.ticketevolution.api+json; version=8; charset=utf-8
+      transfer-encoding:
+      - chunked
+      connection:
+      - keep-alive
+      status:
+      - '200'
+      x-powered-by:
+      - Phusion Passenger (mod_rails/mod_rack) 2.2.10
+      etag:
+      - ! '"b58896cd9a50041a033626f2539aec18"'
+      x-runtime:
+      - '0.070331'
+      x-ua-compatible:
+      - IE=Edge,chrome=1
+      strict-transport-security:
+      - max-age=31536000
+      cache-control:
+      - max-age=0, private, must-revalidate
+      server:
+      - nginx/0.7.65 + Phusion Passenger 2.2.10 (mod_rails/mod_rack)
+    body: ! '{"updated_at":"2012-02-22T17:07:29Z","phone_numbers":[],"url":"/clients/2404","addresses":[{"postal_code":"92154","street_address":"1230
+      Ilexey Ave","extended_address":null,"locality":"San Diego","latitude":null,"country_code":null,"region":"CA","name":"Egbert
+      Purog","longitude":null},{"postal_code":"92154","street_address":"1230 Ilexey
+      Ave","extended_address":null,"locality":"San Diego","latitude":null,"country_code":null,"region":"CA","name":"E
+      Patrick Purog","longitude":null},{"postal_code":"92154","street_address":"1230
+      Ilexey Ave","extended_address":null,"locality":"San Diego","latitude":null,"country_code":null,"region":"CA","name":"Egbert
+      Purog","longitude":null},{"postal_code":"92154","street_address":"1230 Ilexey
+      Ave","extended_address":null,"locality":"San Diego","latitude":null,"country_code":null,"region":"CA","name":"E
+      Patrick Purog","longitude":null}],"name":"bar","id":"2404","email_addresses":[]}'
+    http_version: '1.1'

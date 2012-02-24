@@ -19,6 +19,7 @@ module TicketEvolution
       }
 
       def request(method, path, params = nil, &response_handler)
+        params = params.to_ordered_hash if params.is_a?(Hash)
         redirecting = caller.first =~ /request_handler/ ? false : true
         request = self.build_request(method, path, params, redirecting)
 

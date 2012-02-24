@@ -17,20 +17,11 @@ require 'active_support/core_ext/hash'
 require 'active_support/core_ext/module'
 require 'active_support/core_ext/object'
 require 'active_support/inflector'
+require 'active_support/ordered_hash'
+
+require 'ext/hash'
 
 require 'faraday/response/verbose_logger'
-
-if ActiveSupport::VERSION::STRING < "3.1.0"
-  class Hash
-    def to_param(namespace = nil)
-      collect do |key, value|
-        value.to_query(namespace ? "#{namespace}[#{key}]" : key)
-      end.sort * '&'
-    end
-
-    alias :to_query :to_param
-  end
-end
 
 module TicketEvolution
   mattr_reader :root
