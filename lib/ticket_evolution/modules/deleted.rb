@@ -1,8 +1,9 @@
 module TicketEvolution
   module Modules
     module Deleted
-      def deleted(params = nil)
-        request(:GET, '/deleted', params, &method(:build_for_deleted))
+      def deleted(params = nil, &handler)
+        handler ||= method(:build_for_deleted)
+        request(:GET, '/deleted', params, &handler)
       end
 
       def build_for_deleted(response)

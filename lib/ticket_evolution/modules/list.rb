@@ -1,8 +1,9 @@
 module TicketEvolution
   module Modules
     module List
-      def list(params = nil)
-        request(:GET, nil, params, &method(:build_for_list))
+      def list(params = nil, &handler)
+        handler ||= method(:build_for_list)
+        request(:GET, nil, params, &handler)
       end
 
       alias :all :list

@@ -1,8 +1,9 @@
 module TicketEvolution
   module Modules
     module Search
-      def search(params = nil)
-        request(:GET, '/search', params, &method(:build_for_search))
+      def search(params = nil, &handler)
+        handler ||= method(:build_for_search)
+        request(:GET, '/search', params, &handler)
       end
 
       def build_for_search(response)

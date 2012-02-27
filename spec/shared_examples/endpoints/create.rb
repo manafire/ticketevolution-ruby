@@ -23,6 +23,17 @@ shared_examples_for "a create endpoint" do
         instance.create
       end
     end
+
+    context "when passed a block" do
+      let(:block) { Fake.response_alt }
+      let(:response) { Fake.create_response }
+
+      it "should process the response through the block" do
+        instance.should_receive(:naturalize_response).and_return(response)
+
+        instance.create({}, &block).should == block.call(response)
+      end
+    end
   end
 
   describe "#build_for_create" do

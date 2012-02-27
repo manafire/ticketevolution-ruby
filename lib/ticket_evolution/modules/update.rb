@@ -21,9 +21,10 @@ module TicketEvolution
         })
       end
 
-      def update(params = nil)
+      def update(params = nil, &handler)
         ensure_id
-        request(:PUT, nil, params, &method(:build_for_update))
+        handler ||= method(:build_for_update)
+        request(:PUT, nil, params, &handler)
       end
 
       def build_for_update(response)

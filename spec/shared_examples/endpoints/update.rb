@@ -25,6 +25,17 @@ shared_examples_for "an update endpoint" do
           instance.update
         end
       end
+
+      context "when passed a block" do
+        let(:block) { Fake.response_alt }
+        let(:response) { Fake.show_response }
+
+        it "should process the response through the block" do
+          instance.should_receive(:naturalize_response).and_return(response)
+
+          instance.update({}, &block).should == block.call(response)
+        end
+      end
     end
 
     context "without an id" do

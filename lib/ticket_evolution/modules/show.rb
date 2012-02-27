@@ -1,8 +1,9 @@
 module TicketEvolution
   module Modules
     module Show
-      def show(id)
-        request(:GET, "/#{id}", &method(:build_for_show))
+      def show(id, &handler)
+        handler ||= method(:build_for_show)
+        request(:GET, "/#{id}", &handler)
       end
 
       alias :find :show

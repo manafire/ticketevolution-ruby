@@ -22,6 +22,17 @@ shared_examples_for "a search endpoint" do
         instance.search
       end
     end
+
+    context "when passed a block" do
+      let(:block) { Fake.response_alt }
+      let(:response) { Fake.list_response }
+
+      it "should process the response through the block" do
+        instance.should_receive(:naturalize_response).and_return(response)
+
+        instance.search({}, &block).should == block.call(response)
+      end
+    end
   end
 
   context "#build_for_search" do
