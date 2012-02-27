@@ -11,5 +11,11 @@ module Faraday
         faradays_build_nested_query(value, prefix)
       end
     end
+
+    class ParamsHash
+      def to_query
+        Utils.build_nested_query(self)
+      end
+    end
   end
 end
