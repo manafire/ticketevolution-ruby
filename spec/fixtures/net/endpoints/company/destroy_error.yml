@@ -1,80 +1,120 @@
----
-- !ruby/struct:VCR::HTTPInteraction
-  request: !ruby/struct:VCR::Request
+--- 
+- !ruby/struct:VCR::HTTPInteraction 
+  request: !ruby/struct:VCR::Request 
     method: :delete
     uri: https://api.sandbox.ticketevolution.com:443/companies/123
-    body: 'null'
-    headers:
-      x-signature:
-      - ABfTLIYWRE7amwTaTn/5NZZ2r7pbwbnpIL+BSOjd6FU=
-      x-token:
-      - b2b5a7a33b1a78896ed1b53d81c5c9cc
-      accept:
+    body: "null"
+    headers: 
+      accept: 
       - application/vnd.ticketevolution.api+json; version=8
-  response: !ruby/struct:VCR::Response
-    status: !ruby/struct:VCR::ResponseStatus
+      x-signature: 
+      - ABfTLIYWRE7amwTaTn/5NZZ2r7pbwbnpIL+BSOjd6FU=
+      x-token: 
+      - b2b5a7a33b1a78896ed1b53d81c5c9cc
+  response: !ruby/struct:VCR::Response 
+    status: !ruby/struct:VCR::ResponseStatus 
       code: 401
       message: Unauthorized
-    headers:
-      content-type:
-      - application/vnd.ticketevolution.api+json; version=8; charset=utf-8
-      transfer-encoding:
-      - chunked
-      connection:
-      - keep-alive
-      status:
-      - '401'
-      x-powered-by:
-      - Phusion Passenger (mod_rails/mod_rack) 3.0.11
-      cache-control:
-      - no-cache
-      x-runtime:
-      - '0.032961'
-      x-ua-compatible:
+    headers: 
+      x-ua-compatible: 
       - IE=Edge,chrome=1
-      strict-transport-security:
+      strict-transport-security: 
       - max-age=31536000
-      server:
+      x-powered-by: 
+      - Phusion Passenger (mod_rails/mod_rack) 3.0.11
+      connection: 
+      - keep-alive
+      content-type: 
+      - application/vnd.ticketevolution.api+json; version=8; charset=utf-8
+      server: 
       - nginx/1.0.11 + Phusion Passenger 3.0.11 (mod_rails/mod_rack)
-    body: ! '{"error":"Your signature is incorrect. Please ensure you are generating
-      it correctly"}'
-    http_version: '1.1'
-- !ruby/struct:VCR::HTTPInteraction
-  request: !ruby/struct:VCR::Request
+      x-runtime: 
+      - "0.032961"
+      cache-control: 
+      - no-cache
+      status: 
+      - "401"
+      transfer-encoding: 
+      - chunked
+    body: "{\"error\":\"Your signature is incorrect. Please ensure you are generating it correctly\"}"
+    http_version: "1.1"
+- !ruby/struct:VCR::HTTPInteraction 
+  request: !ruby/struct:VCR::Request 
     method: :delete
     uri: https://api.sandbox.ticketevolution.com:443/companies/123
     body: !!null 
-    headers:
-      x-signature:
-      - ABfTLIYWRE7amwTaTn/5NZZ2r7pbwbnpIL+BSOjd6FU=
-      x-token:
-      - b2b5a7a33b1a78896ed1b53d81c5c9cc
-      accept:
+      str: ""
+      "@taguri": x-private:null
+    headers: 
+      accept: 
       - application/vnd.ticketevolution.api+json; version=8
-  response: !ruby/struct:VCR::Response
-    status: !ruby/struct:VCR::ResponseStatus
+      x-signature: 
+      - ABfTLIYWRE7amwTaTn/5NZZ2r7pbwbnpIL+BSOjd6FU=
+      x-token: 
+      - b2b5a7a33b1a78896ed1b53d81c5c9cc
+  response: !ruby/struct:VCR::Response 
+    status: !ruby/struct:VCR::ResponseStatus 
       code: 404
       message: Not Found
-    headers:
-      content-type:
-      - application/vnd.ticketevolution.api+json; version=8; charset=utf-8
-      transfer-encoding:
-      - chunked
-      connection:
-      - keep-alive
-      status:
-      - '404'
-      x-powered-by:
-      - Phusion Passenger (mod_rails/mod_rack) 3.0.11
-      cache-control:
-      - no-cache
-      x-runtime:
-      - '0.035334'
-      x-ua-compatible:
+    headers: 
+      x-ua-compatible: 
       - IE=Edge,chrome=1
-      strict-transport-security:
+      strict-transport-security: 
       - max-age=31536000
-      server:
+      x-powered-by: 
+      - Phusion Passenger (mod_rails/mod_rack) 3.0.11
+      connection: 
+      - keep-alive
+      content-type: 
+      - application/vnd.ticketevolution.api+json; version=8; charset=utf-8
+      server: 
       - nginx/1.0.11 + Phusion Passenger 3.0.11 (mod_rails/mod_rack)
-    body: ! '{"message":"Couldn''t find Company with ID=123","error":"Not Found"}'
-    http_version: '1.1'
+      x-runtime: 
+      - "0.035334"
+      cache-control: 
+      - no-cache
+      status: 
+      - "404"
+      transfer-encoding: 
+      - chunked
+    body: "{\"message\":\"Couldn't find Company with ID=123\",\"error\":\"Not Found\"}"
+    http_version: "1.1"
+- !ruby/struct:VCR::HTTPInteraction 
+  request: !ruby/struct:VCR::Request 
+    method: :delete
+    uri: https://api.sandbox.ticketevolution.com:443/companies/123
+    body: 
+    headers: 
+      accept: 
+      - application/vnd.ticketevolution.api+json; version=8
+      x-signature: 
+      - ABfTLIYWRE7amwTaTn/5NZZ2r7pbwbnpIL+BSOjd6FU=
+      x-token: 
+      - b2b5a7a33b1a78896ed1b53d81c5c9cc
+  response: !ruby/struct:VCR::Response 
+    status: !ruby/struct:VCR::ResponseStatus 
+      code: 404
+      message: Not Found
+    headers: 
+      x-ua-compatible: 
+      - IE=Edge,chrome=1
+      strict-transport-security: 
+      - max-age=31536000
+      x-powered-by: 
+      - Phusion Passenger (mod_rails/mod_rack) 3.0.11
+      connection: 
+      - keep-alive
+      content-type: 
+      - application/vnd.ticketevolution.api+json; version=8; charset=utf-8
+      server: 
+      - nginx/1.0.11 + Phusion Passenger 3.0.11 (mod_rails/mod_rack)
+      x-runtime: 
+      - "0.036336"
+      cache-control: 
+      - no-cache
+      status: 
+      - "404"
+      transfer-encoding: 
+      - chunked
+    body: "{\"message\":\"Couldn't find Company with ID=123\",\"error\":\"Not Found\"}"
+    http_version: "1.1"

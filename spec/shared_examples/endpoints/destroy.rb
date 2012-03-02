@@ -53,7 +53,7 @@ shared_examples_for "a destroy endpoint" do
       let(:instance) { singular_klass.new(
         :connection => connection,
         :id => 1,
-        :name => "John",
+        :name => "John"
       )}
 
       it "should pass call request as a DELETE" do

@@ -7,7 +7,7 @@ describe TicketEvolution::Company do
   it_behaves_like "a ticket_evolution model"
 
   context "#destroy" do
-    let(:company) { connection.companies.create(:name => "foo 1234567890hyq334d578foq5y7f83ho47o5qyyyyyyyfh7w34odhq57y345q78do5yq378") }
+    let(:company) { connection.companies.create(:name => "foo 1234567890hasdfasdfyq334d578foq5y7f83ho47o5qyyyyyyyfh7w34odhq57y345q78do5yq378") }
 
     context "on success" do
       use_vcr_cassette "endpoints/company/destroy_success", :match_requests_on => [:method, :uri, :body]
