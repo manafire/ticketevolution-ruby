@@ -1,0 +1,161 @@
+---
+- !ruby/struct:VCR::HTTPInteraction
+  request: !ruby/struct:VCR::Request
+    method: :post
+    uri: https://api.sandbox.ticketevolution.com:443/companies
+    body: ! '{"companies":[{"name":"foo"}]}'
+    headers:
+      x-signature:
+      - EG4WM6cCGRrNN+iGEvlgZEr7JaKRa24qrgl+sUC4vZI=
+      x-token:
+      - b2b5a7a33b1a78896ed1b53d81c5c9cc
+      accept:
+      - application/vnd.ticketevolution.api+json; version=8
+  response: !ruby/struct:VCR::Response
+    status: !ruby/struct:VCR::ResponseStatus
+      code: 422
+      message: Unprocessable Entity
+    headers:
+      content-type:
+      - application/vnd.ticketevolution.api+json; version=8; charset=utf-8
+      transfer-encoding:
+      - chunked
+      connection:
+      - keep-alive
+      status:
+      - '422'
+      x-powered-by:
+      - Phusion Passenger (mod_rails/mod_rack) 3.0.11
+      cache-control:
+      - no-cache
+      x-runtime:
+      - '0.024809'
+      x-ua-compatible:
+      - IE=Edge,chrome=1
+      strict-transport-security:
+      - max-age=31536000
+      server:
+      - nginx/1.0.11 + Phusion Passenger 3.0.11 (mod_rails/mod_rack)
+    body: ! '{"companies":[{"errors":{"name":["has already been taken"]},"name":"foo","id":null,"updated_at":null}]}'
+    http_version: '1.1'
+- !ruby/struct:VCR::HTTPInteraction
+  request: !ruby/struct:VCR::Request
+    method: :post
+    uri: https://api.sandbox.ticketevolution.com:443/companies
+    body: ! '{"companies":[{"name":"foo 1234567890hyq334d578foq5y7f83ho47o5qyyyyyyyfh7w34odhq57y345q78do5yq378"}]}'
+    headers:
+      x-signature:
+      - Sq2H7sZxB7yTkuNnzJYUV812Dgyrnbt64d21conigDk=
+      x-token:
+      - b2b5a7a33b1a78896ed1b53d81c5c9cc
+      accept:
+      - application/vnd.ticketevolution.api+json; version=8
+  response: !ruby/struct:VCR::Response
+    status: !ruby/struct:VCR::ResponseStatus
+      code: 201
+      message: Created
+    headers:
+      content-type:
+      - application/vnd.ticketevolution.api+json; version=8; charset=utf-8
+      transfer-encoding:
+      - chunked
+      connection:
+      - keep-alive
+      status:
+      - '201'
+      x-powered-by:
+      - Phusion Passenger (mod_rails/mod_rack) 3.0.11
+      cache-control:
+      - no-cache
+      x-runtime:
+      - '0.026599'
+      x-ua-compatible:
+      - IE=Edge,chrome=1
+      strict-transport-security:
+      - max-age=31536000
+      server:
+      - nginx/1.0.11 + Phusion Passenger 3.0.11 (mod_rails/mod_rack)
+    body: ! '{"companies":[{"name":"foo 1234567890hyq334d578foq5y7f83ho47o5qyyyyyyyfh7w34odhq57y345q78do5yq378","url":"/companies/2","id":"2","updated_at":"2012-03-02T15:46:33Z"}]}'
+    http_version: '1.1'
+- !ruby/struct:VCR::HTTPInteraction
+  request: !ruby/struct:VCR::Request
+    method: :delete
+    uri: https://api.sandbox.ticketevolution.com:443/companies/2
+    body: !!null 
+    headers:
+      x-signature:
+      - 2m9QEFXbsNVUFAwGtTVj7MhRr/pjhuW+i3yig++GqtY=
+      x-token:
+      - b2b5a7a33b1a78896ed1b53d81c5c9cc
+      accept:
+      - application/vnd.ticketevolution.api+json; version=8
+  response: !ruby/struct:VCR::Response
+    status: !ruby/struct:VCR::ResponseStatus
+      code: 200
+      message: OK
+    headers:
+      content-type:
+      - application/vnd.ticketevolution.api+json; version=8; charset=utf-8
+      transfer-encoding:
+      - chunked
+      connection:
+      - keep-alive
+      status:
+      - '200'
+      x-powered-by:
+      - Phusion Passenger (mod_rails/mod_rack) 3.0.11
+      etag:
+      - ! '"b3b6a289a338cd1f92dd2726dfa65c32"'
+      cache-control:
+      - max-age=0, private, must-revalidate
+      x-runtime:
+      - '0.037375'
+      x-ua-compatible:
+      - IE=Edge,chrome=1
+      strict-transport-security:
+      - max-age=31536000
+      server:
+      - nginx/1.0.11 + Phusion Passenger 3.0.11 (mod_rails/mod_rack)
+    body: ! '{"companies":[{"id":"2"}]}'
+    http_version: '1.1'
+- !ruby/struct:VCR::HTTPInteraction
+  request: !ruby/struct:VCR::Request
+    method: :get
+    uri: https://api.sandbox.ticketevolution.com:443/companies/2
+    body: !!null 
+    headers:
+      x-signature:
+      - NGiawSRv2i1WOiMYQdAe1zcuff4oBJJPjOG9BYXl5mw=
+      x-token:
+      - b2b5a7a33b1a78896ed1b53d81c5c9cc
+      accept:
+      - application/vnd.ticketevolution.api+json; version=8
+      accept-encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+  response: !ruby/struct:VCR::Response
+    status: !ruby/struct:VCR::ResponseStatus
+      code: 404
+      message: Not Found
+    headers:
+      content-type:
+      - application/vnd.ticketevolution.api+json; version=8; charset=utf-8
+      transfer-encoding:
+      - chunked
+      connection:
+      - keep-alive
+      status:
+      - '404'
+      x-powered-by:
+      - Phusion Passenger (mod_rails/mod_rack) 3.0.11
+      cache-control:
+      - no-cache
+      x-runtime:
+      - '0.037544'
+      x-ua-compatible:
+      - IE=Edge,chrome=1
+      strict-transport-security:
+      - max-age=31536000
+      server:
+      - nginx/1.0.11 + Phusion Passenger 3.0.11 (mod_rails/mod_rack)
+    body: ! '{"message":"Couldn''t find Company with ID=2","error":"Not Found"}'
+    http_version: '1.1'

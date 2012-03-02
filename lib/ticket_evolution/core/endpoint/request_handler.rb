@@ -29,7 +29,7 @@ module TicketEvolution
             request.send(method)
           else
             request.send(method) do |req|
-              req.body = MultiJson.encode(params)
+              req.body = MultiJson.encode(params) if params.present?
             end
           end
         end
