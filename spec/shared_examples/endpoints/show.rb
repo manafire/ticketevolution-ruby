@@ -10,7 +10,7 @@ shared_examples_for "a show endpoint" do
       let(:id) { 1 }
 
       it "should pass call request as a GET, passing the id as a piece of the path" do
-        instance.should_receive(:request).with(:GET, "/#{id}")
+        instance.should_receive(:request).with(:GET, "/#{id}", nil)
 
         instance.show(id)
       end
