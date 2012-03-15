@@ -49,9 +49,9 @@ module TicketEvolution
             begin
               obj = @table[name]
               unless obj.nil?
+                named_endpoint = "#{self.plural_class_name}::#{name.to_s.camelize}".constantize
                 def obj.endpoint=(e); @endpoint = e; end
                 def obj.method_missing(method, *args); @endpoint.send(method, *args); end
-                named_endpoint = "#{self.plural_class_name}::#{name.to_s.camelize}".constantize
                 obj.endpoint = named_endpoint.new(:parent => self.plural_class.new(:id => self.id, :parent => @connection))
               end
               obj

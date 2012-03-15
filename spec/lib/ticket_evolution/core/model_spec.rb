@@ -174,5 +174,19 @@ describe TicketEvolution::Model do
         instance.samples.testing
       end
     end
+
+    context "when the member name does not refer to an endpoint" do
+      before do
+        instance.not_samples = []
+      end
+
+      it "should respond with the value" do
+        instance.not_samples.should == []
+      end
+
+      it "should add endpoint methods" do
+        instance.not_samples.should_not be_respond_to(:endpoint=)
+      end
+    end
   end
 end
