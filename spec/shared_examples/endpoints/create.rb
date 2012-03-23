@@ -37,16 +37,36 @@ shared_examples_for "a create endpoint" do
   end
 
   describe "#build_for_create" do
-    let(:response) { Fake.create_response instance.endpoint_name, connection }
+    context "for a single entry" do
+      let(:response) { Fake.create_response instance.endpoint_name, connection }
+      let(:entry) { double(:entry) }
 
-    it "should invoke an instance of its builder class" do
-      builder_klass.should_receive(:new).with(response.body[instance.endpoint_name].first.merge({
-        :status_code => response.response_code,
-        :server_message => response.server_message,
-        :connection => connection
-      }))
+      it "should invoke an instance of its builder class" do
+        builder_klass.should_receive(:new).with(response.body[instance.endpoint_name].first.merge({
+          :status_code => response.response_code,
+          :server_message => response.server_message,
+          :connection => connection
+        })).and_return(entry)
 
-      instance.build_for_create(response)
+        instance.build_for_create(response).should == entry
+      end
+    end
+
+    context "for multiple entries" do
+      let(:responses) { Fake.create_response instance.endpoint_name, connection, 2 }
+      let(:entry) { double(:entry) }
+
+      it "should invoke an instance of its builder class" do
+        responses.body[instance.endpoint_name].each do |body|
+          builder_klass.should_receive(:new).with(body.merge({
+            :status_code => responses.response_code,
+            :server_message => responses.server_message,
+            :connection => connection
+          })).and_return(entry)
+        end
+
+        instance.build_for_create(responses).should == [entry, entry]
+      end
     end
   end
 end

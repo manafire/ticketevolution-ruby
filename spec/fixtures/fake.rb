@@ -79,11 +79,11 @@ class Fake
     r
   end
 
-  def self.create_response(endpoint = nil, connection = Fake.connection)
+  def self.create_response(endpoint = nil, connection = Fake.connection, number = 1)
     r = self.response
     r.body = {
       :connection => connection,
-      endpoint.to_s => [
+      endpoint.to_s => number.times.collect do
         {
           "url" => "/clients/2097",
           "email_addresses" => [],
@@ -93,7 +93,7 @@ class Fake
           "name"=>"Morris Moe Szyslak",
           "id"=>"2097"
         }
-      ]
+      end
     }
     r
   end
