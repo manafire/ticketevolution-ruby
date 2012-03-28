@@ -164,6 +164,13 @@ Click on the links next to each endpoint for more detail.
     @client = @connection.clients.show(id)
     @client = @client.update_attributes(params)
 
+**Company** - [http://developer.ticketevolution.com/endpoints/company](http://developer.ticketevolution.com/endpoints/company)
+
+    @company = @connection.company.create(params)
+    @company = @connection.company.list(params)
+    @company = @connection.company.show(id)
+    @company = @company.update_attributes(params)
+
 **Configurations** - [http://developer.ticketevolution.com/endpoints/configurations](http://developer.ticketevolution.com/endpoints/configurations)
 
     @configuration = @connection.configurations.list(params)
@@ -260,7 +267,7 @@ Click on the links next to each endpoint for more detail.
     @venue = @connection.venues.show(id)
 
 
-######ticketevolution-ruby v0.7.3
+######ticketevolution-ruby v0.7.4
 
 License
 -------
