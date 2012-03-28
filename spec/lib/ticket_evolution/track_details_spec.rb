@@ -11,7 +11,7 @@ describe TicketEvolution::TrackDetails do
   end
 
   context "integration" do
-    use_vcr_cassette "endpoints/track_details/show", :record => :all
+    use_vcr_cassette "endpoints/track_details/show", :record => :new_episodes
 
     it "gets tracking details for a FedEx package" do
       details = connection.track_details.find("793309874808")
