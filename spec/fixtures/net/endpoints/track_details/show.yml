@@ -1,0 +1,58 @@
+---
+- !ruby/struct:VCR::HTTPInteraction
+  request: !ruby/struct:VCR::Request
+    method: :get
+    uri: https://api.sandbox.ticketevolution.com:443/track_details/793309874808
+    body: !!null 
+    headers:
+      x-signature:
+      - C2hegpejQNS62M8N2GSWm0zVK86rRJGfdy+5twmS/cY=
+      x-token:
+      - b2b5a7a33b1a78896ed1b53d81c5c9cc
+      accept:
+      - application/vnd.ticketevolution.api+json; version=8
+      accept-encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+  response: !ruby/struct:VCR::Response
+    status: !ruby/struct:VCR::ResponseStatus
+      code: 200
+      message: OK
+    headers:
+      content-type:
+      - application/vnd.ticketevolution.api+json; version=8; charset=utf-8
+      transfer-encoding:
+      - chunked
+      connection:
+      - keep-alive
+      status:
+      - '200'
+      x-powered-by:
+      - Phusion Passenger (mod_rails/mod_rack) 3.0.11
+      etag:
+      - ! '"dcefa6c70ba0235df3bc901704e9a8dd"'
+      cache-control:
+      - max-age=0, private, must-revalidate
+      x-runtime:
+      - '1.149867'
+      x-ua-compatible:
+      - IE=Edge,chrome=1
+      strict-transport-security:
+      - max-age=31536000
+      server:
+      - nginx/1.0.11 + Phusion Passenger 3.0.11 (mod_rails/mod_rack)
+    body: ! '{"packages":[{"service_type":"FEDEX_EXPRESS_SAVER","destination_city":"NEW
+      YORK","delivery_at":"2012-03-09T12:43:00-08:00","unique_identifier":"2455994000~793309874808","origin_country":null,"destination_country":"US","destination_state":"NY","origin_city":null,"status":"Delivered","origin_state":null,"origin_residential":false,"events":[{"type":"DL","occured_at":"2012-03-09T12:43:00-08:00","country":"US","state":"NY","residential":false,"city":"NEW
+      YORK","name":"Delivered","postal_code":"10003"},{"type":"RR","occured_at":"2012-03-09T08:01:12-08:00","country":null,"state":null,"residential":false,"city":null,"name":"Hold
+      at FedEx location request received","postal_code":"10003"},{"type":"OD","occured_at":"2012-03-09T04:17:00-08:00","country":"US","state":"NY","residential":false,"city":"NEW
+      YORK","name":"On FedEx vehicle for delivery","postal_code":"10014"},{"type":"AF","occured_at":"2012-03-08T12:46:00-08:00","country":"US","state":"NY","residential":false,"city":"NEW
+      YORK","name":"At local FedEx facility","postal_code":"10014"},{"type":"DE","occured_at":"2012-03-08T11:41:00-08:00","country":"US","state":"NY","residential":false,"city":"NEW
+      YORK","name":"Delivery exception","postal_code":"10014"},{"type":"OD","occured_at":"2012-03-08T05:31:00-08:00","country":"US","state":"NY","residential":false,"city":"NEW
+      YORK","name":"On FedEx vehicle for delivery","postal_code":"10014"},{"type":"AR","occured_at":"2012-03-08T04:45:00-08:00","country":"US","state":"NY","residential":false,"city":"NEW
+      YORK","name":"At local FedEx facility","postal_code":"10014"},{"type":"DP","occured_at":"2012-03-08T00:45:00-08:00","country":"US","state":"NJ","residential":false,"city":"NEWARK","name":"Departed
+      FedEx location","postal_code":"07114"},{"type":"AR","occured_at":"2012-03-07T20:21:00-08:00","country":"US","state":"NJ","residential":false,"city":"NEWARK","name":"Arrived
+      at FedEx location","postal_code":"07114"},{"type":"DP","occured_at":"2012-03-07T19:44:00-08:00","country":"US","state":"NY","residential":false,"city":"NEW
+      YORK","name":"Left FedEx origin facility","postal_code":"10014"},{"type":"PU","occured_at":"2012-03-07T15:17:00-08:00","country":"US","state":"NY","residential":false,"city":"NEW
+      YORK","name":"Picked up","postal_code":"10014"},{"type":"OC","occured_at":"2012-03-07T07:11:47-08:00","country":null,"state":null,"residential":false,"city":null,"name":"Shipment
+      information sent to FedEx","postal_code":null}],"destination_residential":false,"signature_name":"Signature
+      not required"}],"duplicate_waybill":false}'
+    http_version: '1.1'

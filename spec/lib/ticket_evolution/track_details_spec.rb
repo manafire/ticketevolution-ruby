@@ -10,12 +10,12 @@ describe TicketEvolution::TrackDetails do
     klass.new({:parent => Fake.connection}).base_path.should == '/track_details'
   end
 
-  pending "integration" do
+  context "integration" do
     use_vcr_cassette "endpoints/track_details/show", :record => :all
 
     it "gets tracking details for a FedEx package" do
       details = connection.track_details.find("793309874808")
-      details.duplicate_waybill.should == "false"
+      details.duplicate_waybill.should == false
 
       package = details.packages.first
       package.unique_identifier.should == "2455994000~793309874808"
@@ -24,7 +24,7 @@ describe TicketEvolution::TrackDetails do
       package.events.length.should == 12
     end
 
-    it "gets tracking details of a FedEx unique identifier" do
+    xit "gets tracking details of a FedEx unique identifier" do
       raise "not implemented"
     end
   end
