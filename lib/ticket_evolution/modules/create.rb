@@ -8,17 +8,17 @@ module TicketEvolution
       end
 
       def build_for_create(response)
-        items = response.body[endpoint_name].collect do |body|
+        entries = response.body[endpoint_name].collect do |body|
           singular_class.new(body.merge({
             :status_code => response.response_code,
             :server_message => response.server_message,
             :connection => response.body[:connection]
           }))
         end
-        if items.size == 1
-          items.first
+        if entries.size == 1
+          entries.first
         else
-          items
+          TicketEvolution::Collection.new(:entries => entries, :code => response.response_code)
         end
       end
     end

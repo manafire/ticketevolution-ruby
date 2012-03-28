@@ -65,7 +65,7 @@ shared_examples_for "a create endpoint" do
           })).and_return(entry)
         end
 
-        instance.build_for_create(responses).should == [entry, entry]
+        instance.build_for_create(responses).entries.should == [entry, entry]
       end
     end
   end
