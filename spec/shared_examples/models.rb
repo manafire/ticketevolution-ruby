@@ -37,3 +37,41 @@ shared_examples_for "a ticket_evolution model" do
     end
   end
 end
+
+shared_examples_for "a parental model" do
+  let(:klass) { subject }
+  let(:instance) { klass.new({:connection => Fake.connection}) }
+  let(:sample_klass) { instance.plural_class::Samples }
+
+  describe "#new_ostruct_member" do
+    context "when the member name refers to an endpoint" do
+      before do
+        instance.samples = []
+      end
+
+      it "should respond with the value" do
+        instance.samples.should == []
+      end
+
+      it "should fall back on the endpoint" do
+        sample_klass.any_instance.should_receive(:send).with(:testing)
+
+        instance.samples.testing
+      end
+    end
+
+    context "when the member name does not refer to an endpoint" do
+      before do
+        instance.not_samples = []
+      end
+
+      it "should respond with the value" do
+        instance.not_samples.should == []
+      end
+
+      it "should add endpoint methods" do
+        instance.not_samples.should_not be_respond_to(:endpoint=)
+      end
+    end
+  end
+end

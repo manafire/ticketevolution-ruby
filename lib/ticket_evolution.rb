@@ -48,11 +48,8 @@ c.req 'datum'
 c.req 'endpoint', 'request_handler'
 c.req 'endpoint'
 c.req 'model'
+c.req 'model/parental_behavior'
 c.req 'time'
-
-# Sample classes for test support
-c.req 'models', 'samples'
-c.req 'samples'
 
 # Errors
 c.req 'api_error'

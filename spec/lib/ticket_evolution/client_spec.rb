@@ -1,7 +1,6 @@
 require 'spec_helper'
 
 describe TicketEvolution::Client do
-  let(:klass) { TicketEvolution::Client }
   subject { TicketEvolution::Client }
 
   describe "when calling a nested endpoint method" do
@@ -18,6 +17,7 @@ describe TicketEvolution::Client do
   end
 
   it_behaves_like "a ticket_evolution model"
+  it_behaves_like "a parental model"
 
   context "#update_attributes" do
     let(:client) { connection.clients.create(:name => "foo") }
