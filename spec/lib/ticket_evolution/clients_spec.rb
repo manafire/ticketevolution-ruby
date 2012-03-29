@@ -34,4 +34,13 @@ describe TicketEvolution::Clients do
       end
     end
   end
+
+  describe "chained endpoints" do
+    context "when the parent endpoint has an id" do
+      it "should check for chained endpoints in the method_missing stack" do
+        endpoint = klass.new(:parent => connection, :id => 1).samples
+        endpoint.should be_a TicketEvolution::Clients::Samples
+      end
+    end
+  end
 end
