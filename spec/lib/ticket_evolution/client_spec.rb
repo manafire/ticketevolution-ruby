@@ -19,6 +19,18 @@ describe TicketEvolution::Client do
   it_behaves_like "a ticket_evolution model"
   it_behaves_like "a parental model"
 
+  describe "a retrieved instance" do
+    use_vcr_cassette "endpoints/clients/list", :record => :new_episodes, :match_requests_on => [:method, :uri, :body]
+
+    let(:client) { connection.clients.list(:per_page => 1) }
+
+    it "should be capable of being marshaled" do
+      expect {
+        Marshal.dump(client)
+      }.to_not raise_error
+    end
+  end
+
   context "#update_attributes" do
     let(:client) { connection.clients.create(:name => "foo") }
     let(:initial_client_id) { client.id }

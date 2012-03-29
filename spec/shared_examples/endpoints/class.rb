@@ -16,13 +16,13 @@ shared_examples_for "a ticket_evolution endpoint class" do
           :test => :one,
           :testing => "two",
           :number => 3,
-          :hash => {}
+          :hsh => {}
         })
         instance.parent.should == connection
         instance.test.should == :one
         instance.testing.should == "two"
         instance.number.should == 3
-        instance.hash.should == {}
+        instance.hsh.should == {}
       end
 
       context "with a parent k/v pair" do
@@ -37,8 +37,16 @@ shared_examples_for "a ticket_evolution endpoint class" do
 
         context "that does inherit from TicketEvolution::Base" do
           context "and is a TicketEvolution::Connection object" do
+            let(:instance) { klass.new({:parent => connection}) }
+
             it "should not raise" do
-              expect { klass.new({:parent => connection}) }.to_not raise_error
+              expect { instance }.to_not raise_error
+            end
+
+            it "should be capable of being marshaled" do
+              expect {
+                Marshal.dump(instance)
+              }.to_not raise_error
             end
           end
 
