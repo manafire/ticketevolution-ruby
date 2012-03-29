@@ -35,18 +35,18 @@ shared_examples_for "a search endpoint" do
     end
   end
 
-  context "#build_for_search" do
+  context "default response handler" do
     let(:response) { Fake.list_response }
 
     it "invokes Collection#build_from_response" do
       TicketEvolution::Collection.
         should_receive(:build_from_response).
         with(response, klass.name.demodulize.underscore, instance.singular_class)
-      instance.build_for_search(response)
+      instance.collection_handler(response)
     end
 
     it "returns a collection" do
-      instance.build_for_search(response).should be_a TicketEvolution::Collection
+      instance.collection_handler(response).should be_a TicketEvolution::Collection
     end
   end
 

@@ -57,6 +57,10 @@ module TicketEvolution
           resp.server_message = (CODES[resp.response_code] || ['Unknown Error']).last
         end
       end
+
+      def collection_handler(response)
+        TicketEvolution::Collection.build_from_response(response, self.class.name.demodulize.underscore, singular_class)
+      end
     end
   end
 end
