@@ -122,7 +122,7 @@ describe TicketEvolution::Connection do
     end
 
     context "with logger object is set" do
-      use_vcr_cassette "core/connection", :record => :all
+      use_vcr_cassette "core/connection", :record => :new_episodes
 
       let(:target) { StringIO.new }
       let(:logger) { Logger.new(target) }
