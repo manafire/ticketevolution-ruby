@@ -1,24 +1,38 @@
 module TicketEvolution
+  module EndpointBehavior
+    def endpoint=(e); @endpoint = e; end
+    def method_missing(method, *args); @endpoint.send(method, *args); end
+  end
+
   class Model
     module ParentalBehavior
-      def new_ostruct_member(name)
-        ostruct_method = super
+      def process_datum(v, k = nil)
+        v = super
+        if k and v.is_a? Array and v.singleton_class.ancestors.first == Array
+          endpoint = "#{self.plural_class_name}::#{k.to_s.chomp('=').camelize}".constantize.new({
+            :parent => self.plural_class.new({
+              :id => self.id,
+              :parent => @connection
+            })
+          })
+          v.extend(TicketEvolution::EndpointBehavior)
+          v.endpoint = endpoint
+        end
+      ensure
+        return v
+      end
 
-        named_endpoint = "#{self.plural_class_name}::#{name.to_s.camelize}".constantize
-        class << self; self; end.class_eval do
-          define_method(name) do
-            obj = @table[name.to_sym]
-            unless obj.nil?
-              def obj.endpoint=(e); @endpoint = e; end
-              def obj.method_missing(method, *args); @endpoint.send(method, *args); end
-              obj.endpoint = named_endpoint.new(:parent => self.plural_class.new(:id => self.id, :parent => @connection))
-            end
-            obj
+      def new_ostruct_member(name)
+        name = name.to_sym
+        unless self.respond_to?(name)
+          class << self; self; end.class_eval do
+            define_method(name) { @table[name.to_sym] }
+            define_method("#{name}=") { |x| modifiable[name] = process_datum(x, name) }
           end
         end
-        ostruct_method
+        name
       rescue NameError => e
-        ostruct_method
+        super
       end
     end
   end

@@ -21,14 +21,17 @@ describe TicketEvolution::Builder do
     end
 
     it "should assign each key value pair as attributes" do
+      instance
       params.keys.each do |key|
         instance.send(key).should == params[key]
       end
     end
 
     it "should call #process_datum for each attribute assigned" do
-      params.values.each do |v|
-        klass.any_instance.should_receive(:process_datum).with(v)
+      attrs = params.clone
+      attrs.delete('id')
+      attrs.each do |k, v|
+        klass.any_instance.should_receive(:process_datum).with(v, k)
       end
       instance
     end
@@ -79,9 +82,9 @@ describe TicketEvolution::Builder do
 
     describe "with args" do
       it "should invoke #process_datum with the information received" do
-        instance.should_receive(:process_datum).with(:ing)
+        instance.should_receive(:process_datum).with(:ing, :test=)
         instance.test = :ing
-        instance.should_receive(:process_datum).with([1,2])
+        instance.should_receive(:process_datum).with([1,2], :array=)
         instance.array = [1,2]
       end
     end

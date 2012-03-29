@@ -43,7 +43,7 @@ module TicketEvolution
 
     private
 
-    def process_datum(v)
+    def process_datum(v, k=nil)
       if v.is_a? Hash and v['url'].present?
         name = class_name_from_url(v['url'])
         datum_exists?(name) ? singular_class(class_name_from_url(name)).new(v.merge({:connection => @connection})) : Datum.new(v)

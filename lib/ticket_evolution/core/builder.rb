@@ -2,10 +2,12 @@ module TicketEvolution
   class Builder < OpenStruct
     include SingularClass
 
-    def initialize(*stuff)
-      super
-      @table.each do |k, v|
-        send("#{k}=", process_datum(v))
+    def initialize(hash={})
+      attrs = hash.clone
+      @table = attrs['id'].present? ? {:id => attrs.delete('id')} : {}
+      attrs.each do |k, v|
+        @table[k.to_sym] = process_datum(v, k)
+        new_ostruct_member(k)
       end
     end
 
@@ -28,7 +30,7 @@ module TicketEvolution
 
     private
 
-    def process_datum(v)
+    def process_datum(v, k=nil)
       case v.class.to_s.to_sym
       when :Hash
         Datum.new(v)
@@ -53,11 +55,11 @@ module TicketEvolution
 
     def method_missing(meth, *args)
       if args.size == 1
-        super(meth, process_datum(args.first))
+        super(meth, process_datum(args.first, meth))
       elsif args.size == 0
         super(meth)
       else
-        super(meth, process_datum(args))
+        super(meth, process_datum(args, meth))
       end
     end
 
