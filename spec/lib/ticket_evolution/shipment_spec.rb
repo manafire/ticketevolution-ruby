@@ -16,10 +16,18 @@ describe TicketEvolution::Shipment do
     end
 
     describe "#generate_airbill" do
-      it "should pass the request to TicketEvolution::Orders#accept_order" do
+      it "should pass the request to TicketEvolution::Shipments#generate_airbill" do
         plural_klass_instance.should_receive(:generate_airbill).and_return(:dont_care)
 
         instance.generate_airbill
+      end
+    end
+
+    describe "#cancel" do
+      it "should pass the request to TicketEvolution::Shipments#cancel_shipment" do
+        plural_klass_instance.should_receive(:cancel_shipment).and_return(:dont_care)
+
+        instance.cancel
       end
     end
   end
