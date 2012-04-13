@@ -1,11 +1,12 @@
 module TicketEvolution
   class Collection
-    attr_accessor :total_entries, :per_page, :current_page, :entries, :code
+    attr_accessor :total_entries, :per_page, :current_page, :entries, :status_code
 
     include Enumerable
 
     delegate :each, :last, :size, :[], :to => :entries
     alias :all :entries
+    alias :code :status_code
 
     def initialize(options = {})
       options.each {|k,v| send("#{k}=", v)}
@@ -15,7 +16,7 @@ module TicketEvolution
     def self.build_from_response(response, entries_key, singular_class)
       entries = response.body[entries_key] || []
       new(
-        :code => response.response_code,
+        :status_code => response.response_code,
         :total_entries => response.body['total_entries'],
         :per_page => response.body['per_page'],
         :current_page => response.body['current_page'],

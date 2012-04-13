@@ -18,7 +18,7 @@ module TicketEvolution
         if entries.size == 1
           entries.first
         else
-          TicketEvolution::Collection.new(:entries => entries, :code => response.response_code)
+          TicketEvolution::Collection.new(:entries => entries, :status_code => response.response_code)
         end
       end
     end
