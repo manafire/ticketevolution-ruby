@@ -4,5 +4,9 @@ module TicketEvolution
     include TicketEvolution::Modules::List
     include TicketEvolution::Modules::Show
     include TicketEvolution::Modules::Update
+    # TODO: cancel
+    # TODO: refund
+    # TODO: apply
+    # TODO: status
   end
 end
