@@ -18,6 +18,7 @@ require 'active_support/core_ext/module'
 require 'active_support/core_ext/object'
 require 'active_support/inflector'
 require 'active_support/ordered_hash'
+require 'active_support/json'
 
 require 'ext/hash'
 require 'ext/faraday/utils'
