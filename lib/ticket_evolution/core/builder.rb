@@ -7,7 +7,23 @@ module TicketEvolution
       @table = attrs['id'].present? ? {:id => attrs.delete('id')} : {}
       attrs.each do |k, v|
         @table[k.to_sym] = process_datum(v, k)
-        new_ostruct_member(k)
+        # Apparently new_ostruct_member was removed in Ruby 2.7
+        # https://github.com/rubyconfig/config/issues/259
+        # Although there is a new_ostruct_member method defined on
+        # parental_behaviour.rb it's not kicking in...
+        # see also:
+        # https://msp-greg.github.io/ruby_2_7/ostruct/OpenStruct.html#new_ostruct_member!-instance_method
+
+        # Can this just be removed?
+        # new_ostruct_member(k)
+
+        # new code
+        if respond_to?(:new_ostruct_member)
+          new_ostruct_member(k)
+        else
+          new_ostruct_member!(k)
+        end
+        # end new code
       end
     end
 
